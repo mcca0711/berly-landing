@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berly - AI Compliance Documentation for Consultants</title>
+  <meta name="description" content="Berly is a desktop compliance tool for consultants who need audit-ready AI documentation: fast, guided, and evidence-verified. EU AI Act, Colorado, Illinois, NYC, and CPRA in one workspace.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset & Base ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; color: #1e293b; font-size: 16px; }
+    img { max-width: 100%; height: auto; }
+    a { text-decoration: none; }
+
+    /* ── Buttons ──────────────────────────────────────── */
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+    .btn--primary {
+      background: #3b82f6;
+      color: #ffffff;
+    }
+    .btn--primary:hover { background: #2563eb; }
+    .btn--outline {
+      background: transparent;
+      border: 2px solid #ffffff;
+      color: #ffffff;
+    }
+    .btn--outline:hover { background: rgba(255,255,255,0.1); }
+    .btn--white {
+      background: #ffffff;
+      color: #3b82f6;
+      padding: 12px 28px;
+    }
+    .btn--white:hover { background: #f1f5f9; }
+
+    /* ── Navbar ───────────────────────────────────────── */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #0f172a;
+    }
+    .navbar__inner {
+      max-width: 1100px;
+      margin: auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar__logo {
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* ── Hero ─────────────────────────────────────────── */
+    .hero {
+      background: #0f172a;
+      color: #ffffff;
+      text-align: center;
+      padding: 80px 24px;
+    }
+    .hero__inner {
+      max-width: 700px;
+      margin: auto;
+    }
+    .hero__mascot {
+      width: 100px;
+      margin-bottom: 24px;
+    }
+    .hero__headline {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+    .hero__sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+    .hero__buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── Framework Strip ──────────────────────────────── */
+    .frameworks {
+      background: #f8fafc;
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .frameworks__inner {
+      max-width: 1100px;
+      margin: auto;
+    }
+    .frameworks__intro {
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      margin-bottom: 16px;
+    }
+    .frameworks__pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .frameworks__pill {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #1e293b;
+    }
+
+    /* ── Problem / Solution ───────────────────────────── */
+    .ps {
+      background: #ffffff;
+      padding: 80px 24px;
+    }
+    .ps__inner {
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .ps__label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+    .ps__label--problem { color: #ef4444; }
+    .ps__label--solution { color: #22c55e; }
+    .ps__heading {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #1e293b;
+    }
+    .ps__text {
+      font-size: 1rem;
+      color: #64748b;
+      line-height: 1.7;
+    }
+
+    /* ── Features ─────────────────────────────────────── */
+    .features {
+      background: #f8fafc;
+      padding: 80px 24px;
+    }
+    .features__inner {
+      max-width: 1100px;
+      margin: auto;
+    }
+    .features__heading {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 48px;
+      color: #1e293b;
+    }
+    .features__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .features__card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 32px;
+      transition: box-shadow 0.2s ease;
+    }
+    .features__card:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .features__icon {
+      margin-bottom: 16px;
+    }
+    .features__title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #1e293b;
+    }
+    .features__desc {
+      font-size: 0.95rem;
+      color: #64748b;
+      line-height: 1.7;
+    }
+
+    /* ── Free Classifier CTA ──────────────────────────── */
+    .classifier-cta {
+      background: #3b82f6;
+      padding: 64px 24px;
+      text-align: center;
+    }
+    .classifier-cta__inner {
+      max-width: 600px;
+      margin: auto;
+    }
+    .classifier-cta__heading {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+    .classifier-cta__text {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 28px;
+    }
+
+    /* ── Pricing ──────────────────────────────────────── */
+    .pricing {
+      background: #ffffff;
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .pricing__inner {
+      max-width: 560px;
+      margin: auto;
+    }
+    .pricing__heading {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #1e293b;
+    }
+    .pricing__sub {
+      color: #64748b;
+      margin-bottom: 40px;
+    }
+    .pricing__card {
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 40px;
+      text-align: left;
+    }
+    .pricing__badge {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .pricing__price {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #1e293b;
+      line-height: 1;
+    }
+    .pricing__regular {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-top: 4px;
+      margin-bottom: 24px;
+    }
+    .pricing__list {
+      list-style: none;
+      margin-bottom: 32px;
+    }
+    .pricing__list li {
+      padding: 8px 0 8px 20px;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 0.95rem;
+      color: #1e293b;
+      position: relative;
+    }
+    .pricing__list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #22c55e;
+      font-weight: 700;
+    }
+    .pricing__btn {
+      width: 100%;
+      text-align: center;
+      display: block;
+      padding: 14px;
+    }
+    .pricing__note {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    /* ── Demo ─────────────────────────────────────────── */
+    .demo {
+      background: #0f172a;
+      padding: 80px 24px;
+      text-align: center;
+      color: #ffffff;
+    }
+    .demo__inner {
+      max-width: 800px;
+      margin: auto;
+    }
+    .demo__heading {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 32px;
+      color: #ffffff;
+    }
+    .demo__frame {
+      background: #1e293b;
+      border-radius: 12px;
+      aspect-ratio: 16 / 9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .demo__mascot {
+      width: 80px;
+      opacity: 0.6;
+    }
+    .demo__text {
+      color: #64748b;
+      font-size: 1rem;
+    }
+
+    /* ── FAQ ──────────────────────────────────────────── */
+    .faq {
+      background: #ffffff;
+      padding: 80px 24px;
+    }
+    .faq__inner {
+      max-width: 720px;
+      margin: auto;
+    }
+    .faq__heading {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-align: center;
+      color: #1e293b;
+    }
+    .faq__item {
+      border-bottom: 1px solid #e2e8f0;
+      padding: 8px 0;
+    }
+    .faq__question {
+      cursor: pointer;
+      list-style: none;
+      padding: 16px 0;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #1e293b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq__question::-webkit-details-marker { display: none; }
+    .faq__question::after { content: "+"; }
+    .faq__item[open] .faq__question::after { content: "−"; }
+    .faq__answer {
+      padding: 0 0 16px 0;
+      color: #64748b;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* ── Final CTA ────────────────────────────────────── */
+    .final-cta {
+      background: #0f172a;
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .final-cta__inner {
+      max-width: 600px;
+      margin: auto;
+    }
+    .final-cta__heading {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 32px;
+      line-height: 1.3;
+    }
+    .final-cta__btn {
+      display: inline-block;
+      padding: 14px 32px;
+      font-size: 1.1rem;
+    }
+    .final-cta__note {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.85rem;
+      margin-top: 16px;
+    }
+
+    /* ── Footer ───────────────────────────────────────── */
+    .footer {
+      background: #0f172a;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 32px 24px;
+    }
+    .footer__inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer__logo {
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .footer__right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .footer__email {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.875rem;
+      transition: color 0.2s ease;
+    }
+    .footer__email:hover { color: #ffffff; }
+    .footer__disclaimer {
+      color: rgba(255,255,255,0.3);
+      font-size: 0.75rem;
+    }
+
+    /* ── Chat Widget ──────────────────────────────────── */
+    .chat {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+    }
+    .chat__toggle {
+      background: #3b82f6;
+      color: #ffffff;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(59,130,246,0.4);
+      transition: all 0.2s ease;
+    }
+    .chat__toggle:hover { background: #2563eb; }
+    .chat__panel {
+      position: absolute;
+      bottom: 64px;
+      right: 0;
+      width: 340px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat__panel.open { display: flex; }
+    .chat__header {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chat__title { font-weight: 600; }
+    .chat__close {
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 1.25rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: opacity 0.2s ease;
+    }
+    .chat__close:hover { opacity: 0.7; }
+    .chat__messages {
+      padding: 16px;
+      flex: 1;
+      overflow-y: auto;
+      max-height: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .chat__message {
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      max-width: 85%;
+      line-height: 1.5;
+    }
+    .chat__message--bot {
+      background: #f8fafc;
+      color: #1e293b;
+      align-self: flex-start;
+    }
+    .chat__message--user {
+      background: #3b82f6;
+      color: #ffffff;
+      align-self: flex-end;
+    }
+    .chat__input-row {
+      padding: 12px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      gap: 8px;
+    }
+    .chat__input {
+      flex: 1;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 0.875rem;
+      outline: none;
+      font-family: inherit;
+      transition: border-color 0.2s ease;
+    }
+    .chat__input:focus { border-color: #3b82f6; }
+    .chat__send {
+      background: #3b82f6;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-weight: 600;
+      font-family: inherit;
+      transition: background 0.2s ease;
+    }
+    .chat__send:hover { background: #2563eb; }
+
+    /* ── Responsive ───────────────────────────────────── */
+    @media (max-width: 768px) {
+      .navbar__inner { padding: 12px 16px; }
+
+      .hero__headline { font-size: 2rem; }
+      .hero__sub { font-size: 1rem; }
+
+      .ps { padding: 48px 24px; }
+      .ps__inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .features { padding: 48px 24px; }
+      .features__grid { grid-template-columns: 1fr; }
+
+      .pricing { padding: 48px 24px; }
+      .pricing__card { padding: 28px; }
+
+      .demo { padding: 48px 24px; }
+
+      .faq { padding: 48px 24px; }
+
+      .final-cta { padding: 48px 24px; }
+      .final-cta__heading { font-size: 1.6rem; }
+
+      .footer__inner {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+      .footer__right { flex-direction: column; gap: 8px; }
+
+      .chat__panel {
+        width: calc(100vw - 48px);
+        right: auto;
+        left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ──────────────────────────────────────── -->
+  <header class="navbar">
+    <div class="navbar__inner">
+      <div class="navbar__logo">Berly</div>
+      <a href="https://buy.stripe.com/28E6oHfmXahS6xL0iGeZ201" class="btn btn--primary navbar__cta" target="_blank" rel="noopener">Buy Now · $499</a>
+    </div>
+  </header>
+
+  <!-- ── Hero ────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero__inner">
+      <img src="assets/mascot.png" alt="Berly" class="hero__mascot">
+      <h1 class="hero__headline">AI regulations are here.<br>Your documentation isn't.</h1>
+      <p class="hero__sub">Berly is a desktop compliance tool for consultants who need audit-ready AI documentation. Fast, guided, and evidence-verified. EU AI Act, Colorado, Illinois, NYC, and CPRA in one workspace.</p>
+      <div class="hero__buttons">
+        <a href="https://buy.stripe.com/28E6oHfmXahS6xL0iGeZ201" class="btn btn--primary" target="_blank" rel="noopener">Get Berly Pro · $499</a>
+        <a href="/classifier" class="btn btn--outline">Try Free Classifier</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Framework Strip ─────────────────────────────── -->
+  <section class="frameworks">
+    <div class="frameworks__inner">
+      <p class="frameworks__intro">Documentation for all major AI compliance frameworks</p>
+      <div class="frameworks__pills">
+        <span class="frameworks__pill">EU AI Act</span>
+        <span class="frameworks__pill">Colorado SB 24-205</span>
+        <span class="frameworks__pill">Illinois AIVIA + HB 3773</span>
+        <span class="frameworks__pill">NYC Local Law 144</span>
+        <span class="frameworks__pill">CPRA ADMT</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Problem / Solution ───────────────────────────── -->
+  <section class="ps">
+    <div class="ps__inner">
+      <div class="ps__block">
+        <div class="ps__label ps__label--problem">The Problem</div>
+        <h2 class="ps__heading">AI compliance documentation is broken</h2>
+        <p class="ps__text">Compliance consultants juggle dozens of requirements across overlapping AI laws like EU AI Act Article 11, Colorado SB 24-205, and NYC LL144, each with specific documentation obligations and tight deadlines. Word documents and generic checklists leave you guessing what to write, miss cross-framework dependencies, and produce reports no auditor trusts.</p>
+      </div>
+      <div class="ps__block">
+        <div class="ps__label ps__label--solution">The Solution</div>
+        <h2 class="ps__heading">One workspace. Five frameworks. Verified evidence.</h2>
+        <p class="ps__text">Berly walks you through every documentation field with plain-English guidance mapped to specific Articles. Attach your supporting documents as you go. Berly evaluates whether each piece of evidence actually supports your claim and flags anything unsupported. The result is a compliance package your client can hand to an auditor.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Features ─────────────────────────────────────── -->
+  <section class="features">
+    <div class="features__inner">
+      <h2 class="features__heading">Built for compliance professionals</h2>
+      <div class="features__grid">
+
+        <div class="features__card">
+          <div class="features__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9S3 16.97 3 12 7.03 3 12 3s9 4.03 9 9z"/></svg>
+          </div>
+          <h3 class="features__title">Evidence Verification</h3>
+          <p class="features__desc">Attach supporting documents to each compliance claim. Berly evaluates whether the evidence actually supports the claim and flags any gaps before an auditor does. No other tool does this.</p>
+        </div>
+
+        <div class="features__card">
+          <div class="features__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <h3 class="features__title">Field-Level Regulatory Guidance</h3>
+          <p class="features__desc">Every documentation field includes plain-English guidance mapped to the exact legal requirement: Article 11 of the EU AI Act, C.R.S. § 6-1-1702, NYC DCWP rules. You know precisely what to write and why.</p>
+        </div>
+
+        <div class="features__card">
+          <div class="features__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </div>
+          <h3 class="features__title">Multi-Framework Workspace</h3>
+          <p class="features__desc">One project, five frameworks. EU AI Act, Colorado SB 24-205, Illinois, NYC Local Law 144, and CPRA ADMT in a single workspace, with automatic cross-mapping to NIST AI RMF and ISO 42001.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Free Classifier CTA ──────────────────────────── -->
+  <section class="classifier-cta">
+    <div class="classifier-cta__inner">
+      <h2 class="classifier-cta__heading">Not sure if your AI system is in scope?</h2>
+      <p class="classifier-cta__text">Answer a few questions. Berly's free classifier tells you exactly which regulations apply. No email required.</p>
+      <a href="/classifier" class="btn btn--white">Run Free Classifier</a>
+    </div>
+  </section>
+
+  <!-- ── Pricing ───────────────────────────────────────── -->
+  <section class="pricing">
+    <div class="pricing__inner">
+      <h2 class="pricing__heading">Simple, one-time pricing</h2>
+      <p class="pricing__sub">No subscription. No renewals. No surprises.</p>
+      <div class="pricing__card">
+        <div class="pricing__badge">Founding Price - Limited Time</div>
+        <div class="pricing__price">$499</div>
+        <div class="pricing__regular">Standard price: $699</div>
+        <ul class="pricing__list">
+          <li>EU AI Act, Colorado SB 24-205, Illinois AIVIA + HB 3773, NYC Local Law 144, CPRA ADMT</li>
+          <li>Evidence verification: claim-level evidence linking with AI evaluation</li>
+          <li>Field-level regulatory guidance with statute citations</li>
+          <li>Cross-framework mapping to NIST AI RMF and ISO 42001</li>
+          <li>Professional PDF export with audit trail</li>
+          <li>Unlimited AI systems</li>
+          <li>Desktop app - data stays on your machine, no cloud</li>
+          <li>Windows 10/11 (64-bit)</li>
+        </ul>
+        <a href="https://buy.stripe.com/28E6oHfmXahS6xL0iGeZ201" class="btn btn--primary pricing__btn" target="_blank" rel="noopener">Get Berly Pro · $499</a>
+        <p class="pricing__note">One-time payment · Instant license delivery · Download immediately</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Demo Placeholder ──────────────────────────────── -->
+  <section class="demo">
+    <div class="demo__inner">
+      <h2 class="demo__heading">See Berly in action</h2>
+      <div class="demo__frame">
+        <img src="assets/mascot.png" alt="" class="demo__mascot">
+        <p class="demo__text">Demo video coming soon</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ───────────────────────────────────────────── -->
+  <section class="faq">
+    <div class="faq__inner">
+      <h2 class="faq__heading">Frequently asked questions</h2>
+      <div class="faq__list">
+
+        <details class="faq__item">
+          <summary class="faq__question">Is this a subscription?</summary>
+          <p class="faq__answer">No. Berly is a one-time purchase. Pay once, own the software. No monthly fees, no renewals, no recurring charges.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__question">What frameworks are included?</summary>
+          <p class="faq__answer">Berly Pro includes full documentation coverage for the EU AI Act (Regulation 2024/1689), Colorado SB 24-205, Illinois AIVIA and HB 3773, NYC Local Law 144, and California CPRA ADMT. All fields are cross-referenced to NIST AI RMF and ISO/IEC 42001.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__question">Does my client data stay private?</summary>
+          <p class="faq__answer">Yes. Berly is a desktop application. All data stays on your local machine. There is no cloud backend, no user account, and no data ever leaves your computer.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__question">How is this different from a Word template?</summary>
+          <p class="faq__answer">A Word template is a blank form. Berly provides field-level regulatory guidance (what to write and why, mapped to specific Articles), evidence verification (checks whether your attached documents actually support your claims), cross-framework mapping, and a professional PDF export with audit trail. It does the compliance reasoning. You provide the facts.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__question">What if I need a Mac version?</summary>
+          <p class="faq__answer">Berly is currently Windows only (Windows 10/11 64-bit). A Mac version is on our roadmap but has no confirmed release date. If Mac support is critical for you, contact support@berly.app before purchasing.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__question">What happens when new frameworks are added?</summary>
+          <p class="faq__answer">New frameworks will be released as separate paid upgrades. Existing customers receive a discount on future versions. Your current purchase is not a subscription and does not include future framework additions automatically, but you will not pay full price as a returning customer.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Final CTA ─────────────────────────────────────── -->
+  <section class="final-cta">
+    <div class="final-cta__inner">
+      <h2 class="final-cta__heading">EU AI Act deadlines hit August 2026.<br>Be ready.</h2>
+      <a href="https://buy.stripe.com/28E6oHfmXahS6xL0iGeZ201" class="btn btn--primary final-cta__btn" target="_blank" rel="noopener">Get Berly Pro · $499</a>
+      <p class="final-cta__note">Founding price. Increases when the period ends.</p>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__logo">Berly</div>
+      <div class="footer__right">
+        <a href="mailto:support@berly.app" class="footer__email">support@berly.app</a>
+        <span class="footer__disclaimer">Not legal advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Ask Berly Chat Widget ──────────────────────────── -->
+  <div class="chat" id="chat">
+    <button class="chat__toggle" id="chatToggle" aria-label="Ask Berly">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      <span>Ask Berly</span>
+    </button>
+    <div class="chat__panel" id="chatPanel">
+      <div class="chat__header">
+        <span class="chat__title">Ask Berly</span>
+        <button class="chat__close" id="chatClose" aria-label="Close chat">×</button>
+      </div>
+      <div class="chat__messages" id="chatMessages">
+        <div class="chat__message chat__message--bot">Hi! I'm Berly. Ask me anything about AI compliance or whether Berly is right for you.</div>
+      </div>
+      <div class="chat__input-row">
+        <input type="text" class="chat__input" id="chatInput" placeholder="Ask a question..." />
+        <button class="chat__send" id="chatSend">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── Chat Widget ──────────────────────────────────────
+    const chatToggle = document.getElementById('chatToggle');
+    const chatClose = document.getElementById('chatClose');
+    const chatPanel = document.getElementById('chatPanel');
+    const chatInput = document.getElementById('chatInput');
+    const chatSend = document.getElementById('chatSend');
+    const chatMessages = document.getElementById('chatMessages');
+
+    chatToggle.addEventListener('click', () => chatPanel.classList.toggle('open'));
+    chatClose.addEventListener('click', () => chatPanel.classList.remove('open'));
+
+    async function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+
+      const userMsg = document.createElement('div');
+      userMsg.className = 'chat__message chat__message--user';
+      userMsg.textContent = text;
+      chatMessages.appendChild(userMsg);
+      chatInput.value = '';
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      const thinking = document.createElement('div');
+      thinking.className = 'chat__message chat__message--bot';
+      thinking.textContent = '...';
+      chatMessages.appendChild(thinking);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      try {
+        const response = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: 'claude-sonnet-4-20250514',
+            max_tokens: 1000,
+            system: `You are Berly, an AI compliance documentation assistant. You help compliance consultants understand AI regulations and evaluate whether Berly is the right tool for them.
+
+Berly is a desktop Windows app (one-time $499 founding price, $699 standard) that helps compliance consultants produce audit-ready AI compliance documentation. Key features: evidence verification (attach docs, AI checks if evidence supports each claim), field-level regulatory guidance (plain-English tips mapped to specific Articles), multi-framework workspace (EU AI Act, Colorado SB 24-205, Illinois AIVIA + HB 3773, NYC Local Law 144, CPRA ADMT), cross-mapping to NIST AI RMF and ISO 42001, desktop-first (data stays local, no cloud), one-time pricing.
+
+Answer questions about AI compliance regulations and about Berly. Be precise, cite regulations by name when relevant. Keep answers concise: 2-4 sentences unless more detail is needed. Never make up regulatory details you are not certain about.`,
+            messages: [{ role: 'user', content: text }]
+          })
+        });
+        const data = await response.json();
+        thinking.textContent = data.content[0].text;
+      } catch (err) {
+        thinking.textContent = 'Something went wrong. Please try again.';
+      }
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    chatSend.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
+  </script>
+</body>
+</html>
