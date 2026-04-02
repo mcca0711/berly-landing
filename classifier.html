@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Compliance Screener - Berly</title>
+  <meta name="description" content="Free AI compliance screener. Identify which regulations apply to your AI system in 2 minutes. EU AI Act, Colorado, NYC, CPRA.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset & Base ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; color: #1e293b; font-size: 16px; background: #0f172a; }
+    img { max-width: 100%; height: auto; }
+    a { text-decoration: none; }
+
+    /* ── Buttons ──────────────────────────────────────── */
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+      font-family: inherit;
+    }
+    .btn--primary { background: #3b82f6; color: #ffffff; }
+    .btn--primary:hover { background: #2563eb; }
+    .btn--outline {
+      background: transparent;
+      border: 2px solid #ffffff;
+      color: #ffffff;
+    }
+    .btn--outline:hover { background: rgba(255,255,255,0.1); }
+
+    /* ── Navbar ───────────────────────────────────────── */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #0f172a;
+    }
+    .navbar__inner {
+      max-width: 1100px;
+      margin: auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar__logo {
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* ── Intro Screen ─────────────────────────────────── */
+    .intro {
+      background: #0f172a;
+      color: #ffffff;
+      text-align: center;
+      padding: 80px 24px;
+      min-height: calc(100vh - 57px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .intro__inner { max-width: 640px; margin: auto; }
+    .intro__label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #3b82f6;
+      margin-bottom: 16px;
+    }
+    .intro__headline {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      color: #ffffff;
+    }
+    .intro__sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .intro__notice {
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 32px;
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.7);
+      text-align: left;
+      line-height: 1.6;
+    }
+
+    /* ── Quiz Container ───────────────────────────────── */
+    .quiz {
+      background: #f8fafc;
+      min-height: calc(100vh - 57px);
+      padding: 40px 24px 80px;
+      display: none;
+    }
+    .quiz.active { display: block; }
+
+    .progress-bar-wrap {
+      max-width: 680px;
+      margin: 0 auto 12px;
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: #3b82f6;
+      border-radius: 99px;
+      transition: width 0.3s ease;
+    }
+
+    /* ── Question Card ────────────────────────────────── */
+    .question-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 40px;
+      max-width: 680px;
+      margin: 0 auto 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .question-frameworks {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .fw-pill {
+      display: inline-block;
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .fw-pill--eu { background: #0f172a; }
+    .fw-pill--co { background: #16a34a; }
+    .fw-pill--nyc { background: #ea580c; }
+    .fw-pill--cpra { background: #0d9488; }
+
+    .question-text {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #1e293b;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    /* ── Options ──────────────────────────────────────── */
+    .options { display: flex; flex-direction: column; gap: 10px; }
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      min-height: 44px;
+      font-size: 0.95rem;
+      color: #1e293b;
+      line-height: 1.4;
+    }
+    .option-label:hover { border-color: #3b82f6; background: #f0f7ff; }
+    .option-label input[type="radio"],
+    .option-label input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      accent-color: #3b82f6;
+      cursor: pointer;
+    }
+    .option-label.selected {
+      border-color: #3b82f6;
+      background: #eff6ff;
+    }
+
+    /* ── Navigation ───────────────────────────────────── */
+    .question-nav {
+      max-width: 680px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn--back {
+      background: transparent;
+      border: 1px solid #e2e8f0;
+      color: #64748b;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+    .btn--back:hover { border-color: #94a3b8; color: #1e293b; }
+    .btn--next {
+      background: #3b82f6;
+      color: #ffffff;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      border: none;
+      transition: all 0.2s ease;
+      margin-left: auto;
+    }
+    .btn--next:hover:not(:disabled) { background: #2563eb; }
+    .btn--next:disabled {
+      background: #cbd5e1;
+      cursor: not-allowed;
+    }
+
+    /* ── Results ──────────────────────────────────────── */
+    .results {
+      background: #f8fafc;
+      min-height: calc(100vh - 57px);
+      padding: 60px 24px 0;
+      display: none;
+    }
+    .results.active { display: block; }
+
+    .results__header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .results__headline {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+    .results__subheadline {
+      font-size: 1rem;
+      color: #64748b;
+      margin-bottom: 12px;
+    }
+    .results__disclaimer {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .results__inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* ── Doc warning boxes ────────────────────────────── */
+    .doc-warning {
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 24px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+    .doc-warning--red { border: 2px solid #ef4444; background: #fef2f2; color: #991b1b; }
+    .doc-warning--amber { border: 2px solid #f59e0b; background: #fffbeb; color: #92400e; }
+
+    /* ── Framework Cards ──────────────────────────────── */
+    .framework-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+    .fw-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 32px;
+      border-left: 4px solid #e2e8f0;
+    }
+    .fw-card--eu { border-left-color: #0f172a; }
+    .fw-card--co { border-left-color: #16a34a; }
+    .fw-card--nyc { border-left-color: #ea580c; }
+    .fw-card--cpra { border-left-color: #0d9488; }
+
+    .fw-card__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .fw-card__name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #1e293b;
+    }
+    .fw-card__jurisdiction {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-top: 2px;
+    }
+    .fw-card__badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .badge--inscope { background: #fef3c7; color: #92400e; }
+    .badge--possible { background: #dbeafe; color: #1e40af; }
+    .badge--notscope { background: #f1f5f9; color: #64748b; }
+
+    .fw-card__explanation {
+      font-size: 0.95rem;
+      color: #475569;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .fw-card__obligations {
+      list-style: none;
+      margin-bottom: 12px;
+    }
+    .fw-card__obligations li {
+      font-size: 0.875rem;
+      color: #1e293b;
+      padding: 6px 0 6px 20px;
+      border-bottom: 1px solid #f1f5f9;
+      position: relative;
+      line-height: 1.5;
+    }
+    .fw-card__obligations li::before {
+      content: "·";
+      position: absolute;
+      left: 6px;
+      color: #3b82f6;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .fw-card__enforcement {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-top: 12px;
+    }
+    .fw-card__enforcement strong { color: #1e293b; }
+
+    /* ── Note boxes inside cards ──────────────────────── */
+    .card-note {
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      margin: 12px 0;
+    }
+    .card-note--amber { border: 1px solid #f59e0b; background: #fffbeb; color: #92400e; }
+    .card-note--teal { border: 1px solid #0d9488; background: #f0fdfa; color: #134e4a; }
+
+    /* ── Email Capture ────────────────────────────────── */
+    .email-section {
+      background: #f8fafc;
+      padding: 48px 24px;
+      text-align: center;
+    }
+    .email-section__inner { max-width: 560px; margin: auto; }
+    .email-section__heading {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+    .email-section__sub {
+      font-size: 0.95rem;
+      color: #64748b;
+      margin-bottom: 24px;
+    }
+    .email-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .email-input {
+      flex: 1;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .email-input:focus { border-color: #3b82f6; }
+    .email-success {
+      font-size: 0.9rem;
+      color: #16a34a;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: none;
+    }
+    .email-skip {
+      color: #64748b;
+      font-size: 0.875rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: inherit;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .email-skip:hover { color: #1e293b; }
+
+    /* ── CTA Section ──────────────────────────────────── */
+    .cta-section {
+      background: #0f172a;
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .cta-section__inner { max-width: 700px; margin: auto; }
+    .cta-section__heading {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+    .cta-section__body {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .cta-section__buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+    .cta-section__note {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.8rem;
+      margin-top: 16px;
+    }
+
+    /* ── Footer ───────────────────────────────────────── */
+    .footer {
+      background: #0f172a;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 32px 24px;
+    }
+    .footer__inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer__logo { color: #ffffff; font-size: 1rem; font-weight: 700; }
+    .footer__right { display: flex; align-items: center; gap: 24px; }
+    .footer__email {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.875rem;
+      transition: color 0.2s ease;
+    }
+    .footer__email:hover { color: #ffffff; }
+    .footer__disclaimer { color: rgba(255,255,255,0.3); font-size: 0.75rem; }
+
+    /* ── Responsive ───────────────────────────────────── */
+    @media (max-width: 768px) {
+      .navbar__inner { padding: 12px 16px; }
+      .intro__headline { font-size: 1.75rem; }
+      .question-card { padding: 24px; }
+      .fw-card { padding: 24px; }
+      .email-row { flex-direction: column; }
+      .footer__inner { flex-direction: column; gap: 12px; text-align: center; }
+      .footer__right { flex-direction: column; gap: 8px; }
+      .fw-card__header { flex-direction: column; gap: 8px; }
+    }
+
+    @media (max-width: 320px) {
+      .intro__headline { font-size: 1.5rem; }
+      .question-text { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ──────────────────────────────────────── -->
+  <header class="navbar">
+    <div class="navbar__inner">
+      <a href="/" class="navbar__logo">Berly</a>
+      <a href="https://buy.stripe.com/28E6oHfmXahS6xL0iGeZ201" class="btn btn--primary" target="_blank" rel="noopener">Buy Now · $499</a>
+    </div>
+  </header>
+
+  <!-- ── Intro ────────────────────────────────────────── -->
+  <section class="intro" id="introScreen">
+    <div class="intro__inner">
+      <p class="intro__label">Free Tool</p>
+      <h1 class="intro__headline">AI Compliance Screener</h1>
+      <p class="intro__sub">Answer 10 questions to identify which AI regulations apply to your system. Takes 2 minutes. No email required to see your results.</p>
+      <div class="intro__notice">
+        This is a free screening tool, not a substitute for legal advice. Results indicate likely regulatory exposure based on your answers. The full Berly app provides complete documentation workspaces, field-level regulatory guidance, and evidence verification for every obligation identified here.
+      </div>
+      <button class="btn btn--primary" id="startBtn" style="font-size:1.05rem;padding:14px 32px;">Start Screening</button>
+    </div>
+  </section>
+
+  <!-- ── Quiz ─────────────────────────────────────────── -->
+  <section class="quiz" id="quizSection">
+    <div class="progress-bar-wrap">
+      <div class="progress-meta">
+        <span id="progressLabel">Question 1 of 10</span>
+        <span id="progressPct">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+    </div>
+    <div class="question-card" id="questionCard">
+      <!-- populated by JS -->
+    </div>
+    <div class="question-nav" id="questionNav">
+      <button class="btn--back" id="backBtn">Back</button>
+      <button class="btn--next" id="nextBtn" disabled>Next</button>
+    </div>
+  </section>
+
+  <!-- ── Results ───────────────────────────────────────── -->
+  <section class="results" id="resultsSection">
+    <div class="results__header">
+      <h1 class="results__headline">Your Screening Results</h1>
+      <p class="results__subheadline">Based on your answers, here is your likely regulatory exposure.</p>
+      <p class="results__disclaimer">This screening is not legal advice. Results are based on your answers and may not reflect all applicable obligations. Consult qualified legal counsel before making compliance decisions.</p>
+    </div>
+    <div class="results__inner">
+      <div id="docWarning"></div>
+      <div class="framework-cards" id="frameworkCards"></div>
+    </div>
+
+    <!-- Start Over -->
+    <div style="text-align:center;padding:24px 24px 0;background:#f8fafc;">
+      <button onclick="location.reload()" style="background:transparent;border:1px solid #e2e8f0;color:#64748b;padding:10px 20px;border-radius:8px;font-size:0.875rem;font-weight:500;cursor:pointer;font-family:inherit;">Start Over</button>
+    </div>
+
+    <!-- Email capture -->
+    <div class="email-section" id="emailSection">
+      <div class="email-section__inner">
+        <h2 class="email-section__heading">Get your results by email</h2>
+        <p class="email-section__sub">We'll send you a copy of these results with guidance on next steps. No spam. Unsubscribe anytime.</p>
+        <div id="emailSuccess" class="email-success"></div>
+        <div class="email-row" id="emailRow">
+          <input type="email" class="email-input" id="emailInput" placeholder="your@email.com">
+          <button class="btn btn--primary" id="emailSubmit">Send My Results</button>
+        </div>
+        <button class="email-skip" id="emailSkip">No thanks, I have what I need</button>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section" id="ctaSection">
+      <div class="cta-section__inner">
+        <h2 class="cta-section__heading">Screening complete. Documentation is next.</h2>
+        <p class="cta-section__body">This screening identified your regulatory exposure. Berly Pro gives you complete documentation workspaces for every obligation above - field-level guidance citing the exact Articles, evidence verification, cross-framework mapping to NIST AI RMF and ISO 42001, and audit-ready PDF exports. The screener is one of 30+ sections in a full Berly compliance package.</p>
+        <div class="cta-section__buttons">
+          <a href="https://buy.stripe.com/28E6oHfmXahS6xL0iGeZ201" class="btn btn--primary" target="_blank" rel="noopener">Get Berly Pro · $499</a>
+          <a href="/" class="btn btn--outline">Back to berly.app</a>
+        </div>
+        <p class="cta-section__note">One-time payment · No subscription · Windows 10/11</p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer__inner">
+        <div class="footer__logo">Berly</div>
+        <div class="footer__right">
+          <a href="mailto:support@berly.app" class="footer__email">support@berly.app</a>
+          <span class="footer__disclaimer">Not legal advice.</span>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  <script>
+    // ── State ────────────────────────────────────────────
+    const state = {
+      euInScope: null,
+      cpraThreshold: null,
+      coloradoInScope: null,
+      nycInScope: null,
+      domainSelections: [],
+      noneSelected: false,
+      humanOversight: null,
+      humanSafeHarbor: false,
+      annexIIISelections: [],
+      euHighRisk: false,
+      smallDeployer: false,
+      coloradoRole: null,
+      docStatus: null,
+    };
+
+    // ── Question Definitions ─────────────────────────────
+    const ALL_QUESTIONS = [
+      {
+        id: 'q1',
+        frameworks: ['eu'],
+        text: 'Is your AI system placed on the EU market, put into service in the EU, or intended for use by people located in the EU?',
+        type: 'radio',
+        options: ['Yes', 'No'],
+      },
+      {
+        id: 'q2',
+        frameworks: ['cpra'],
+        text: 'Does your organization meet at least one of these thresholds: annual gross revenue over $26,625,000; processes personal data of 100,000 or more California consumers or households annually; or derives 50% or more of revenue from selling or sharing personal data?',
+        type: 'radio',
+        options: ['Yes', 'No', 'Unsure - I am not certain'],
+      },
+      {
+        id: 'q3',
+        frameworks: ['co'],
+        text: 'Does your organization do business in Colorado, or does your AI system affect individuals who are Colorado residents?',
+        type: 'radio',
+        options: ['Yes', 'No'],
+      },
+      {
+        id: 'q4',
+        frameworks: ['nyc'],
+        text: 'Do you use an automated tool to screen, evaluate, or rank candidates or employees who reside in New York City?',
+        type: 'radio',
+        options: ['Yes', 'No'],
+      },
+      {
+        id: 'q5',
+        frameworks: ['eu', 'co', 'nyc', 'cpra'],
+        text: 'Which of the following decisions does your AI system make or substantially influence? (Select all that apply)',
+        type: 'checkbox',
+        options: [
+          'Employment, hiring, promotion, termination, or compensation',
+          'Education enrollment or academic assessment',
+          'Credit, lending, or financial services eligibility',
+          'Housing eligibility or rental or purchase decisions',
+          'Healthcare services or medical decisions',
+          'Biometric identification or categorization of individuals',
+          'None of the above',
+        ],
+        noneOption: 'None of the above',
+      },
+      {
+        id: 'q6',
+        frameworks: ['cpra', 'co'],
+        text: 'When your AI system produces an output that affects a consequential decision, what is the role of humans in that process?',
+        type: 'radio',
+        options: [
+          'A human reviewer who has full authority to override the decision reviews every output before it affects anyone',
+          'A human sees the output but overrides are rare in practice',
+          'The system\'s output is applied automatically with no human review',
+          'It varies depending on the use case',
+        ],
+      },
+      {
+        id: 'q7',
+        frameworks: ['eu'],
+        text: 'Does your system fall into any of these EU AI Act Annex III high-risk categories? (Select all that apply)',
+        type: 'checkbox',
+        options: [
+          'Biometric identification or categorization (e.g. facial recognition, emotion recognition)',
+          'Critical infrastructure management (e.g. water, gas, electricity, transport)',
+          'Education or vocational training (e.g. admissions, assessment, exam proctoring)',
+          'Employment or worker management (e.g. recruitment, performance monitoring, task allocation)',
+          'Essential private or public services (e.g. credit scoring, social benefits, emergency services)',
+          'Law enforcement (e.g. crime prediction, evidence evaluation)',
+          'Migration, asylum, or border control',
+          'Administration of justice or democratic processes',
+          'None of the above',
+        ],
+        noneOption: 'None of the above',
+        conditional: true,
+      },
+      {
+        id: 'q8',
+        frameworks: ['co'],
+        text: 'Does your organization have fewer than 50 employees?',
+        type: 'radio',
+        options: [
+          'Yes - fewer than 50 employees',
+          'No - 50 or more employees',
+        ],
+        conditional: true,
+      },
+      {
+        id: 'q9',
+        frameworks: ['co'],
+        text: 'Which best describes your organization\'s role with this AI system?',
+        type: 'radio',
+        options: [
+          'Developer - we built or trained the AI system',
+          'Deployer - we use an AI system built by another company',
+          'Both - we built it and we use it ourselves',
+        ],
+        conditional: true,
+      },
+      {
+        id: 'q10',
+        frameworks: ['eu', 'co', 'cpra', 'nyc'],
+        text: 'Does your organization currently have formal documentation or risk assessments for this AI system?',
+        type: 'radio',
+        options: [
+          'Yes - we have documented processes in place',
+          'Partially - some documentation exists but gaps remain',
+          'No - we have no formal documentation yet',
+        ],
+      },
+    ];
+
+    // answers keyed by question id
+    const answers = {};
+
+    // dynamic question sequence — rebuilt after each conditional answer
+    let questionSequence = [];
+    let currentIndex = 0;
+
+    function buildSequence() {
+      questionSequence = ALL_QUESTIONS.filter(q => {
+        if (q.id === 'q7') return state.euInScope === true && state.noneSelected === false;
+        if (q.id === 'q8' || q.id === 'q9') return state.coloradoInScope === true && state.noneSelected === false;
+        return true;
+      });
+    }
+
+    // ── Render ───────────────────────────────────────────
+    function renderQuestion() {
+      const q = questionSequence[currentIndex];
+      const total = questionSequence.length;
+      const pct = Math.round((currentIndex / total) * 100);
+
+      document.getElementById('progressLabel').textContent = `Question ${currentIndex + 1} of ${total}`;
+      document.getElementById('progressPct').textContent = pct + '%';
+      document.getElementById('progressFill').style.width = pct + '%';
+
+      // back button
+      const backBtn = document.getElementById('backBtn');
+      backBtn.style.visibility = currentIndex === 0 ? 'hidden' : 'visible';
+
+      // next button label
+      const nextBtn = document.getElementById('nextBtn');
+      nextBtn.textContent = currentIndex === total - 1 ? 'See Results' : 'Next';
+      nextBtn.disabled = !hasAnswer(q);
+
+      // render card content
+      const card = document.getElementById('questionCard');
+      card.innerHTML = `
+        <div class="question-frameworks">${q.frameworks.map(fw => `<span class="fw-pill fw-pill--${fw}">${fwLabel(fw)}</span>`).join('')}</div>
+        <p class="question-text">${escHtml(q.text)}</p>
+        <div class="options" id="optionsContainer">
+          ${q.options.map((opt, i) => renderOption(q, opt, i)).join('')}
+        </div>
+      `;
+
+      // restore saved answer visual
+      restoreSelected(q);
+
+      // attach listeners
+      card.querySelectorAll('input').forEach(input => {
+        input.addEventListener('change', () => handleOptionChange(q));
+      });
+    }
+
+    function fwLabel(fw) {
+      return { eu: 'EU AI Act', co: 'Colorado', nyc: 'NYC', cpra: 'CPRA' }[fw];
+    }
+
+    function renderOption(q, opt, i) {
+      const inputType = q.type;
+      const name = q.id;
+      const id = `opt-${q.id}-${i}`;
+      return `<label class="option-label" id="lbl-${q.id}-${i}">
+        <input type="${inputType}" name="${name}" id="${id}" value="${escHtml(opt)}">
+        <span>${escHtml(opt)}</span>
+      </label>`;
+    }
+
+    function restoreSelected(q) {
+      const saved = answers[q.id];
+      if (!saved) return;
+      const inputs = document.querySelectorAll(`input[name="${q.id}"]`);
+      inputs.forEach((input, i) => {
+        if (Array.isArray(saved)) {
+          if (saved.includes(input.value)) {
+            input.checked = true;
+            input.closest('.option-label').classList.add('selected');
+          }
+        } else {
+          if (input.value === saved) {
+            input.checked = true;
+            input.closest('.option-label').classList.add('selected');
+          }
+        }
+      });
+    }
+
+    function handleOptionChange(q) {
+      const container = document.getElementById('optionsContainer');
+
+      if (q.type === 'checkbox') {
+        const checked = [...container.querySelectorAll('input:checked')].map(i => i.value);
+        let next = [...checked];
+
+        // mutual exclusion for "None of the above"
+        if (checked.includes(q.noneOption) && checked.length > 1) {
+          const justChecked = event && event.target && event.target.value;
+          if (justChecked === q.noneOption) {
+            // user just clicked none — deselect everything else
+            next = [q.noneOption];
+          } else {
+            // user clicked something else — deselect none
+            next = checked.filter(v => v !== q.noneOption);
+          }
+          // sync DOM
+          container.querySelectorAll('input').forEach(inp => {
+            inp.checked = next.includes(inp.value);
+          });
+        }
+
+        // update selected styles
+        container.querySelectorAll('.option-label').forEach(lbl => {
+          const inp = lbl.querySelector('input');
+          lbl.classList.toggle('selected', inp.checked);
+        });
+
+        answers[q.id] = next;
+      } else {
+        const selected = container.querySelector('input:checked');
+        container.querySelectorAll('.option-label').forEach(lbl => {
+          lbl.classList.remove('selected');
+        });
+        if (selected) {
+          selected.closest('.option-label').classList.add('selected');
+          answers[q.id] = selected.value;
+        }
+      }
+
+      // update state after Q1, Q3, Q5 immediately (for sequence building)
+      commitStateFromAnswer(q.id);
+      document.getElementById('nextBtn').disabled = !hasAnswer(q);
+    }
+
+    function hasAnswer(q) {
+      const a = answers[q.id];
+      if (!a) return false;
+      if (Array.isArray(a)) return a.length > 0;
+      return a.length > 0;
+    }
+
+    function commitStateFromAnswer(qId) {
+      if (qId === 'q1') {
+        state.euInScope = answers.q1 === 'Yes';
+      }
+      if (qId === 'q2') {
+        state.cpraThreshold = answers.q2;
+      }
+      if (qId === 'q3') {
+        state.coloradoInScope = answers.q3 === 'Yes';
+      }
+      if (qId === 'q4') {
+        state.nycInScope = answers.q4 === 'Yes';
+      }
+      if (qId === 'q5') {
+        state.domainSelections = answers.q5 || [];
+        state.noneSelected = state.domainSelections.length === 1 && state.domainSelections[0] === 'None of the above';
+      }
+      if (qId === 'q6') {
+        state.humanOversight = answers.q6;
+        state.humanSafeHarbor = answers.q6 === 'A human reviewer who has full authority to override the decision reviews every output before it affects anyone';
+      }
+      if (qId === 'q7') {
+        state.annexIIISelections = answers.q7 || [];
+        state.euHighRisk = state.annexIIISelections.some(s => s !== 'None of the above');
+      }
+      if (qId === 'q8') {
+        state.smallDeployer = answers.q8 === 'Yes - fewer than 50 employees';
+      }
+      if (qId === 'q9') {
+        state.coloradoRole = answers.q9;
+      }
+      if (qId === 'q10') {
+        state.docStatus = answers.q10;
+      }
+    }
+
+    // ── Navigation ───────────────────────────────────────
+    document.getElementById('startBtn').addEventListener('click', () => {
+      buildSequence();
+      document.getElementById('introScreen').style.display = 'none';
+      document.getElementById('quizSection').classList.add('active');
+      renderQuestion();
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      const q = questionSequence[currentIndex];
+      commitStateFromAnswer(q.id);
+      buildSequence();
+
+      if (currentIndex < questionSequence.length - 1) {
+        currentIndex++;
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        showResults();
+      }
+    });
+
+    document.getElementById('backBtn').addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+
+    // ── Results ──────────────────────────────────────────
+    function showResults() {
+      // Final state commit
+      ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'].forEach(id => {
+        if (answers[id] !== undefined) commitStateFromAnswer(id);
+      });
+
+      // Compute results
+      const euApplies = state.euInScope && state.euHighRisk && !state.noneSelected;
+      const euNotHighRisk = state.euInScope && (!state.euHighRisk || state.noneSelected);
+      const euNotApplicable = !state.euInScope;
+
+      const coloradoApplies = state.coloradoInScope && !state.noneSelected;
+      const nycApplies = state.nycInScope && state.domainSelections.includes('Employment, hiring, promotion, termination, or compensation');
+
+      const cpraRelevantDomains = [
+        'Employment, hiring, promotion, termination, or compensation',
+        'Education enrollment or academic assessment',
+        'Credit, lending, or financial services eligibility',
+        'Housing eligibility or rental or purchase decisions',
+        'Healthcare services or medical decisions',
+      ];
+      const hasCpraRelevantDomain = state.domainSelections.some(d => cpraRelevantDomains.includes(d));
+      const cpraApplies = (state.cpraThreshold === 'Yes' || state.cpraThreshold === 'Unsure - I am not certain') && !state.noneSelected && hasCpraRelevantDomain;
+      const cpraPossible = cpraApplies && state.cpraThreshold === 'Unsure - I am not certain';
+
+      document.getElementById('quizSection').classList.remove('active');
+      document.getElementById('resultsSection').classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // doc warning
+      const docWarn = document.getElementById('docWarning');
+      if (state.docStatus && state.docStatus.startsWith('No')) {
+        docWarn.innerHTML = `<div class="doc-warning doc-warning--red"><strong>You have no formal documentation for this system.</strong> Every framework identified below has active documentation requirements. You are currently exposed.</div>`;
+      } else if (state.docStatus && state.docStatus.startsWith('Partially')) {
+        docWarn.innerHTML = `<div class="doc-warning doc-warning--amber"><strong>Your documentation has gaps.</strong> Each framework below has specific requirements that must be addressed.</div>`;
+      }
+
+      // framework cards
+      const cards = document.getElementById('frameworkCards');
+      cards.innerHTML = [
+        renderEUCard(euApplies, euNotHighRisk, euNotApplicable),
+        renderColoradoCard(coloradoApplies),
+        renderNYCCard(nycApplies),
+        renderCPRACard(cpraApplies, cpraPossible),
+      ].join('');
+
+      // store results for email
+      window._screeningResults = {
+        eu: { applies: euApplies, highRisk: state.euHighRisk },
+        colorado: { applies: coloradoApplies, role: state.coloradoRole, smallDeployer: state.smallDeployer },
+        nyc: { applies: nycApplies },
+        cpra: { applies: cpraApplies, possibleScope: cpraPossible, safeHarbor: state.humanSafeHarbor },
+      };
+    }
+
+    function renderEUCard(euApplies, euNotHighRisk, euNotApplicable) {
+      if (euApplies) {
+        return `<div class="fw-card fw-card--eu">
+          <div class="fw-card__header">
+            <div>
+              <div class="fw-card__name">EU AI Act</div>
+              <div class="fw-card__jurisdiction">European Union</div>
+            </div>
+            <span class="fw-card__badge badge--inscope">Likely In Scope</span>
+          </div>
+          <p class="fw-card__explanation">Your system falls under one or more Annex III high-risk categories under EU AI Act Regulation 2024/1689. As a provider or deployer, you must prepare technical documentation per Annex IV and comply with Articles 9-14 including risk management, data governance, transparency, and human oversight.</p>
+          <ul class="fw-card__obligations">
+            <li>Technical documentation per Annex IV - Article 11</li>
+            <li>Risk management system - Article 9</li>
+            <li>Data governance measures - Article 10</li>
+            <li>Transparency and user information - Article 13</li>
+            <li>Human oversight measures - Article 14</li>
+            <li>EU database registration - Article 71</li>
+          </ul>
+          <p class="fw-card__enforcement"><strong>Enforcement:</strong> 2 August 2026 (Article 113)</p>
+        </div>`;
+      }
+      if (euNotHighRisk) {
+        return `<div class="fw-card fw-card--eu">
+          <div class="fw-card__header">
+            <div>
+              <div class="fw-card__name">EU AI Act</div>
+              <div class="fw-card__jurisdiction">European Union</div>
+            </div>
+            <span class="fw-card__badge badge--notscope">Not In Scope</span>
+          </div>
+          <p class="fw-card__explanation">Your system does not appear to fall under Annex III high-risk categories. Standard transparency obligations may still apply for general-purpose AI, but mandatory Annex IV documentation and conformity assessment are not required.</p>
+          <p class="fw-card__enforcement"><strong>Enforcement:</strong> N/A for high-risk obligations</p>
+        </div>`;
+      }
+      // euNotApplicable
+      return `<div class="fw-card fw-card--eu">
+        <div class="fw-card__header">
+          <div>
+            <div class="fw-card__name">EU AI Act</div>
+            <div class="fw-card__jurisdiction">European Union</div>
+          </div>
+          <span class="fw-card__badge badge--notscope">Not In Scope</span>
+        </div>
+        <p class="fw-card__explanation">Your system is not placed on the EU market and is not intended for use by EU residents. EU AI Act obligations do not apply.</p>
+      </div>`;
+    }
+
+    function renderColoradoCard(coloradoApplies) {
+      if (!coloradoApplies) {
+        return `<div class="fw-card fw-card--co">
+          <div class="fw-card__header">
+            <div>
+              <div class="fw-card__name">Colorado SB 24-205</div>
+              <div class="fw-card__jurisdiction">Colorado, USA</div>
+            </div>
+            <span class="fw-card__badge badge--notscope">Not In Scope</span>
+          </div>
+          <p class="fw-card__explanation">Your system does not affect Colorado residents or does not make consequential decisions in a covered domain. Colorado SB 24-205 does not apply.</p>
+        </div>`;
+      }
+
+      const role = state.coloradoRole || '';
+      const isDev = role.startsWith('Developer') || role.startsWith('Both');
+      const isDep = role.startsWith('Deployer') || role.startsWith('Both');
+
+      const devObligations = isDev ? `
+        <li>Disclose purpose, known limitations, and performance data to deployers - SS 6-1-1702(1)</li>
+        <li>Provide deployer documentation package - SS 6-1-1702(2)</li>
+        <li>Make public statement about high-risk AI use - SS 6-1-1702(4)</li>
+        <li>Report algorithmic discrimination to AG - SS 6-1-1702(5)</li>` : '';
+
+      const depObligations = isDep ? `
+        <li>Implement risk management program - SS 6-1-1703(2)</li>
+        <li>Complete impact assessment - SS 6-1-1703(3)</li>
+        <li>Notify consumers before consequential decision - SS 6-1-1703(4)</li>
+        <li>Allow consumer correction and appeal - SS 6-1-1703(5)</li>
+        <li>Annual review - SS 6-1-1703(6)</li>` : '';
+
+      const smallNote = state.smallDeployer ? `<div class="card-note card-note--amber">You may qualify for the small deployer exemption under SS 6-1-1703(6) if additional conditions are met. Consult legal counsel to confirm eligibility before relying on this exemption.</div>` : '';
+
+      return `<div class="fw-card fw-card--co">
+        <div class="fw-card__header">
+          <div>
+            <div class="fw-card__name">Colorado SB 24-205</div>
+            <div class="fw-card__jurisdiction">Colorado, USA</div>
+          </div>
+          <span class="fw-card__badge badge--inscope">Likely In Scope</span>
+        </div>
+        <p class="fw-card__explanation">Your system qualifies as a high-risk AI system under Colorado SB 24-205 (C.R.S. SS 6-1-1701(9)) because it makes or substantially influences a consequential decision affecting Colorado residents.</p>
+        <ul class="fw-card__obligations">${devObligations}${depObligations}</ul>
+        ${smallNote}
+        <p class="fw-card__enforcement"><strong>Enforcement:</strong> June 30, 2026</p>
+      </div>`;
+    }
+
+    function renderNYCCard(nycApplies) {
+      if (!nycApplies) {
+        return `<div class="fw-card fw-card--nyc">
+          <div class="fw-card__header">
+            <div>
+              <div class="fw-card__name">NYC Local Law 144</div>
+              <div class="fw-card__jurisdiction">New York City, USA</div>
+            </div>
+            <span class="fw-card__badge badge--notscope">Not In Scope</span>
+          </div>
+          <p class="fw-card__explanation">Your tool is not used to evaluate candidates or employees residing in New York City. NYC Local Law 144 does not apply.</p>
+        </div>`;
+      }
+      return `<div class="fw-card fw-card--nyc">
+        <div class="fw-card__header">
+          <div>
+            <div class="fw-card__name">NYC Local Law 144</div>
+            <div class="fw-card__jurisdiction">New York City, USA</div>
+          </div>
+          <span class="fw-card__badge badge--inscope">In Scope</span>
+        </div>
+        <p class="fw-card__explanation">Your automated employment decision tool (AEDT) is subject to NYC Local Law 144 because it is used to evaluate candidates or employees residing in New York City. Use without a valid annual bias audit is unlawful under SS 20-871(a).</p>
+        <ul class="fw-card__obligations">
+          <li>Annual independent bias audit - SS 20-871(a)</li>
+          <li>Public posting of bias audit summary - SS 20-871(b)</li>
+          <li>Candidate notice at least 10 business days before use - SS 20-871(b)(1)</li>
+          <li>Data retention records - SS 20-872</li>
+        </ul>
+        <p class="fw-card__enforcement"><strong>Enforcement:</strong> In effect since January 1, 2023</p>
+      </div>`;
+    }
+
+    function renderCPRACard(cpraApplies, cpraPossible) {
+      if (!cpraApplies) {
+        return `<div class="fw-card fw-card--cpra">
+          <div class="fw-card__header">
+            <div>
+              <div class="fw-card__name">CPRA ADMT</div>
+              <div class="fw-card__jurisdiction">California, USA</div>
+            </div>
+            <span class="fw-card__badge badge--notscope">Not In Scope</span>
+          </div>
+          <p class="fw-card__explanation">Your business does not meet CCPA thresholds or your AI system does not make significant decisions in a covered domain. CPRA ADMT obligations do not apply.</p>
+        </div>`;
+      }
+
+      const badge = cpraPossible
+        ? `<span class="fw-card__badge badge--possible">Possible Scope - Verify</span>`
+        : `<span class="fw-card__badge badge--inscope">Likely In Scope</span>`;
+
+      const safeNote = state.humanSafeHarbor ? `<div class="card-note card-note--teal">You may qualify for the human involvement safe harbor if your reviewer meets the three-part test under SS 7001: knows how to interpret the output, reviews it alongside other relevant information, and has full authority to change the decision. Consult legal counsel to confirm.</div>` : '';
+
+      return `<div class="fw-card fw-card--cpra">
+        <div class="fw-card__header">
+          <div>
+            <div class="fw-card__name">CPRA ADMT</div>
+            <div class="fw-card__jurisdiction">California, USA</div>
+          </div>
+          ${badge}
+        </div>
+        <p class="fw-card__explanation">Your business meets CCPA coverage thresholds and your AI system makes significant decisions about California consumers as defined under 11 CCR SS 7200. ADMT obligations apply under the CPRA regulations.</p>
+        ${safeNote}
+        <ul class="fw-card__obligations">
+          <li>Pre-use consumer notice - SS 7220</li>
+          <li>Opt-out mechanism - SS 7221</li>
+          <li>Consumer access rights - SS 7222</li>
+          <li>Risk assessment program - SS 7150</li>
+          <li>Risk assessment submission to CPPA by April 1, 2028 - SS 7152</li>
+        </ul>
+        <p class="fw-card__enforcement"><strong>Enforcement:</strong> ADMT obligations - January 1, 2027. Risk assessment submission - April 1, 2028.</p>
+      </div>`;
+    }
+
+    // ── Email ─────────────────────────────────────────────
+    document.getElementById('emailSubmit').addEventListener('click', async () => {
+      const email = document.getElementById('emailInput').value.trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.getElementById('emailInput').style.borderColor = '#ef4444';
+        return;
+      }
+      document.getElementById('emailInput').style.borderColor = '';
+
+      // Always show success — endpoint not built yet, fail silently
+      try {
+        await fetch('https://berly-api.berly.workers.dev/screener-results', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, results: window._screeningResults }),
+        });
+      } catch (_) { /* fail silently */ }
+
+      document.getElementById('emailRow').style.display = 'none';
+      const success = document.getElementById('emailSuccess');
+      success.textContent = `Results sent to ${email}. Check your inbox.`;
+      success.style.display = 'block';
+    });
+
+    document.getElementById('emailSkip').addEventListener('click', () => {
+      document.getElementById('ctaSection').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // ── Utility ───────────────────────────────────────────
+    function escHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+  </script>
+</body>
+</html>
