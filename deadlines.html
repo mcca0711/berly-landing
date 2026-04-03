@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Compliance Deadlines 2026 | Berly</title>
+  <meta name="description" content="Five frameworks, three deadlines in 120 days. Free reference covering EU AI Act, Colorado, CPRA, NYC LL144, and Illinois.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AI Compliance Deadlines &amp; Required Documents - 2026">
+  <meta property="og:description" content="Five frameworks, three deadlines in 120 days. Free reference covering EU AI Act, Colorado, CPRA, NYC LL144, and Illinois.">
+  <meta property="og:url" content="https://berly.app/deadlines.html">
+  <meta property="og:image" content="https://berly.app/assets/icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="assets/icon.ico">
+
+  <style>
+    /* ── Reset & Base ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; color: #1e293b; font-size: 16px; background: #f8fafc; }
+    img { max-width: 100%; height: auto; }
+    a { text-decoration: none; }
+
+    /* ── Buttons ──────────────────────────────────────── */
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+      font-family: inherit;
+    }
+    .btn--primary { background: #3b82f6; color: #ffffff; }
+    .btn--primary:hover { background: #2563eb; }
+    .btn--outline {
+      background: transparent;
+      border: 2px solid #ffffff;
+      color: #ffffff;
+    }
+    .btn--outline:hover { background: rgba(255,255,255,0.1); }
+
+    /* ── Navbar ───────────────────────────────────────── */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #0f172a;
+    }
+    .navbar__inner {
+      max-width: 1100px;
+      margin: auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar__logo {
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* ── Hero ─────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(160deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      text-align: center;
+      padding: 80px 24px;
+    }
+    .hero__inner { max-width: 780px; margin: auto; }
+    .hero__label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #3b82f6;
+      margin-bottom: 20px;
+    }
+    .hero__headline {
+      font-size: 2.6rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+    .hero__sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+    .hero__buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── Timeline Strip ───────────────────────────────── */
+    .timeline {
+      background: #0f172a;
+      padding: 0 24px 56px;
+    }
+    .timeline__inner {
+      max-width: 900px;
+      margin: auto;
+    }
+    .timeline__track {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      position: relative;
+      padding-bottom: 8px;
+    }
+    .timeline__track::before {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 40px;
+      right: 40px;
+      height: 2px;
+      background: rgba(255,255,255,0.12);
+    }
+    .timeline__item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .timeline__dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      flex-shrink: 0;
+    }
+    .timeline__dot--green { background: #22c55e; }
+    .timeline__dot--blue { background: #3b82f6; }
+    .timeline__dot--teal { background: #0d9488; }
+    .timeline__dot-inner {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ffffff;
+    }
+    .timeline__date {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .timeline__name {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.4;
+      max-width: 120px;
+    }
+    .timeline__note {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ── Cards Section ────────────────────────────────── */
+    .cards-section {
+      padding: 72px 24px;
+      background: #f8fafc;
+    }
+    .cards-section__inner {
+      max-width: 860px;
+      margin: auto;
+    }
+    .cards-section__heading {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    /* ── Framework Card ───────────────────────────────── */
+    .fw-card {
+      background: #ffffff;
+      border-radius: 12px;
+      border-left: 4px solid #e2e8f0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      padding: 36px 36px 32px;
+      margin-bottom: 28px;
+    }
+    .fw-card--co { border-left-color: #22c55e; }
+    .fw-card--eu { border-left-color: #3b82f6; }
+    .fw-card--cpra { border-left-color: #0d9488; }
+    .fw-card--nyc { border-left-color: #f97316; }
+    .fw-card--il { border-left-color: #8b5cf6; }
+
+    .fw-card__top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .fw-card__name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #1e293b;
+      line-height: 1.3;
+    }
+    .fw-card__badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .badge--red { background: #fef2f2; color: #b91c1c; border: 1px solid #fca5a5; }
+    .badge--orange { background: #fff7ed; color: #c2410c; border: 1px solid #fdba74; }
+    .badge--green { background: #f0fdf4; color: #15803d; border: 1px solid #86efac; }
+
+    .fw-card__status {
+      font-size: 0.875rem;
+      color: #64748b;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .fw-card__status strong { color: #1e293b; }
+
+    .fw-card__section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #94a3b8;
+      margin-bottom: 8px;
+      margin-top: 20px;
+    }
+    .fw-card__section-label:first-of-type { margin-top: 0; }
+
+    .fw-card__body {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.7;
+      margin-bottom: 4px;
+    }
+
+    .fw-card__list {
+      list-style: none;
+      margin: 0;
+    }
+    .fw-card__list li {
+      font-size: 0.875rem;
+      color: #1e293b;
+      padding: 7px 0 7px 20px;
+      border-bottom: 1px solid #f8fafc;
+      position: relative;
+      line-height: 1.5;
+    }
+    .fw-card__list li:last-child { border-bottom: none; }
+    .fw-card__list li::before {
+      content: "·";
+      position: absolute;
+      left: 6px;
+      color: #94a3b8;
+      font-weight: 700;
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+
+    /* ── Sub-list for dual-law card ───────────────────── */
+    .fw-card__sublist-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #64748b;
+      margin-top: 12px;
+      margin-bottom: 4px;
+    }
+
+    /* ── Penalties callout ────────────────────────────── */
+    .penalties-box {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 0.875rem;
+      color: #1e293b;
+      line-height: 1.6;
+      margin-top: 4px;
+    }
+    .penalties-box strong { color: #dc2626; }
+
+    /* ── Info / affirmative defense boxes ─────────────── */
+    .info-box {
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      margin-top: 16px;
+    }
+    .info-box--green { background: #f0fdf4; border: 1px solid #86efac; color: #166534; }
+    .info-box--blue { background: #eff6ff; border: 1px solid #93c5fd; color: #1e40af; }
+    .info-box--teal { background: #f0fdfa; border: 1px solid #5eead4; color: #134e4a; }
+    .info-box__label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    /* ── Cross-framework insight ──────────────────────── */
+    .insight {
+      max-width: 860px;
+      margin: 0 auto 60px;
+      padding: 0 24px;
+    }
+    .insight__box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-left: 4px solid #3b82f6;
+      border-radius: 12px;
+      padding: 28px 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .insight__label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #3b82f6;
+      margin-bottom: 10px;
+    }
+    .insight__text {
+      font-size: 0.95rem;
+      color: #475569;
+      line-height: 1.8;
+    }
+
+    /* ── CTA Section ──────────────────────────────────── */
+    .cta-section {
+      background: #0f172a;
+      padding: 72px 24px;
+    }
+    .cta-section__inner {
+      max-width: 960px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .cta-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 36px 32px;
+    }
+    .cta-box__heading {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .cta-box__body {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    /* ── Footer ───────────────────────────────────────── */
+    .footer {
+      background: #0f172a;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 32px 24px;
+    }
+    .footer__inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer__logo { color: #ffffff; font-size: 1rem; font-weight: 700; }
+    .footer__right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer__email {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.875rem;
+      transition: color 0.2s ease;
+    }
+    .footer__email:hover { color: #ffffff; }
+    .footer__disclaimer { color: rgba(255,255,255,0.3); font-size: 0.75rem; }
+    .footer__updated { color: rgba(255,255,255,0.3); font-size: 0.75rem; }
+
+    /* ── Responsive ───────────────────────────────────── */
+    @media (max-width: 768px) {
+      .navbar__inner { padding: 12px 16px; }
+
+      .hero__headline { font-size: 1.75rem; }
+      .hero__sub { font-size: 1rem; }
+
+      .timeline__track::before { display: none; }
+      .timeline__track {
+        flex-direction: column;
+        gap: 24px;
+        align-items: flex-start;
+      }
+      .timeline__item {
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        gap: 16px;
+      }
+      .timeline__dot { margin-bottom: 0; flex-shrink: 0; }
+      .timeline__name { max-width: none; }
+
+      .fw-card { padding: 24px 20px; }
+      .fw-card__top { flex-direction: column; gap: 10px; }
+
+      .cta-section__inner { grid-template-columns: 1fr; }
+
+      .footer__inner { flex-direction: column; text-align: center; }
+      .footer__right { flex-direction: column; gap: 8px; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ──────────────────────────────────────── -->
+  <header class="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo">Berly</a>
+      <a href="https://buy.stripe.com/28E6oHfmXahS6xL0iGeZ201" class="btn btn--primary" target="_blank" rel="noopener">Buy Now · $499</a>
+    </div>
+  </header>
+
+  <!-- ── Hero ─────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero__inner">
+      <span class="hero__label">Free Reference · 2026</span>
+      <h1 class="hero__headline">AI Compliance Deadlines &amp; Required Documents - 2026</h1>
+      <p class="hero__sub">Five frameworks. Three upcoming deadlines. One reference sheet.</p>
+      <div class="hero__buttons">
+        <a href="classifier.html" class="btn btn--primary">Try the Free Classifier</a>
+        <a href="assets/berly-compliance-deadlines-2026.pdf" class="btn btn--outline" download>Download PDF ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Timeline Strip ───────────────────────────────── -->
+  <section class="timeline">
+    <div class="timeline__inner">
+      <div class="timeline__track">
+        <div class="timeline__item">
+          <div class="timeline__dot timeline__dot--green">
+            <div class="timeline__dot-inner"></div>
+          </div>
+          <div>
+            <div class="timeline__date">June 30, 2026</div>
+            <div class="timeline__name">Colorado SB 24-205</div>
+          </div>
+        </div>
+        <div class="timeline__item">
+          <div class="timeline__dot timeline__dot--blue">
+            <div class="timeline__dot-inner"></div>
+          </div>
+          <div>
+            <div class="timeline__date">August 2, 2026</div>
+            <div class="timeline__name">EU AI Act Annex III</div>
+          </div>
+        </div>
+        <div class="timeline__item">
+          <div class="timeline__dot timeline__dot--teal">
+            <div class="timeline__dot-inner"></div>
+          </div>
+          <div>
+            <div class="timeline__date">January 1, 2027</div>
+            <div class="timeline__name">CPRA ADMT</div>
+          </div>
+        </div>
+      </div>
+      <p class="timeline__note">NYC LL144 and Illinois AIVIA/HB 3773 - already enforced</p>
+    </div>
+  </section>
+
+  <!-- ── Framework Cards ──────────────────────────────── -->
+  <section class="cards-section">
+    <div class="cards-section__inner">
+
+      <!-- Card 1: Colorado -->
+      <div class="fw-card fw-card--co">
+        <div class="fw-card__top">
+          <div class="fw-card__name">Colorado SB 24-205</div>
+          <span class="fw-card__badge badge--red">June 30, 2026</span>
+        </div>
+        <div class="fw-card__status">
+          <strong>Status:</strong> Active law. Repeal-and-replace draft released March 17, 2026 - not yet introduced in legislature. Prepare for the existing law.
+        </div>
+
+        <div class="fw-card__section-label">Who's Affected</div>
+        <p class="fw-card__body">Developers and deployers of high-risk AI systems used in consequential decisions (employment, housing, lending, healthcare, education, legal services, essential government services, insurance) affecting Colorado consumers.</p>
+
+        <div class="fw-card__section-label">Required Artifacts</div>
+        <ul class="fw-card__list">
+          <li>Risk management policy and program (NIST AI RMF or ISO 42001 aligned)</li>
+          <li>Impact assessment per high-risk system (within 90 days of effective date, then annually)</li>
+          <li>Consumer pre-decision notice (AI involvement disclosed before consequential decision)</li>
+          <li>Consumer adverse-action notice (with explanation and appeal option)</li>
+          <li>Public website statement (types of high-risk systems deployed and discrimination risk management)</li>
+          <li>AG discrimination discovery notice (within 90 days of discovering algorithmic discrimination)</li>
+          <li>Annual impact assessment review and update</li>
+        </ul>
+
+        <div class="fw-card__section-label">Penalties</div>
+        <div class="penalties-box"><strong>$20,000 per violation</strong> (counted per consumer/transaction). AG has exclusive enforcement with 60-day cure period.</div>
+
+        <div class="info-box info-box--green">
+          <div class="info-box__label">Affirmative Defense</div>
+          Compliance with NIST AI RMF or ISO 42001 creates rebuttable presumption.
+        </div>
+      </div>
+
+      <!-- Card 2: EU AI Act -->
+      <div class="fw-card fw-card--eu">
+        <div class="fw-card__top">
+          <div class="fw-card__name">EU AI Act - Annex III High-Risk Systems</div>
+          <span class="fw-card__badge badge--red">August 2, 2026</span>
+        </div>
+        <div class="fw-card__status">
+          <strong>Status:</strong> Active regulation (entered into force August 1, 2024). Digital Omnibus proposal could delay to December 2027 - not yet adopted. Treat August 2 as binding.
+        </div>
+
+        <div class="fw-card__section-label">Who's Affected</div>
+        <p class="fw-card__body">Providers and deployers of AI systems in Annex III domains (biometrics, critical infrastructure, education, employment, essential services/credit scoring, law enforcement, migration, justice/democracy) serving EU users - regardless of where your company is headquartered.</p>
+
+        <div class="fw-card__section-label">Required Artifacts</div>
+        <ul class="fw-card__list">
+          <li>Annex IV technical documentation (9 sections: system description, design specs, data requirements, human oversight, predetermined changes, validation/testing, risk management, standards mapping, post-market monitoring)</li>
+          <li>Risk management system (Article 9)</li>
+          <li>Data governance procedures (Article 10)</li>
+          <li>Conformity assessment (self-assessment or third-party per Annex VI/VII)</li>
+          <li>EU database registration (Annex VIII fields)</li>
+          <li>Post-market monitoring plan (Article 72)</li>
+          <li>Serious incident reporting protocol (Article 73)</li>
+          <li>CE marking and EU declaration of conformity</li>
+          <li>Transparency disclosures (Article 50 - applies to all AI, not just high-risk)</li>
+        </ul>
+
+        <div class="fw-card__section-label">Penalties</div>
+        <div class="penalties-box">Up to <strong>€35M or 7% of global turnover</strong> for prohibited practices. Up to <strong>€15M or 3%</strong> for high-risk non-compliance.</div>
+      </div>
+
+      <!-- Card 3: CPRA -->
+      <div class="fw-card fw-card--cpra">
+        <div class="fw-card__top">
+          <div class="fw-card__name">CPRA ADMT (California)</div>
+          <span class="fw-card__badge badge--orange">January 1, 2027</span>
+        </div>
+        <div class="fw-card__status">
+          <strong>Status:</strong> Regulations effective January 1, 2026. Risk assessment submissions due April 1, 2028.
+        </div>
+
+        <div class="fw-card__section-label">Who's Affected</div>
+        <p class="fw-card__body">Any CCPA "business" (for-profit, doing business in CA, meeting revenue/data volume thresholds) using automated decision-making technology for "significant decisions" (financial/lending, housing, education, employment, healthcare) affecting California consumers.</p>
+
+        <div class="fw-card__section-label">Required Artifacts</div>
+        <ul class="fw-card__list">
+          <li>Pre-use consumer notice (purpose, how ADMT works, outputs, alternative process)</li>
+          <li>Opt-out mechanism (or documented exception: human appeal, admission/hiring, work allocation)</li>
+          <li>Consumer access rights response procedures</li>
+          <li>Risk assessment report (purpose, impacts, safeguards, governance signoff)</li>
+          <li>Risk assessment 3-year review cycle with 45-day material change updates</li>
+          <li>Annual metrics compilation and disclosure (if processing PI of 10M+ consumers)</li>
+          <li>Anti-dark pattern UI testing documentation</li>
+          <li>Executive management attestation for risk assessment submissions</li>
+        </ul>
+
+        <div class="fw-card__section-label">Penalties</div>
+        <div class="penalties-box">Standard CCPA enforcement - up to <strong>$7,500 per intentional violation</strong>.</div>
+
+        <div class="info-box info-box--teal">
+          <div class="info-box__label">Key Nuance</div>
+          ADMT = computation + personal information + replaces or substantially replaces human decision-making. Advertising is explicitly excluded. Human involvement (3-part AND test) can take you out of scope.
+        </div>
+      </div>
+
+      <!-- Card 4: NYC LL144 -->
+      <div class="fw-card fw-card--nyc">
+        <div class="fw-card__top">
+          <div class="fw-card__name">NYC Local Law 144</div>
+          <span class="fw-card__badge badge--green">Already Enforced</span>
+        </div>
+        <div class="fw-card__status">
+          <strong>Status:</strong> Active DCWP enforcement. Effective July 5, 2023.
+        </div>
+
+        <div class="fw-card__section-label">Who's Affected</div>
+        <p class="fw-card__body">Employers and employment agencies using automated employment decision tools (AEDTs) for hiring or promotion decisions in New York City.</p>
+
+        <div class="fw-card__section-label">Required Artifacts</div>
+        <ul class="fw-card__list">
+          <li>Annual independent bias audit (selection rate and impact ratio by race/ethnicity and sex)</li>
+          <li>Published bias audit summary on employer's website</li>
+          <li>Candidate notice (at least 10 business days before AEDT use)</li>
+          <li>Data type disclosure (what data the AEDT collects and analyzes)</li>
+          <li>Alternative process disclosure (how candidates can request alternative selection)</li>
+          <li>Records retention for bias audits (minimum 4 years under DCWP rules)</li>
+        </ul>
+
+        <div class="fw-card__section-label">Penalties</div>
+        <div class="penalties-box"><strong>$375–$1,500 per violation</strong> (first offense: $500). Each day of non-compliance with notice = separate violation. Each person not notified = separate violation.</div>
+      </div>
+
+      <!-- Card 5: Illinois -->
+      <div class="fw-card fw-card--il">
+        <div class="fw-card__top">
+          <div class="fw-card__name">Illinois AI Employment Laws (AIVIA + HB 3773)</div>
+          <span class="fw-card__badge badge--green">Already Enforced</span>
+        </div>
+        <div class="fw-card__status">
+          <strong>Status:</strong> Both laws active. AIVIA: January 1, 2020. HB 3773: January 1, 2026.
+        </div>
+
+        <div class="fw-card__section-label">Who's Affected</div>
+        <p class="fw-card__body">AIVIA - any employer using AI to analyze video interviews in Illinois. HB 3773 - any employer using AI for employment decisions (screening, evaluation, discipline, termination) in Illinois.</p>
+
+        <div class="fw-card__section-label">Required Artifacts (AIVIA)</div>
+        <ul class="fw-card__list">
+          <li>Pre-interview notice (AI analysis disclosed before interview)</li>
+          <li>Applicant consent (affirmative consent required before AI analysis)</li>
+          <li>Video deletion process (within 30 days of applicant request)</li>
+          <li>AI provider certification records</li>
+        </ul>
+
+        <div class="fw-card__section-label">Required Artifacts (HB 3773)</div>
+        <ul class="fw-card__list">
+          <li>Pre-decision worker notice (before AI is used in employment decisions)</li>
+          <li>Protected characteristics disclosure (which characteristics AI could factor into decisions)</li>
+          <li>Human review process documentation</li>
+          <li>Adverse action notice and appeal process</li>
+        </ul>
+
+        <div class="fw-card__section-label">Required Artifacts (Both)</div>
+        <ul class="fw-card__list">
+          <li>Demographic data collection and reporting to IDCEO</li>
+          <li>Bias monitoring measures</li>
+        </ul>
+
+        <div class="fw-card__section-label">Penalties</div>
+        <div class="penalties-box">Enforced through Illinois Human Rights Act and Illinois Department of Labor. <strong>Civil penalties vary.</strong></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Cross-framework Insight ───────────────────────── -->
+  <div class="insight">
+    <div class="insight__box">
+      <div class="insight__label">Cross-Framework Insight</div>
+      <p class="insight__text">Many of these frameworks require overlapping documentation. A single AI system used in hiring could trigger all five frameworks simultaneously. The core artifacts - system description, risk assessment, notice mechanisms, bias controls - overlap significantly. The challenge is mapping one set of documentation to five different legal frameworks with different terminology and citation requirements.</p>
+    </div>
+  </div>
+
+  <!-- ── CTA ───────────────────────────────────────────── -->
+  <section class="cta-section">
+    <div class="cta-section__inner">
+      <div class="cta-box">
+        <h2 class="cta-box__heading">Find out which frameworks apply to your AI systems in 2 minutes.</h2>
+        <p class="cta-box__body">Free multi-framework screener - no signup needed.</p>
+        <a href="classifier.html" class="btn btn--primary">Take the Free Screener →</a>
+      </div>
+      <div class="cta-box">
+        <h2 class="cta-box__heading">Need to produce the actual documentation?</h2>
+        <p class="cta-box__body">Berly generates audit-ready compliance documentation across all 5 frameworks with field-level regulatory guidance, evidence verification, and professional PDF exports.</p>
+        <a href="index.html#pricing" class="btn btn--primary">Learn More →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__logo">Berly</div>
+      <div class="footer__right">
+        <a href="mailto:support@berly.app" class="footer__email">support@berly.app</a>
+        <span class="footer__updated">Last updated: April 2026</span>
+        <span class="footer__disclaimer">This is a compliance reference tool, not legal advice.</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

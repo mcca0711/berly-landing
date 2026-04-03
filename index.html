@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/x-icon" href="/assets/icon.ico">
+  <link rel="icon" type="image/x-icon" href="assets/icon.ico">
   <style>
     /* ── Reset & Base ─────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -616,7 +616,7 @@
   <!-- ── Navbar ──────────────────────────────────────── -->
   <header class="navbar">
     <div class="navbar__inner">
-      <div class="navbar__logo">Berly</div>
+      <a href="index.html" class="navbar__logo">Berly</a>
       <a href="https://buy.stripe.com/28E6oHfmXahS6xL0iGeZ201" class="btn btn--primary navbar__cta" target="_blank" rel="noopener">Buy Now · $499</a>
     </div>
   </header>
@@ -629,7 +629,7 @@
       <p class="hero__sub">Berly is a desktop compliance tool for consultants who need audit-ready AI documentation. Fast, guided, and evidence-verified. EU AI Act, Colorado, Illinois, NYC, and CPRA in one workspace.</p>
       <div class="hero__buttons">
         <a href="https://buy.stripe.com/28E6oHfmXahS6xL0iGeZ201" class="btn btn--primary" target="_blank" rel="noopener">Get Berly Pro · $499</a>
-        <a href="/classifier" class="btn btn--outline">Try Free Classifier</a>
+        <a href="classifier.html" class="btn btn--outline">Try Free Classifier</a>
       </div>
     </div>
   </section>
@@ -703,7 +703,8 @@
     <div class="classifier-cta__inner">
       <h2 class="classifier-cta__heading">Not sure if your AI system is in scope?</h2>
       <p class="classifier-cta__text">Answer a few questions. Berly's free classifier tells you exactly which regulations apply. No email required.</p>
-      <a href="/classifier" class="btn btn--white">Run Free Classifier</a>
+      <a href="classifier.html" class="btn btn--white">Run Free Classifier</a>
+      <p style="margin-top:16px;font-size:0.875rem;"><a href="deadlines.html" style="color:rgba(255,255,255,0.7);text-decoration:underline;text-underline-offset:2px;transition:color 0.2s ease;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">Or view the full compliance deadlines and required documents for all 5 frameworks →</a></p>
     </div>
   </section>
 
@@ -797,6 +798,7 @@
     <div class="footer__inner">
       <div class="footer__logo">Berly</div>
       <div class="footer__right">
+        <a href="deadlines.html" class="footer__email">Compliance Deadlines 2026</a>
         <a href="mailto:support@berly.app" class="footer__email">support@berly.app</a>
         <span class="footer__disclaimer">Not legal advice.</span>
       </div>
