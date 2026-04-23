@@ -1043,7 +1043,7 @@
             <li>Data governance measures - Article 10</li>
             <li>Transparency and user information - Article 13</li>
             <li>Human oversight measures - Article 14</li>
-            <li>EU database registration - Article 71</li>
+            <li>EU database registration - Article 49 (EU database in Article 71)</li>
           </ul>
           <p class="fw-card__enforcement"><strong>Enforcement:</strong> 2 August 2026 (Article 113)</p>
         </div>`;
@@ -1143,12 +1143,12 @@
           </div>
           <span class="fw-card__badge badge--inscope">In Scope</span>
         </div>
-        <p class="fw-card__explanation">Your automated employment decision tool (AEDT) is subject to NYC Local Law 144 because it is used to evaluate candidates or employees residing in New York City. Use without a valid annual bias audit is unlawful under SS 20-871(a).</p>
+        <p class="fw-card__explanation">Your automated employment decision tool (AEDT) is subject to NYC Local Law 144 because it is used to screen candidates for employment or employees for promotion in New York City. Use without a valid annual bias audit is unlawful under SS 20-871(a).</p>
         <ul class="fw-card__obligations">
           <li>Annual independent bias audit - SS 20-871(a)</li>
           <li>Public posting of bias audit summary - SS 20-871(b)</li>
           <li>Candidate notice at least 10 business days before use - SS 20-871(b)(1)</li>
-          <li>Data retention records - SS 20-872</li>
+          <li>Data type, source, and retention-policy disclosure on written request - SS 20-871(b)(3)</li>
         </ul>
         <p class="fw-card__enforcement"><strong>Enforcement:</strong> July 5, 2023</p>
       </div>`;
@@ -1172,7 +1172,7 @@
         ? `<span class="fw-card__badge badge--possible">Possible Scope - Verify</span>`
         : `<span class="fw-card__badge badge--inscope">Likely In Scope</span>`;
 
-      const safeNote = state.humanSafeHarbor ? `<div class="card-note card-note--teal">You may qualify for the human involvement safe harbor if your reviewer meets the three-part test under SS 7004: knows how to interpret the output, reviews it alongside other relevant information, and has full authority to change the decision. Consult legal counsel to confirm.</div>` : '';
+      const safeNote = state.humanSafeHarbor ? `<div class="card-note card-note--teal">You may fall outside certain ADMT obligations if human involvement meets the three-part test under 11 CCR SS 7001(e): the reviewer knows how to interpret the output, reviews it alongside other relevant information, and has authority to make or change the decision. Consult legal counsel to confirm.</div>` : '';
 
       return `<div class="fw-card fw-card--cpra">
         <div class="fw-card__header">
@@ -1189,9 +1189,9 @@
           <li>Opt-out mechanism - SS 7221</li>
           <li>Consumer access rights - SS 7222</li>
           <li>Risk assessment program - SS 7150</li>
-          <li>Risk assessment submission to CPPA by April 1, 2028 - SS 7152</li>
+          <li>Risk assessment requirements may apply on a separate timeline; CPPA submission deadlines are phased by business revenue</li>
         </ul>
-        <p class="fw-card__enforcement"><strong>Enforcement:</strong> ADMT obligations - January 1, 2027. Risk assessment submission - April 1, 2028.</p>
+        <p class="fw-card__enforcement"><strong>Enforcement:</strong> ADMT obligations - January 1, 2027. Risk assessment compliance - January 1, 2026; CPPA submissions phased beginning April 1, 2028.</p>
       </div>`;
     }
 
@@ -1216,10 +1216,10 @@
           </div>
           <span class="fw-card__badge badge--inscope">In Scope</span>
         </div>
-        <p class="fw-card__explanation">Your AI system is subject to Illinois AI employment laws requiring candidate consent, video analysis disclosures, and demographic reporting.</p>
+        <p class="fw-card__explanation">Your AI system may be subject to Illinois AI employment laws requiring candidate consent, video analysis disclosures, employment decision notices, and, in limited cases, demographic reporting.</p>
         <ul class="fw-card__obligations">
-          <li>AIVIA: Obtain candidate consent before using AI to analyze video interviews. Disclose AI use and allow deletion requests - effective January 1, 2020</li>
-          <li>HB 3773: Notify employees and job applicants when AI is used in employment decisions. Disclose data sources and characteristics evaluated - effective January 1, 2026</li>
+          <li>AIVIA: Obtain candidate consent before using AI to analyze video interviews. Disclose AI use and delete requested videos within 30 days - effective January 1, 2020</li>
+          <li>HB 3773: Notify employees and job applicants when AI is used in employment decisions - effective January 1, 2026</li>
           <li>Demographic reporting may be required in limited cases involving sole reliance on AI analysis of video interviews</li>
         </ul>
         <p class="fw-card__enforcement"><strong>Enforcement:</strong> Illinois Human Rights Act and Illinois Department of Labor. Civil penalties vary.</p>
