@@ -165,6 +165,7 @@
     .fw-pill--co { background: #16a34a; }
     .fw-pill--nyc { background: #ea580c; }
     .fw-pill--cpra { background: #0d9488; }
+    .fw-pill--il { background: #8b5cf6; }
 
     .question-text {
       font-size: 1.15rem;
@@ -312,6 +313,7 @@
     .fw-card--co { border-left-color: #16a34a; }
     .fw-card--nyc { border-left-color: #ea580c; }
     .fw-card--cpra { border-left-color: #0d9488; }
+    .fw-card--il { border-left-color: #8b5cf6; }
 
     .fw-card__header {
       display: flex;
@@ -633,6 +635,7 @@
       smallDeployer: false,
       coloradoRole: null,
       docStatus: null,
+      illinoisInScope: null,
     };
 
     // ── Question Definitions ─────────────────────────────
@@ -746,6 +749,13 @@
           'No - we have no formal documentation yet',
         ],
       },
+      {
+        id: 'q11',
+        frameworks: ['il'],
+        text: 'Does your AI system analyze video interviews, make employment decisions, or process biometric data affecting Illinois residents or Illinois-based employees?',
+        type: 'radio',
+        options: ['Yes', 'No', 'Not sure'],
+      },
     ];
 
     // answers keyed by question id
@@ -802,7 +812,7 @@
     }
 
     function fwLabel(fw) {
-      return { eu: 'EU AI Act', co: 'Colorado', nyc: 'NYC', cpra: 'CPRA' }[fw];
+      return { eu: 'EU AI Act', co: 'Colorado', nyc: 'NYC', cpra: 'CPRA', il: 'Illinois AI Laws' }[fw];
     }
 
     function renderOption(q, opt, i) {
@@ -921,6 +931,9 @@
       if (qId === 'q10') {
         state.docStatus = answers.q10;
       }
+      if (qId === 'q11') {
+        state.illinoisInScope = answers.q11 === 'Yes';
+      }
     }
 
     // ── Navigation ───────────────────────────────────────
@@ -956,7 +969,7 @@
     // ── Results ──────────────────────────────────────────
     function showResults() {
       // Final state commit
-      ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'].forEach(id => {
+      ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11'].forEach(id => {
         if (answers[id] !== undefined) commitStateFromAnswer(id);
       });
 
@@ -979,6 +992,8 @@
       const cpraApplies = (state.cpraThreshold === 'Yes' || state.cpraThreshold === 'Unsure - I am not certain') && !state.noneSelected && hasCpraRelevantDomain;
       const cpraPossible = cpraApplies && state.cpraThreshold === 'Unsure - I am not certain';
 
+      const illinoisApplies = state.illinoisInScope === true;
+
       document.getElementById('quizSection').classList.remove('active');
       document.getElementById('resultsSection').classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -998,6 +1013,7 @@
         renderColoradoCard(coloradoApplies),
         renderNYCCard(nycApplies),
         renderCPRACard(cpraApplies, cpraPossible),
+        renderIllinoisCard(illinoisApplies),
       ].join('');
 
       // store results for email
@@ -1006,6 +1022,7 @@
         colorado: { applies: coloradoApplies, role: state.coloradoRole, smallDeployer: state.smallDeployer },
         nyc: { applies: nycApplies },
         cpra: { applies: cpraApplies, possibleScope: cpraPossible, safeHarbor: state.humanSafeHarbor },
+        illinois: { applies: illinoisApplies },
       };
     }
 
@@ -1175,6 +1192,37 @@
           <li>Risk assessment submission to CPPA by April 1, 2028 - SS 7152</li>
         </ul>
         <p class="fw-card__enforcement"><strong>Enforcement:</strong> ADMT obligations - January 1, 2027. Risk assessment submission - April 1, 2028.</p>
+      </div>`;
+    }
+
+    function renderIllinoisCard(illinoisApplies) {
+      if (!illinoisApplies) {
+        return `<div class="fw-card fw-card--il">
+          <div class="fw-card__header">
+            <div>
+              <div class="fw-card__name">Illinois AI Employment Laws</div>
+              <div class="fw-card__jurisdiction">Illinois, USA</div>
+            </div>
+            <span class="fw-card__badge badge--notscope">Not In Scope</span>
+          </div>
+          <p class="fw-card__explanation">Your AI system does not appear to analyze video interviews or make employment decisions affecting Illinois residents. AIVIA and HB 3773 do not apply.</p>
+        </div>`;
+      }
+      return `<div class="fw-card fw-card--il">
+        <div class="fw-card__header">
+          <div>
+            <div class="fw-card__name">Illinois AI Employment Laws</div>
+            <div class="fw-card__jurisdiction">Illinois, USA</div>
+          </div>
+          <span class="fw-card__badge badge--inscope">In Scope</span>
+        </div>
+        <p class="fw-card__explanation">Your AI system is subject to Illinois AI employment laws requiring candidate consent, video analysis disclosures, and demographic reporting.</p>
+        <ul class="fw-card__obligations">
+          <li>AIVIA: Obtain candidate consent before using AI to analyze video interviews. Disclose AI use and allow deletion requests - effective January 1, 2020</li>
+          <li>HB 3773: Notify employees and job applicants when AI is used in employment decisions. Disclose data sources and characteristics evaluated - effective January 1, 2026</li>
+          <li>Demographic reporting: Report race and ethnicity data of applicants to the Illinois Department of Commerce annually</li>
+        </ul>
+        <p class="fw-card__enforcement"><strong>Enforcement:</strong> Illinois Human Rights Act and Illinois Department of Labor. Civil penalties vary.</p>
       </div>`;
     }
 
