@@ -1093,17 +1093,17 @@
       const isDep = role.startsWith('Deployer') || role.startsWith('Both');
 
       const devObligations = isDev ? `
-        <li>Disclose purpose, known limitations, and performance data to deployers - SS 6-1-1702(1)</li>
-        <li>Provide deployer documentation package - SS 6-1-1702(2)</li>
-        <li>Make public statement about high-risk AI use - SS 6-1-1702(4)</li>
-        <li>Report algorithmic discrimination to AG - SS 6-1-1702(5)</li>` : '';
+        <li>Disclose foreseeable uses, known limitations, and relevant system information to deployers</li>
+        <li>Provide documentation needed for deployer impact assessments</li>
+        <li>Make a public statement about high-risk AI use</li>
+        <li>Report discovered algorithmic discrimination to the Colorado Attorney General</li>` : '';
 
       const depObligations = isDep ? `
-        <li>Implement risk management program - SS 6-1-1703(2)</li>
-        <li>Complete impact assessment - SS 6-1-1703(3)</li>
-        <li>Notify consumers before consequential decision - SS 6-1-1703(4)</li>
-        <li>Allow consumer correction and appeal - SS 6-1-1703(5)</li>
-        <li>Annual review - SS 6-1-1703(6)</li>` : '';
+        <li>Implement a risk management program</li>
+        <li>Complete an impact assessment</li>
+        <li>Notify consumers before consequential decisions</li>
+        <li>Allow consumer correction and appeal</li>
+        <li>Review deployed high-risk AI systems at least annually</li>` : '';
 
       const smallNote = state.smallDeployer ? `<div class="card-note card-note--amber">You may qualify for the small deployer exemption under SS 6-1-1703(6) if additional conditions are met. Consult legal counsel to confirm eligibility before relying on this exemption.</div>` : '';
 
