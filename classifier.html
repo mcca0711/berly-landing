@@ -664,7 +664,7 @@
       {
         id: 'q4',
         frameworks: ['nyc'],
-        text: 'Do you use an automated tool to screen, evaluate, or rank candidates or employees who reside in New York City?',
+        text: 'Do you use an automated tool to screen candidates for employment or employees for promotion in New York City?',
         type: 'radio',
         options: ['Yes', 'No'],
       },
@@ -679,7 +679,9 @@
           'Credit, lending, or financial services eligibility',
           'Housing eligibility or rental or purchase decisions',
           'Healthcare services or medical decisions',
-          'Biometric identification or categorization of individuals',
+          'Insurance coverage, underwriting, pricing, or eligibility',
+          'Legal services',
+          'Essential government services or public benefits',
           'None of the above',
         ],
         noneOption: 'None of the above',
@@ -716,17 +718,6 @@
         conditional: true,
       },
       {
-        id: 'q8',
-        frameworks: ['co'],
-        text: 'Does your organization have fewer than 50 employees?',
-        type: 'radio',
-        options: [
-          'Yes - fewer than 50 employees',
-          'No - 50 or more employees',
-        ],
-        conditional: true,
-      },
-      {
         id: 'q9',
         frameworks: ['co'],
         text: 'Which best describes your organization\'s role with this AI system?',
@@ -738,6 +729,18 @@
         ],
         conditional: true,
       },
+      {
+        id: 'q8',
+        frameworks: ['co'],
+        text: 'Does your organization qualify for the small deployer exemption?',
+        type: 'radio',
+        options: [
+          'Yes - all four conditions are met',
+          'No - one or more conditions are not met',
+        ],
+        conditional: true,
+      },
+      
       {
         id: 'q10',
         frameworks: ['eu', 'co', 'cpra', 'nyc'],
@@ -752,7 +755,7 @@
       {
         id: 'q11',
         frameworks: ['il'],
-        text: 'Does your AI system analyze video interviews, make employment decisions, or process biometric data affecting Illinois residents or Illinois-based employees?',
+        text: 'Does your AI system analyze video interviews or make employment decisions affecting Illinois residents or Illinois-based employees?',
         type: 'radio',
         options: ['Yes', 'No', 'Not sure'],
       },
@@ -767,8 +770,16 @@
 
     function buildSequence() {
       questionSequence = ALL_QUESTIONS.filter(q => {
-        if (q.id === 'q7') return state.euInScope === true && state.noneSelected === false;
-        if (q.id === 'q8' || q.id === 'q9') return state.coloradoInScope === true && state.noneSelected === false;
+        if (q.id === 'q7') return state.euInScope === true;
+        if (q.id === 'q9') return state.coloradoInScope === true && state.noneSelected === false;
+        if (q.id === 'q8') {
+          return state.coloradoInScope === true
+            && state.noneSelected === false
+            && (
+              state.coloradoRole === 'Deployer - we use an AI system built by another company'
+              || state.coloradoRole === 'Both - we built it and we use it ourselves'
+            );
+        }
         return true;
       });
     }
@@ -923,16 +934,20 @@
         state.euHighRisk = state.annexIIISelections.some(s => s !== 'None of the above');
       }
       if (qId === 'q8') {
-        state.smallDeployer = answers.q8 === 'Yes - fewer than 50 employees';
+      state.smallDeployer = answers.q8 === 'Yes - all four conditions are met';
       }
       if (qId === 'q9') {
         state.coloradoRole = answers.q9;
+        if (state.coloradoRole === 'Developer - we built or trained the AI system') {
+          state.smallDeployer = false;
+          delete answers.q8;
+        }
       }
       if (qId === 'q10') {
         state.docStatus = answers.q10;
       }
       if (qId === 'q11') {
-        state.illinoisInScope = answers.q11 === 'Yes';
+        state.illinoisInScope = answers.q11 === 'Yes' || answers.q11 === 'Not sure';
       }
     }
 
