@@ -175,6 +175,13 @@
       margin-bottom: 24px;
     }
 
+    .question-help {
+      font-size: 0.9rem;
+      color: #64748b;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
     /* ── Options ──────────────────────────────────────── */
     .options { display: flex; flex-direction: column; gap: 10px; }
     .option-label {
@@ -733,6 +740,7 @@
         id: 'q8',
         frameworks: ['co'],
         text: 'Does your organization qualify for the small deployer exemption?',
+        helpText: 'Answer Yes only if all four are true: (1) you have fewer than 50 full-time equivalent employees, (2) you do not use your own data to train the AI system, (3) you use the system only for the developer’s intended purposes, and (4) the system continues learning only from sources other than your own data.',
         type: 'radio',
         options: [
           'Yes - all four conditions are met',
@@ -808,6 +816,7 @@
       card.innerHTML = `
         <div class="question-frameworks">${q.frameworks.map(fw => `<span class="fw-pill fw-pill--${fw}">${fwLabel(fw)}</span>`).join('')}</div>
         <p class="question-text">${escHtml(q.text)}</p>
+        ${q.helpText ? `<p class="question-help">${escHtml(q.helpText)}</p>` : ''}
         <div class="options" id="optionsContainer">
           ${q.options.map((opt, i) => renderOption(q, opt, i)).join('')}
         </div>
@@ -818,7 +827,7 @@
 
       // attach listeners
       card.querySelectorAll('input').forEach(input => {
-        input.addEventListener('change', () => handleOptionChange(q));
+        input.addEventListener('change', (e) => handleOptionChange(q, e));
       });
     }
 
@@ -855,7 +864,7 @@
       });
     }
 
-    function handleOptionChange(q) {
+    function handleOptionChange(q, event) {
       const container = document.getElementById('optionsContainer');
 
       if (q.type === 'checkbox') {
@@ -989,8 +998,8 @@
       });
 
       // Compute results
-      const euApplies = state.euInScope && state.euHighRisk && !state.noneSelected;
-      const euNotHighRisk = state.euInScope && (!state.euHighRisk || state.noneSelected);
+      const euApplies = state.euInScope && state.euHighRisk;
+      const euNotHighRisk = state.euInScope && !state.euHighRisk;
       const euNotApplicable = !state.euInScope;
 
       const coloradoApplies = state.coloradoInScope && !state.noneSelected;
@@ -1147,7 +1156,7 @@
             </div>
             <span class="fw-card__badge badge--notscope">Not In Scope</span>
           </div>
-          <p class="fw-card__explanation">Your tool is not used to evaluate candidates or employees residing in New York City. NYC Local Law 144 does not apply.</p>
+          <p class="fw-card__explanation">Your tool is not used to screen candidates for employment or employees for promotion in New York City. NYC Local Law 144 does not apply.</p>
         </div>`;
       }
       return `<div class="fw-card fw-card--nyc">
