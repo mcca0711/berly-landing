@@ -677,7 +677,7 @@
       },
       {
         id: 'q5',
-        frameworks: ['eu', 'co', 'nyc', 'cpra'],
+        frameworks: ['co', 'nyc', 'cpra'],
         text: 'Which of the following decisions does your AI system make or substantially influence? (Select all that apply)',
         type: 'checkbox',
         options: [
@@ -695,7 +695,7 @@
       },
       {
         id: 'q6',
-        frameworks: ['cpra', 'co'],
+        frameworks: ['cpra'],
         text: 'When your AI system produces an output that affects a consequential decision, what is the role of humans in that process?',
         type: 'radio',
         options: [
@@ -751,7 +751,7 @@
       
       {
         id: 'q10',
-        frameworks: ['eu', 'co', 'cpra', 'nyc'],
+        frameworks: ['eu', 'co', 'cpra', 'nyc', 'il'],
         text: 'Does your organization currently have formal documentation or risk assessments for this AI system?',
         type: 'radio',
         options: [
@@ -777,7 +777,22 @@
     let currentIndex = 0;
 
     function buildSequence() {
+      const cpraRelevantDomains = [
+        'Employment, hiring, promotion, termination, or compensation',
+        'Education enrollment or academic assessment',
+        'Credit, lending, or financial services eligibility',
+        'Housing eligibility or rental or purchase decisions',
+        'Healthcare services or medical decisions',
+      ];
+
+      const hasCpraRelevantDomain = state.domainSelections.some(d => cpraRelevantDomains.includes(d));
+      const cpraMaybeInScope =
+        (state.cpraThreshold === 'Yes' || state.cpraThreshold === 'Unsure - I am not certain')
+        && state.noneSelected === false
+        && hasCpraRelevantDomain;
+
       questionSequence = ALL_QUESTIONS.filter(q => {
+        if (q.id === 'q6') return cpraMaybeInScope;
         if (q.id === 'q7') return state.euInScope === true;
         if (q.id === 'q9') return state.coloradoInScope === true && state.noneSelected === false;
         if (q.id === 'q8') {
@@ -796,7 +811,7 @@
     function renderQuestion() {
       const q = questionSequence[currentIndex];
       const total = questionSequence.length;
-      const pct = Math.round((currentIndex / total) * 100);
+      const pct = Math.round(((currentIndex + 1) / total) * 100);
 
       document.getElementById('progressLabel').textContent = `Question ${currentIndex + 1} of ${total}`;
       document.getElementById('progressPct').textContent = pct + '%';
@@ -1018,15 +1033,24 @@
 
       const illinoisApplies = state.illinoisInScope === true;
 
+      const anyFrameworkApplies =
+        euApplies ||
+        coloradoApplies ||
+        nycApplies ||
+        cpraApplies ||
+        illinoisApplies;
+
       document.getElementById('quizSection').classList.remove('active');
       document.getElementById('resultsSection').classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
       // doc warning
-      const docWarn = document.getElementById('docWarning');
-      if (state.docStatus && state.docStatus.startsWith('No')) {
+     const docWarn = document.getElementById('docWarning');
+      docWarn.innerHTML = '';
+
+      if (anyFrameworkApplies && state.docStatus && state.docStatus.startsWith('No')) {
         docWarn.innerHTML = `<div class="doc-warning doc-warning--red"><strong>You have no formal documentation for this system.</strong> Every framework identified below has active documentation requirements. You are currently exposed.</div>`;
-      } else if (state.docStatus && state.docStatus.startsWith('Partially')) {
+      } else if (anyFrameworkApplies && state.docStatus && state.docStatus.startsWith('Partially')) {
         docWarn.innerHTML = `<div class="doc-warning doc-warning--amber"><strong>Your documentation has gaps.</strong> Each framework below has specific requirements that must be addressed.</div>`;
       }
 
