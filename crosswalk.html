@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Documentation Crosswalk | Berly</title>
+  <meta name="description" content="Plain-English educational crosswalk showing how sections inside one AI compliance documentation package relate across EU AI Act, Colorado SB 24-205, Illinois AI employment laws, NYC Local Law 144, and CPRA ADMT.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI Documentation Crosswalk | Berly">
+  <meta property="og:description" content="See how sections inside one AI compliance documentation package relate across EU AI Act, Colorado, Illinois, NYC LL144, and CPRA ADMT.">
+  <meta property="og:url" content="https://berly.app/crosswalk.html">
+  <meta property="og:image" content="https://berly.app/assets/og-image.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Documentation Crosswalk | Berly">
+  <meta name="twitter:description" content="See how sections inside one AI compliance documentation package relate across EU AI Act, Colorado, Illinois, NYC LL144, and CPRA ADMT.">
+  <meta name="twitter:image" content="https://berly.app/assets/og-image.png">
+
+  <link rel="canonical" href="https://berly.app/crosswalk.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="assets/icon.ico">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; color: #1e293b; font-size: 16px; background: #f8fafc; }
+    img { max-width: 100%; height: auto; }
+    a { text-decoration: none; }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+      font-family: inherit;
+    }
+    .btn--primary { background: #3b82f6; color: #ffffff; }
+    .btn--primary:hover { background: #2563eb; }
+    .btn--outline {
+      background: transparent;
+      border: 2px solid #ffffff;
+      color: #ffffff;
+    }
+    .btn--outline:hover { background: rgba(255,255,255,0.1); }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #0f172a;
+    }
+    .navbar__inner {
+      max-width: 1100px;
+      margin: auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar__logo {
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .hero {
+      background: linear-gradient(160deg, #0f172a 0%, #172554 58%, #1e293b 100%);
+      color: #ffffff;
+      text-align: center;
+      padding: 80px 24px 72px;
+    }
+    .hero__inner { max-width: 820px; margin: auto; }
+    .hero__label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #93c5fd;
+      margin-bottom: 20px;
+    }
+    .hero__headline {
+      font-size: 2.7rem;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+    .hero__sub {
+      font-size: 1.08rem;
+      color: rgba(255,255,255,0.76);
+      margin-bottom: 34px;
+      line-height: 1.7;
+    }
+    .hero__buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .notice {
+      padding: 32px 24px 0;
+      background: #f8fafc;
+    }
+    .notice__box {
+      max-width: 900px;
+      margin: auto;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-left: 4px solid #3b82f6;
+      border-radius: 12px;
+      padding: 22px 26px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      color: #475569;
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    .section {
+      padding: 72px 24px;
+      background: #f8fafc;
+    }
+    .section--tight { padding-top: 24px; }
+    .section__inner {
+      max-width: 980px;
+      margin: auto;
+    }
+    .section__heading {
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 34px;
+      text-align: center;
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .resource-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 26px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .resource-card__title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 10px;
+    }
+    .resource-card__text {
+      font-size: 0.9rem;
+      color: #64748b;
+      line-height: 1.65;
+    }
+
+    .insight {
+      max-width: 900px;
+      margin: auto;
+    }
+    .insight__box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-left: 4px solid #3b82f6;
+      border-radius: 12px;
+      padding: 30px 34px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .insight__heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 12px;
+    }
+    .insight__text {
+      font-size: 0.95rem;
+      color: #475569;
+      line-height: 1.8;
+    }
+
+    .product-callout {
+      background: #ffffff;
+      border: 1px solid #dbeafe;
+      border-radius: 12px;
+      padding: 34px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .product-callout__heading {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 12px;
+    }
+    .product-callout__intro {
+      color: #475569;
+      font-size: 0.96rem;
+      line-height: 1.75;
+      margin-bottom: 24px;
+      max-width: 820px;
+    }
+    .feature-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px 22px;
+    }
+    .feature-list li {
+      position: relative;
+      padding-left: 20px;
+      font-size: 0.92rem;
+      color: #1e293b;
+      line-height: 1.5;
+    }
+    .feature-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.62em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #3b82f6;
+    }
+
+    .frameworks {
+      background: #ffffff;
+      padding: 46px 24px;
+      text-align: center;
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .frameworks__inner {
+      max-width: 900px;
+      margin: auto;
+    }
+    .frameworks__heading {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #64748b;
+      margin-bottom: 16px;
+    }
+    .frameworks__pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .frameworks__pill {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 7px 16px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .cta-section {
+      background: #0f172a;
+      padding: 72px 24px;
+    }
+    .cta-section__inner {
+      max-width: 960px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .cta-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .cta-box__heading {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .cta-box__body {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.68);
+      line-height: 1.7;
+      margin-bottom: 24px;
+      flex: 1;
+    }
+    .cta-box .btn { align-self: flex-start; }
+
+    .footer {
+      background: #0f172a;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 32px 24px;
+    }
+    .footer__inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer__logo { color: #ffffff; font-size: 1rem; font-weight: 700; }
+    .footer__right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer__email {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.875rem;
+      transition: color 0.2s ease;
+    }
+    .footer__email:hover { color: #ffffff; }
+    .footer__disclaimer { color: rgba(255,255,255,0.3); font-size: 0.75rem; }
+
+    @media (max-width: 768px) {
+      .navbar__inner { padding: 12px 16px; }
+      .hero { padding: 60px 20px 56px; }
+      .hero__headline { font-size: 2rem; }
+      .hero__sub { font-size: 1rem; }
+      .btn { width: 100%; text-align: center; }
+      .resource-grid { grid-template-columns: 1fr; }
+      .section { padding: 52px 20px; }
+      .notice { padding: 24px 20px 0; }
+      .notice__box, .insight__box, .product-callout { padding: 24px 20px; }
+      .feature-list { grid-template-columns: 1fr; }
+      .cta-section__inner { grid-template-columns: 1fr; }
+      .cta-box .btn { align-self: stretch; }
+      .footer__inner { flex-direction: column; text-align: center; }
+      .footer__right { flex-direction: column; gap: 8px; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo">Berly</a>
+      <a href="https://buy.stripe.com/28E6oHfmXahS6xL0iGeZ201" class="btn btn--primary" target="_blank" rel="noopener">Buy Now · $499</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero__inner">
+      <span class="hero__label">Free Resource · AI Documentation</span>
+      <h1 class="hero__headline">AI Documentation Crosswalk</h1>
+      <p class="hero__sub">See how sections inside one AI compliance documentation package relate across EU AI Act, Colorado SB 24-205, Illinois AI employment laws, NYC Local Law 144, and CPRA ADMT.</p>
+      <div class="hero__buttons">
+        <a href="assets/berly_ai_documentation_crosswalk_v1_4_updated_header_mascot.pdf" class="btn btn--primary" download>Download PDF</a>
+        <a href="classifier.html" class="btn btn--outline">Try the Free Classifier</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="notice">
+    <div class="notice__box">
+      This resource is for general education only. It is not legal advice, compliance advice, or a determination that any law applies to your AI system. Review the linked primary sources and consult qualified legal counsel before relying on it for compliance decisions.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__inner">
+      <h2 class="section__heading">What this resource shows</h2>
+      <div class="resource-grid">
+        <div class="resource-card">
+          <h3 class="resource-card__title">System record</h3>
+          <p class="resource-card__text">The basic description of the AI system, its intended purpose, users, deployment context, and owner.</p>
+        </div>
+        <div class="resource-card">
+          <h3 class="resource-card__title">Risk and impact assessment</h3>
+          <p class="resource-card__text">How risk, impact, mitigation, and review records appear across selected AI governance frameworks.</p>
+        </div>
+        <div class="resource-card">
+          <h3 class="resource-card__title">Notices and disclosures</h3>
+          <p class="resource-card__text">Where frameworks ask for candidate, employee, consumer, or user-facing explanations.</p>
+        </div>
+        <div class="resource-card">
+          <h3 class="resource-card__title">Human review evidence</h3>
+          <p class="resource-card__text">How human oversight, appeal, review, and approval records fit into the documentation package.</p>
+        </div>
+        <div class="resource-card">
+          <h3 class="resource-card__title">Evidence and audit trail</h3>
+          <p class="resource-card__text">Why supporting evidence, change history, and review records matter for a credible documentation package.</p>
+        </div>
+        <div class="resource-card">
+          <h3 class="resource-card__title">Exportable documentation package</h3>
+          <p class="resource-card__text">How the pieces come together into one structured package for human review.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="insight">
+      <div class="insight__box">
+        <h2 class="insight__heading">The practical point</h2>
+        <p class="insight__text">The laws use different terminology, but the work often comes back to similar documentation sections: system description, risk assessment, data governance, notices, human review, evidence, and audit trail. The crosswalk helps readers see those overlaps without treating the PDF as legal advice or a compliance determination.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__inner">
+      <div class="product-callout">
+        <h2 class="product-callout__heading">How Berly fits</h2>
+        <p class="product-callout__intro">Berly helps users create one structured documentation package for an AI system, with selected sections mapped across EU AI Act, Colorado, Illinois, NYC LL144, and CPRA ADMT.</p>
+        <ul class="feature-list">
+          <li>Field-level regulatory guidance</li>
+          <li>AI-assisted drafting with human-in-the-loop approval</li>
+          <li>Evidence attachment and verification</li>
+          <li>Audit trail and change history</li>
+          <li>Multi-framework documentation organization</li>
+          <li>Desktop/local-first workflow</li>
+          <li>Structured PDF export for human review</li>
+          <li>One-time pricing</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="frameworks">
+    <div class="frameworks__inner">
+      <h2 class="frameworks__heading">Frameworks covered</h2>
+      <div class="frameworks__pills">
+        <span class="frameworks__pill">EU AI Act</span>
+        <span class="frameworks__pill">Colorado SB 24-205</span>
+        <span class="frameworks__pill">Illinois AIVIA + HB 3773</span>
+        <span class="frameworks__pill">NYC Local Law 144</span>
+        <span class="frameworks__pill">CPRA ADMT</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-section__inner">
+      <div class="cta-box">
+        <h2 class="cta-box__heading">Not sure which frameworks may be relevant?</h2>
+        <p class="cta-box__body">Use Berly's free classifier for a high-level, informational screening of selected AI compliance frameworks.</p>
+        <a href="classifier.html" class="btn btn--primary">Try the Free Classifier</a>
+      </div>
+      <div class="cta-box">
+        <h2 class="cta-box__heading">Need the full documentation workflow?</h2>
+        <p class="cta-box__body">Berly helps organize, draft, evidence, review, and export one AI compliance documentation package across selected frameworks.</p>
+        <a href="index.html#pricing" class="btn btn--primary">See Berly</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__logo">Berly</div>
+      <div class="footer__right">
+        <a href="crosswalk.html" class="footer__email">AI Documentation Crosswalk</a>
+        <a href="deadlines.html" class="footer__email">Compliance Deadlines 2026</a>
+        <a href="classifier.html" class="footer__email">Free Classifier</a>
+        <a href="mailto:support@berly.app" class="footer__email">support@berly.app</a>
+        <span class="footer__disclaimer">Not legal advice.</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
