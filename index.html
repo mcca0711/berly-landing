@@ -188,6 +188,54 @@
       line-height: 1.7;
     }
 
+    /* ── Audience ─────────────────────────────────────── */
+    .audience {
+      background: #f8fafc;
+      padding: 72px 24px;
+    }
+    .audience__inner {
+      max-width: 1100px;
+      margin: auto;
+    }
+    .audience__heading {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 12px;
+      color: #1e293b;
+    }
+    .audience__intro {
+      max-width: 720px;
+      margin: 0 auto 36px;
+      text-align: center;
+      color: #64748b;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .audience__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .audience__card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 28px;
+    }
+    .audience__title {
+      color: #1e293b;
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+    .audience__text {
+      color: #64748b;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
     /* ── Features ─────────────────────────────────────── */
     .features {
       background: #f8fafc;
@@ -489,6 +537,9 @@
         gap: 40px;
       }
 
+      .audience { padding: 48px 24px; }
+      .audience__grid { grid-template-columns: 1fr; }
+
       .features { padding: 48px 24px; }
       .features__grid { grid-template-columns: 1fr; }
 
@@ -560,6 +611,37 @@
         <div class="ps__label ps__label--solution">The Solution</div>
         <h2 class="ps__heading">One workspace for structured AI system documentation</h2>
         <p class="ps__text">Berly guides users through structured documentation fields, supports AI-assisted drafting with human approval, links evidence to claims, keeps review notes and audit history, and exports a documentation package for human, legal, or compliance review.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Audience ─────────────────────────────────────── -->
+  <section class="audience">
+    <div class="audience__inner">
+      <h2 class="audience__heading">Who Berly is for</h2>
+      <p class="audience__intro">Berly is built for people who need to organize AI system documentation before review, client delivery, internal governance work, or external assessment.</p>
+      <div class="audience__grid">
+
+        <div class="audience__card">
+          <h3 class="audience__title">Compliance consultants and advisory firms</h3>
+          <p class="audience__text">Prepare structured AI system documentation packages for client review across selected AI governance frameworks.</p>
+        </div>
+
+        <div class="audience__card">
+          <h3 class="audience__title">Legal, privacy, and risk teams</h3>
+          <p class="audience__text">Organize system records, evidence, review notes, and exportable documentation before legal or compliance review.</p>
+        </div>
+
+        <div class="audience__card">
+          <h3 class="audience__title">AI product and operations teams</h3>
+          <p class="audience__text">Document what an AI system does, what data it uses, where human review happens, and what evidence supports the record.</p>
+        </div>
+
+        <div class="audience__card">
+          <h3 class="audience__title">HR tech and hiring teams</h3>
+          <p class="audience__text">Prepare documentation around AI-supported hiring workflows, notices, human review, and evidence before deployment or review.</p>
+        </div>
+
       </div>
     </div>
   </section>
