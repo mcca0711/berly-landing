@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Compliance Screener - Berly</title>
-  <meta name="description" content="Free AI compliance screener. Identify which regulations apply to your AI system in 2 minutes. EU AI Act, Colorado, Illinois, NYC, CPRA.">
+  <meta name="description" content="Free AI compliance screener for selected governance frameworks. Screen which AI rules may be relevant for further review across EU AI Act, Colorado, Illinois, NYC, and CPRA.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -576,9 +576,9 @@
     <div class="intro__inner">
       <p class="intro__label">Free Tool</p>
       <h1 class="intro__headline">AI Compliance Screener</h1>
-      <p class="intro__sub">Answer a few questions to identify which AI regulations apply to your system. Takes 2 minutes. No email required to see your results.</p>
+      <p class="intro__sub">Answer a few questions to screen selected AI governance frameworks that may be relevant for review. Takes 2 minutes. No email required to see your results.</p>
       <div class="intro__notice">
-        This is a free screening tool, not a substitute for legal advice. Results indicate likely regulatory exposure based on your answers. The full Berly app provides complete documentation workspaces, field-level regulatory guidance, and evidence verification for every obligation identified here.
+        This is a free informational screening tool, not legal advice. Results are based on your answers and do not determine legal applicability or compliance. Berly helps organize AI system records, supporting evidence, review notes, and documentation packages for human, legal, or compliance review.
       </div>
       <button class="btn btn--primary" id="startBtn" style="font-size:1.05rem;padding:14px 32px;">Start Screening</button>
     </div>
@@ -607,9 +607,9 @@
   <!-- ── Results ───────────────────────────────────────── -->
   <section class="results" id="resultsSection">
     <div class="results__header">
-      <h1 class="results__headline">Your Screening Results</h1>
-      <p class="results__subheadline">Based on your answers, here is your likely regulatory exposure.</p>
-      <p class="results__disclaimer">This screening is not legal advice. Results are based on your answers and may not reflect all applicable obligations. Consult qualified legal counsel before making compliance decisions.</p>
+      <h1 class="results__headline">Your AI compliance screening summary</h1>
+      <p class="results__subheadline">Based on your answers, here are selected AI governance frameworks that may be relevant for further review.</p>
+      <p class="results__disclaimer">This free screener is informational only. It is not legal advice, does not determine legal applicability, and does not confirm compliance obligations. Consult qualified legal or compliance professionals before making decisions.</p>
     </div>
     <div class="results__inner">
       <div id="docWarning"></div>
@@ -625,7 +625,7 @@
     <div class="email-section" id="emailSection">
       <div class="email-section__inner">
         <h2 class="email-section__heading">Get your results by email</h2>
-        <p class="email-section__sub">We'll send you a copy of these results with guidance on next steps. No spam. Unsubscribe anytime.</p>
+        <p class="email-section__sub">We'll send you a copy of this informational screening summary. No spam.</p>
         <div id="emailSuccess" class="email-success"></div>
         <div class="email-row" id="emailRow">
           <input type="email" class="email-input" id="emailInput" placeholder="your@email.com">
@@ -639,13 +639,13 @@
     <div class="cta-section" id="ctaSection">
       <div class="cta-section__inner">
         <h2 class="cta-section__heading">Screening complete. Documentation is next.</h2>
-        <p class="cta-section__body">This screening provides a high-level informational screen for selected AI compliance frameworks. Berly helps organize AI system records, evidence, review notes, and exportable documentation packages across selected AI governance frameworks for human, legal, or compliance review.</p>
+        <p class="cta-section__body">This screening provides a high-level informational screen for selected AI governance frameworks. Berly helps organize AI system records, supporting evidence, review notes, and exportable documentation packages across selected frameworks for human, legal, or compliance review.</p>
         <div class="cta-section__buttons">
           <a href="https://buy.stripe.com/28E6oHfmXahS6xL0iGeZ201" class="btn btn--primary" target="_blank" rel="noopener">Get Berly Pro · $499</a>
           <a href="/" class="btn btn--outline">Back to berly.app</a>
         </div>
         <p class="cta-section__note">One-time payment · No subscription · Windows 10/11</p>
-        <p style="margin-top:20px;font-size:0.875rem;"><a href="/deadlines" style="color:rgba(255,255,255,0.5);text-decoration:underline;text-underline-offset:2px;transition:color 0.2s ease;" onmouseover="this.style.color='rgba(255,255,255,0.85)'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">See the full list of required documents and deadlines for all 5 frameworks →</a></p>
+        <p style="margin-top:20px;font-size:0.875rem;"><a href="/deadlines" style="color:rgba(255,255,255,0.5);text-decoration:underline;text-underline-offset:2px;transition:color 0.2s ease;" onmouseover="this.style.color='rgba(255,255,255,0.85)'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">See the documentation reference and deadlines for selected frameworks →</a></p>
         <p style="margin-top:10px;font-size:0.875rem;"><a href="/crosswalk" style="color:rgba(255,255,255,0.5);text-decoration:underline;text-underline-offset:2px;transition:color 0.2s ease;" onmouseover="this.style.color='rgba(255,255,255,0.85)'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">AI Documentation Crosswalk</a></p>
       </div>
     </div>
@@ -1089,9 +1089,9 @@
       docWarn.innerHTML = '';
 
       if (anyFrameworkApplies && state.docStatus && state.docStatus.startsWith('No')) {
-        docWarn.innerHTML = `<div class="doc-warning doc-warning--red"><strong>You have no formal documentation for this system.</strong> Every framework identified below has active documentation requirements. You are currently exposed.</div>`;
+        docWarn.innerHTML = `<div class="doc-warning doc-warning--red"><strong>No formal documentation was indicated for this system.</strong> Some documentation areas below may need review before a human, legal, or compliance assessment.</div>`;
       } else if (anyFrameworkApplies && state.docStatus && state.docStatus.startsWith('Partially')) {
-        docWarn.innerHTML = `<div class="doc-warning doc-warning--amber"><strong>Your documentation has gaps.</strong> Each framework below has specific requirements that must be addressed.</div>`;
+        docWarn.innerHTML = `<div class="doc-warning doc-warning--amber"><strong>Some documentation gaps were indicated.</strong> The areas below may be useful when preparing AI system records, supporting evidence, review notes, or documentation packages.</div>`;
       }
 
       // framework cards
@@ -1122,18 +1122,19 @@
               <div class="fw-card__name">EU AI Act</div>
               <div class="fw-card__jurisdiction">European Union</div>
             </div>
-            <span class="fw-card__badge badge--inscope">Likely In Scope</span>
+            <span class="fw-card__badge badge--inscope">May be relevant for review</span>
           </div>
-          <p class="fw-card__explanation">Your system falls under one or more Annex III high-risk categories under EU AI Act Regulation 2024/1689. As a provider or deployer, you must prepare technical documentation per Annex IV and comply with Articles 9-14 including risk management, data governance, transparency, and human oversight.</p>
+          <p class="fw-card__explanation">Your answers suggest the EU AI Act may need further review, especially if the system is used in a high-impact area listed in Annex III. Technical documentation and high-risk AI system obligations may be relevant depending on the final legal/compliance analysis.</p>
+          <p class="fw-card__enforcement"><strong>Areas that may be relevant for review include:</strong></p>
           <ul class="fw-card__obligations">
-            <li>Technical documentation per Annex IV - Article 11</li>
-            <li>Risk management system - Article 9</li>
-            <li>Data governance measures - Article 10</li>
-            <li>Transparency and user information - Article 13</li>
-            <li>Human oversight measures - Article 14</li>
-            <li>EU database registration - Article 49 (EU database in Article 71)</li>
+            <li>Technical documentation</li>
+            <li>Risk management documentation</li>
+            <li>Data governance information</li>
+            <li>Transparency and user information</li>
+            <li>Human oversight documentation</li>
+            <li>EU database registration, where applicable</li>
           </ul>
-          <p class="fw-card__enforcement"><strong>Enforcement:</strong> 2 August 2026 (Article 113)</p>
+          <p class="fw-card__enforcement"><strong>Key date:</strong> 2 August 2026</p>
         </div>`;
       }
       if (euNotHighRisk) {
@@ -1143,10 +1144,9 @@
               <div class="fw-card__name">EU AI Act</div>
               <div class="fw-card__jurisdiction">European Union</div>
             </div>
-            <span class="fw-card__badge badge--notscope">Not In Scope</span>
+            <span class="fw-card__badge badge--notscope">Not flagged by this screen</span>
           </div>
-          <p class="fw-card__explanation">Your system does not appear to fall under Annex III high-risk categories. Standard transparency obligations may still apply for general-purpose AI, but mandatory Annex IV documentation and conformity assessment are not required.</p>
-          <p class="fw-card__enforcement"><strong>Enforcement:</strong> N/A for high-risk obligations</p>
+          <p class="fw-card__explanation">Your answers did not flag this framework for high-risk AI documentation review. Other transparency or governance obligations may still need separate review depending on the system and context.</p>
         </div>`;
       }
       // euNotApplicable
@@ -1156,9 +1156,9 @@
             <div class="fw-card__name">EU AI Act</div>
             <div class="fw-card__jurisdiction">European Union</div>
           </div>
-          <span class="fw-card__badge badge--notscope">Not In Scope</span>
+          <span class="fw-card__badge badge--notscope">Not flagged by this screen</span>
         </div>
-        <p class="fw-card__explanation">Your system is not placed on the EU market and is not intended for use by EU residents. EU AI Act obligations do not apply.</p>
+        <p class="fw-card__explanation">Your answers did not flag this framework for high-risk AI documentation review. Other transparency or governance obligations may still need separate review depending on the system and context.</p>
       </div>`;
     }
 
@@ -1170,9 +1170,9 @@
               <div class="fw-card__name">Colorado SB 24-205</div>
               <div class="fw-card__jurisdiction">Colorado, USA</div>
             </div>
-            <span class="fw-card__badge badge--notscope">Not In Scope</span>
+            <span class="fw-card__badge badge--notscope">Not flagged by this screen</span>
           </div>
-          <p class="fw-card__explanation">Your system does not affect Colorado residents or does not make consequential decisions in a covered domain. Colorado SB 24-205 does not apply.</p>
+          <p class="fw-card__explanation">Your answers did not flag Colorado SB 24-205 for further review in this screen. Separate review may still be needed if facts change or the system affects Colorado residents.</p>
         </div>`;
       }
 
@@ -1181,19 +1181,18 @@
       const isDep = role.startsWith('Deployer') || role.startsWith('Both');
 
       const devObligations = isDev ? `
-        <li>Disclose foreseeable uses, known limitations, and relevant system information to deployers</li>
-        <li>Provide documentation needed for deployer impact assessments</li>
-        <li>Make a public statement about high-risk AI use</li>
-        <li>Report discovered algorithmic discrimination to the Colorado Attorney General</li>` : '';
+        <li>Information about intended uses, known limitations, and relevant system documentation</li>
+        <li>Documentation that may support deployer impact assessment work</li>
+        <li>Public statement information, where applicable</li>
+        <li>Algorithmic discrimination reporting considerations, where applicable</li>` : '';
 
       const depObligations = isDep ? `
-        <li>Implement a risk management program</li>
-        <li>Complete an impact assessment</li>
-        <li>Notify consumers before consequential decisions</li>
-        <li>Allow consumer correction and appeal</li>
-        <li>Review deployed high-risk AI systems at least annually</li>` : '';
+        <li>Risk management program documentation</li>
+        <li>Impact assessment documentation</li>
+        <li>Consumer notice, correction, and appeal-related documentation</li>
+        <li>Periodic review records</li>` : '';
 
-      const smallNote = state.smallDeployer ? `<div class="card-note card-note--amber">You may qualify for the small deployer exemption under SS 6-1-1703(6) if additional conditions are met. Consult legal counsel to confirm eligibility before relying on this exemption.</div>` : '';
+      const smallNote = state.smallDeployer ? `<div class="card-note card-note--amber">A small deployer exemption may be relevant in some circumstances. Consult qualified counsel before relying on any exemption.</div>` : '';
 
       return `<div class="fw-card fw-card--co">
         <div class="fw-card__header">
@@ -1201,12 +1200,13 @@
             <div class="fw-card__name">Colorado SB 24-205</div>
             <div class="fw-card__jurisdiction">Colorado, USA</div>
           </div>
-          <span class="fw-card__badge badge--inscope">Likely In Scope</span>
+          <span class="fw-card__badge badge--inscope">May be relevant for review</span>
         </div>
-        <p class="fw-card__explanation">Your system qualifies as a high-risk AI system under Colorado SB 24-205 (C.R.S. SS 6-1-1701(9)) because it makes or substantially influences a consequential decision affecting Colorado residents.</p>
+        <p class="fw-card__explanation">Your answers suggest Colorado SB 24-205 may need further review if the system is used as part of a high-risk decision process. Documentation, risk management, impact assessment, notice, and review-related requirements may be relevant depending on the facts.</p>
+        <p class="fw-card__enforcement"><strong>Areas that may be relevant for review include:</strong></p>
         <ul class="fw-card__obligations">${devObligations}${depObligations}</ul>
         ${smallNote}
-        <p class="fw-card__enforcement"><strong>Enforcement:</strong> June 30, 2026</p>
+        <p class="fw-card__enforcement"><strong>Key date:</strong> June 30, 2026</p>
       </div>`;
     }
 
@@ -1218,9 +1218,9 @@
               <div class="fw-card__name">NYC Local Law 144</div>
               <div class="fw-card__jurisdiction">New York City, USA</div>
             </div>
-            <span class="fw-card__badge badge--notscope">Not In Scope</span>
+            <span class="fw-card__badge badge--notscope">Not flagged by this screen</span>
           </div>
-          <p class="fw-card__explanation">Your tool is not used to screen candidates for employment or employees for promotion in New York City. NYC Local Law 144 does not apply.</p>
+          <p class="fw-card__explanation">Your answers did not flag NYC Local Law 144 for further review in this screen. Separate review may still be needed if the tool is used for employment decisions involving New York City candidates or employees.</p>
         </div>`;
       }
       return `<div class="fw-card fw-card--nyc">
@@ -1229,16 +1229,17 @@
             <div class="fw-card__name">NYC Local Law 144</div>
             <div class="fw-card__jurisdiction">New York City, USA</div>
           </div>
-          <span class="fw-card__badge badge--inscope">In Scope</span>
+          <span class="fw-card__badge badge--inscope">May be relevant for review</span>
         </div>
-        <p class="fw-card__explanation">Your automated employment decision tool (AEDT) is subject to NYC Local Law 144 because it is used to screen candidates for employment or employees for promotion in New York City. Use without a valid annual bias audit is unlawful under SS 20-871(a).</p>
+        <p class="fw-card__explanation">Your answers suggest NYC Local Law 144 may need further review if the system is used as an automated employment decision tool. Bias audit and notice requirements may be relevant depending on how the tool is used.</p>
+        <p class="fw-card__enforcement"><strong>Areas that may be relevant for review include:</strong></p>
         <ul class="fw-card__obligations">
-          <li>Annual independent bias audit - SS 20-871(a)</li>
-          <li>Public posting of bias audit summary - SS 20-871(b)</li>
-          <li>Candidate notice at least 10 business days before use - SS 20-871(b)(1)</li>
-          <li>Data type, source, and retention-policy disclosure on written request - SS 20-871(b)(3)</li>
+          <li>Independent bias audit information</li>
+          <li>Public posting of bias audit summary</li>
+          <li>Candidate or employee notice timing</li>
+          <li>Data type, source, and retention-policy disclosure information</li>
         </ul>
-        <p class="fw-card__enforcement"><strong>Enforcement:</strong> July 5, 2023</p>
+        <p class="fw-card__enforcement"><strong>In effect since:</strong> July 5, 2023</p>
       </div>`;
     }
 
@@ -1250,17 +1251,17 @@
               <div class="fw-card__name">CPRA ADMT</div>
               <div class="fw-card__jurisdiction">California, USA</div>
             </div>
-            <span class="fw-card__badge badge--notscope">Not In Scope</span>
+            <span class="fw-card__badge badge--notscope">Not flagged by this screen</span>
           </div>
-          <p class="fw-card__explanation">Your business does not meet CCPA thresholds or your AI system does not make significant decisions in a covered domain. CPRA ADMT obligations do not apply.</p>
+          <p class="fw-card__explanation">Your answers did not flag CPRA ADMT for further review in this screen. Separate review may still be needed if the organization meets CCPA thresholds or uses ADMT in covered ways.</p>
         </div>`;
       }
 
       const badge = cpraPossible
-        ? `<span class="fw-card__badge badge--possible">Possible Scope - Verify</span>`
-        : `<span class="fw-card__badge badge--inscope">Likely In Scope</span>`;
+        ? `<span class="fw-card__badge badge--possible">May need further review</span>`
+        : `<span class="fw-card__badge badge--inscope">May be relevant for review</span>`;
 
-      const safeNote = state.humanSafeHarbor ? `<div class="card-note card-note--teal">You may fall outside certain ADMT obligations if human involvement meets the three-part test under 11 CCR SS 7001(e): the reviewer knows how to interpret the output, reviews it alongside other relevant information, and has authority to make or change the decision. Consult legal counsel to confirm.</div>` : '';
+      const safeNote = state.humanSafeHarbor ? `<div class="card-note card-note--teal">Human involvement may affect whether certain ADMT requirements are relevant. Consult qualified counsel to confirm based on the facts.</div>` : '';
 
       return `<div class="fw-card fw-card--cpra">
         <div class="fw-card__header">
@@ -1270,16 +1271,17 @@
           </div>
           ${badge}
         </div>
-        <p class="fw-card__explanation">Your business meets CCPA coverage thresholds and your AI system makes significant decisions about California consumers as defined under 11 CCR SS 7200. ADMT obligations apply under the CPRA regulations.</p>
+        <p class="fw-card__explanation">Your answers suggest CPRA ADMT rules may need further review if the system uses automated decisionmaking technology in ways covered by the regulations. Notice, opt-out, access, and risk-related documentation may be relevant depending on the facts and timeline.</p>
         ${safeNote}
+        <p class="fw-card__enforcement"><strong>Areas that may be relevant for review include:</strong></p>
         <ul class="fw-card__obligations">
-          <li>Pre-use consumer notice - SS 7220</li>
-          <li>Opt-out mechanism - SS 7221</li>
-          <li>Consumer access rights - SS 7222</li>
-          <li>Risk assessment program - SS 7150</li>
-          <li>Risk assessment requirements may apply on a separate timeline; CPPA submission deadlines are phased by business revenue</li>
+          <li>Pre-use consumer notice</li>
+          <li>Opt-out mechanism information</li>
+          <li>Consumer access rights information</li>
+          <li>Risk-related documentation</li>
+          <li>Timeline and submission tracking, where applicable</li>
         </ul>
-        <p class="fw-card__enforcement"><strong>Enforcement:</strong> ADMT obligations - January 1, 2027. Risk assessment compliance - January 1, 2026; CPPA submissions phased beginning April 1, 2028.</p>
+        <p class="fw-card__enforcement"><strong>Key date:</strong> January 1, 2027</p>
       </div>`;
     }
 
@@ -1291,9 +1293,9 @@
               <div class="fw-card__name">Illinois AI Employment Laws</div>
               <div class="fw-card__jurisdiction">Illinois, USA</div>
             </div>
-            <span class="fw-card__badge badge--notscope">Not In Scope</span>
+            <span class="fw-card__badge badge--notscope">Not flagged by this screen</span>
           </div>
-          <p class="fw-card__explanation">Your AI system does not appear to analyze video interviews or make employment decisions affecting Illinois residents. AIVIA and HB 3773 do not apply.</p>
+          <p class="fw-card__explanation">Your answers did not flag Illinois AI employment laws for further review in this screen. Separate review may still be needed if the system is used in employment, hiring, video interview analysis, or employment decision workflows.</p>
         </div>`;
       }
       return `<div class="fw-card fw-card--il">
@@ -1302,15 +1304,18 @@
             <div class="fw-card__name">Illinois AI Employment Laws</div>
             <div class="fw-card__jurisdiction">Illinois, USA</div>
           </div>
-          <span class="fw-card__badge badge--inscope">In Scope</span>
+          <span class="fw-card__badge badge--inscope">May be relevant for review</span>
         </div>
-        <p class="fw-card__explanation">Your AI system may be subject to Illinois AI employment laws requiring candidate consent, video analysis disclosures, employment decision notices, and, in limited cases, demographic reporting.</p>
+        <p class="fw-card__explanation">Your answers suggest Illinois AI employment laws may need further review if the system is used in employment, hiring, video interview analysis, or employment decision workflows. Consent, disclosure, notice, and reporting-related requirements may be relevant depending on how the system is used.</p>
+        <p class="fw-card__enforcement"><strong>Areas that may be relevant for review include:</strong></p>
         <ul class="fw-card__obligations">
-          <li>AIVIA: Obtain candidate consent before using AI to analyze video interviews. Disclose AI use and delete requested videos within 30 days - effective January 1, 2020</li>
-          <li>HB 3773: Notify employees and job applicants when AI is used in employment decisions - effective January 1, 2026</li>
-          <li>Demographic reporting may be required in limited cases involving sole reliance on AI analysis of video interviews</li>
+          <li>Candidate consent information for AI video interview analysis</li>
+          <li>AI use disclosure information</li>
+          <li>Video deletion request process information</li>
+          <li>Employment decision notice information</li>
+          <li>Demographic reporting considerations in limited cases</li>
         </ul>
-        <p class="fw-card__enforcement"><strong>Enforcement:</strong> Illinois Human Rights Act and Illinois Department of Labor. Civil penalties vary.</p>
+        <p class="fw-card__enforcement"><strong>Key dates:</strong> AIVIA in effect since January 1, 2020. HB 3773 effective January 1, 2026.</p>
       </div>`;
     }
 
