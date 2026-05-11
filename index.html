@@ -385,6 +385,76 @@
       margin-top: 16px;
     }
 
+    /* ── Workflow ─────────────────────────────────────── */
+    .workflow {
+      background: #f8fafc;
+      padding: 80px 24px;
+    }
+    .workflow__inner {
+      max-width: 1100px;
+      margin: auto;
+    }
+    .workflow__heading {
+      max-width: 760px;
+      margin: 0 auto 16px;
+      text-align: center;
+      color: #1e293b;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+    .workflow__intro {
+      max-width: 780px;
+      margin: 0 auto 44px;
+      text-align: center;
+      color: #64748b;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .workflow__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .workflow__step {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 28px;
+    }
+    .workflow__number {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #3b82f6;
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .workflow__title {
+      color: #1e293b;
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+    .workflow__text {
+      color: #64748b;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .workflow__note {
+      margin-top: 28px;
+      text-align: center;
+      color: #64748b;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
     /* ── Demo ─────────────────────────────────────────── */
     .demo {
       background: #0f172a;
@@ -545,6 +615,9 @@
 
       .pricing { padding: 48px 24px; }
       .pricing__card { padding: 28px; }
+
+      .workflow { padding: 48px 24px; }
+      .workflow__grid { grid-template-columns: 1fr; }
 
       .demo { padding: 48px 24px; }
 
@@ -722,6 +795,54 @@
         <a href="https://buy.stripe.com/28E6oHfmXahS6xL0iGeZ201" class="btn btn--primary pricing__btn" target="_blank" rel="noopener">Get Berly Pro</a>
         <p class="pricing__note">One-time payment · Instant license delivery · Download immediately</p>
       </div>
+    </div>
+  </section>
+
+  <!-- ── Workflow ─────────────────────────────────────── -->
+  <section class="workflow">
+    <div class="workflow__inner">
+      <h2 class="workflow__heading">Example workflow: documenting an AI-supported hiring system</h2>
+      <p class="workflow__intro">A hiring workflow is one example of where AI documentation can become difficult to organize. Berly helps structure the information, evidence, review notes, and exportable records around the system for human, legal, or compliance review.</p>
+
+      <div class="workflow__grid">
+        <div class="workflow__step">
+          <div class="workflow__number">1</div>
+          <h3 class="workflow__title">Describe the AI system</h3>
+          <p class="workflow__text">Capture what the system does, who uses it, what workflow it supports, and where AI is involved.</p>
+        </div>
+
+        <div class="workflow__step">
+          <div class="workflow__number">2</div>
+          <h3 class="workflow__title">Screen relevant frameworks</h3>
+          <p class="workflow__text">Use the classifier and framework guidance to understand which selected AI governance frameworks may be relevant for further review.</p>
+        </div>
+
+        <div class="workflow__step">
+          <div class="workflow__number">3</div>
+          <h3 class="workflow__title">Complete structured fields</h3>
+          <p class="workflow__text">Work through guided documentation fields for system purpose, data use, risks, notices, human review, and evidence.</p>
+        </div>
+
+        <div class="workflow__step">
+          <div class="workflow__number">4</div>
+          <h3 class="workflow__title">Use AI-assisted drafting</h3>
+          <p class="workflow__text">Generate draft suggestions from project context, then approve, edit, or reject each suggestion before anything is saved.</p>
+        </div>
+
+        <div class="workflow__step">
+          <div class="workflow__number">5</div>
+          <h3 class="workflow__title">Attach and review evidence</h3>
+          <p class="workflow__text">Link supporting documents to claims and flag gaps where the evidence may need human review.</p>
+        </div>
+
+        <div class="workflow__step">
+          <div class="workflow__number">6</div>
+          <h3 class="workflow__title">Export the documentation package</h3>
+          <p class="workflow__text">Create a structured PDF package with review notes and audit history for human, legal, or compliance review.</p>
+        </div>
+      </div>
+
+      <p class="workflow__note">This is an illustrative workflow, not legal advice or a compliance determination.</p>
     </div>
   </section>
 
