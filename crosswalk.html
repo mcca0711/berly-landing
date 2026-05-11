@@ -62,13 +62,30 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 24px;
     }
     .navbar__logo {
       color: #ffffff;
       font-size: 1.25rem;
       font-weight: 700;
       letter-spacing: 0;
+      flex-shrink: 0;
     }
+    .navbar__links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 22px;
+      flex: 1;
+    }
+    .navbar__link {
+      color: rgba(255,255,255,0.68);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    .navbar__link:hover { color: #ffffff; }
+    .navbar .btn { flex-shrink: 0; padding: 10px 18px; font-size: 0.92rem; }
 
     .hero {
       background: linear-gradient(160deg, #0f172a 0%, #172554 58%, #1e293b 100%);
@@ -335,6 +352,17 @@
 
     @media (max-width: 768px) {
       .navbar__inner { padding: 12px 16px; }
+      .navbar__inner {
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+      .navbar__links {
+        order: 3;
+        flex-basis: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 12px 18px;
+      }
       .hero { padding: 60px 20px 56px; }
       .hero__headline { font-size: 2rem; }
       .hero__sub { font-size: 1rem; }
@@ -356,6 +384,12 @@
   <header class="navbar">
     <div class="navbar__inner">
       <a href="/" class="navbar__logo">Berly</a>
+      <nav class="navbar__links" aria-label="Primary navigation">
+        <a href="/ai-compliance-documentation" class="navbar__link">AI Compliance Documentation</a>
+        <a href="/classifier" class="navbar__link">Free Classifier</a>
+        <a href="/deadlines" class="navbar__link">Deadlines</a>
+        <a href="/crosswalk" class="navbar__link">Crosswalk</a>
+      </nav>
       <a href="https://buy.stripe.com/28E6oHfmXahS6xL0iGeZ201" class="btn btn--primary" target="_blank" rel="noopener">Buy Now</a>
     </div>
   </header>
@@ -470,6 +504,7 @@
     <div class="footer__inner">
       <div class="footer__logo">Berly</div>
       <div class="footer__right">
+        <a href="/ai-compliance-documentation" class="footer__email">AI Compliance Documentation</a>
         <a href="/crosswalk" class="footer__email">AI Documentation Crosswalk</a>
         <a href="/deadlines" class="footer__email">Compliance Deadlines 2026</a>
         <a href="/classifier" class="footer__email">Free Classifier</a>
