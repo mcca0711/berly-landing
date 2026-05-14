@@ -1,6 +1,6 @@
 # Berly Landing Page
 
-Marketing site for [Berly](https://berly.app) — desktop AI compliance documentation software for consultants, legal teams, and AI governance professionals.
+Marketing site for [Berly](https://berly.app) — desktop AI compliance documentation software for consultants, lawyers, and compliance teams.
 
 ## Live site
 - Production: https://berly.app
@@ -8,7 +8,7 @@ Marketing site for [Berly](https://berly.app) — desktop AI compliance document
 ## Pages
 - `index.html` — main landing page
 - `classifier.html` — free multi-framework AI compliance classifier
-- `deadlines.html` — free deadlines and required-documents reference page
+- `deadlines.html` — free deadlines and documentation-reference page
 - `assets/` — icons, images, OG image, PDF assets, and other static files
 
 ## Product positioning
@@ -22,9 +22,9 @@ Berly is a desktop tool for AI compliance documentation across:
 Key public-facing features currently highlighted on the site:
 - field-level regulatory guidance
 - AI-assisted drafting with human approval
-- evidence verification
+- evidence attachment and review workflow
 - audit trail / change history
-- audit-ready PDF exports
+- structured PDF exports for review
 - free classifier
 - free deadlines/reference guide
 - demo video
