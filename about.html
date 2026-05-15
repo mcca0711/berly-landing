@@ -27,7 +27,6 @@
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { max-width: 100%; overflow-x: hidden; }
     body { font-family: 'Inter', sans-serif; color: #1e293b; font-size: 16px; background: #f8fafc; }
     a { text-decoration: none; }
 
@@ -53,6 +52,7 @@
     .btn--outline:hover { background: rgba(255,255,255,0.1); }
 
     .navbar {
+      position: -webkit-sticky;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -392,7 +392,7 @@
       .final-cta { padding: 56px 20px; }
       .final-cta__heading { font-size: 1.65rem; }
       .footer__inner { flex-direction: column; text-align: center; }
-      .footer__right { flex-direction: column; gap: 8px; justify-content: center; }
+      .footer__right { gap: 8px; justify-content: center; }
     }
   </style>
 </head>
@@ -595,9 +595,9 @@
       <div class="footer__right">
         <a href="/ai-compliance-documentation" class="footer__email">AI Compliance Documentation</a>
         <a href="/about" class="footer__email">About</a>
-        <a href="/crosswalk" class="footer__email">AI Documentation Crosswalk</a>
-        <a href="/deadlines" class="footer__email">Compliance Deadlines 2026</a>
         <a href="/classifier" class="footer__email">Free Classifier</a>
+        <a href="/deadlines" class="footer__email">Deadlines</a>
+        <a href="/crosswalk" class="footer__email">Crosswalk</a>
         <a href="mailto:support@berly.app" class="footer__email">support@berly.app</a>
         <span class="footer__disclaimer">Not legal advice.</span>
       </div>

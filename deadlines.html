@@ -48,6 +48,7 @@
 
     /* ── Navbar ───────────────────────────────────────── */
     .navbar {
+      position: -webkit-sticky;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -489,7 +490,7 @@
       .cta-section__inner { grid-template-columns: 1fr; }
 
       .footer__inner { flex-direction: column; text-align: center; }
-      .footer__right { flex-direction: column; gap: 8px; justify-content: center; }
+      .footer__right { gap: 8px; justify-content: center; }
     }
   </style>
 </head>
@@ -760,9 +761,9 @@
       <div class="footer__right">
         <a href="/ai-compliance-documentation" class="footer__email">AI Compliance Documentation</a>
         <a href="/about" class="footer__email">About</a>
-        <a href="/crosswalk" class="footer__email">AI Documentation Crosswalk</a>
-        <a href="/deadlines" class="footer__email">Compliance Deadlines 2026</a>
         <a href="/classifier" class="footer__email">Free Classifier</a>
+        <a href="/deadlines" class="footer__email">Deadlines</a>
+        <a href="/crosswalk" class="footer__email">Crosswalk</a>
         <a href="mailto:support@berly.app" class="footer__email">support@berly.app</a>
         <span class="footer__disclaimer">Not legal advice.</span>
       </div>
