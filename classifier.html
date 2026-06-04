@@ -323,6 +323,81 @@
     .doc-warning--red { border: 2px solid #ef4444; background: #fef2f2; color: #991b1b; }
     .doc-warning--amber { border: 2px solid #f59e0b; background: #fffbeb; color: #92400e; }
 
+    /* ── Review readiness gate ────────────────────────── */
+    .readiness-gate {
+      background: #ffffff;
+      border-left: 4px solid #64748b;
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 24px;
+    }
+    .readiness-gate--needs-info { border-left-color: #f59e0b; }
+    .readiness-gate--review { border-left-color: #3b82f6; }
+    .readiness-gate--ready { border-left-color: #16a34a; }
+    .readiness-gate--record { border-left-color: #64748b; }
+    .readiness-gate__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .readiness-gate__label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+    .readiness-gate__title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .readiness-gate__status {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 1.4;
+      white-space: normal;
+      text-align: left;
+      max-width: 100%;
+    }
+    .readiness-gate__status--needs-info { background: #fffbeb; color: #92400e; }
+    .readiness-gate__status--review { background: #dbeafe; color: #1e40af; }
+    .readiness-gate__status--ready { background: #dcfce7; color: #166534; }
+    .readiness-gate__status--record { background: #f1f5f9; color: #475569; }
+    .readiness-gate__body {
+      font-size: 0.95rem;
+      color: #475569;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .readiness-gate__steps {
+      list-style: none;
+    }
+    .readiness-gate__steps li {
+      font-size: 0.875rem;
+      color: #1e293b;
+      padding: 6px 0 6px 20px;
+      border-bottom: 1px solid #f1f5f9;
+      position: relative;
+      line-height: 1.5;
+    }
+    .readiness-gate__steps li::before {
+      content: "·";
+      position: absolute;
+      left: 6px;
+      color: #3b82f6;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
     /* ── Framework Cards ──────────────────────────────── */
     .framework-cards {
       display: flex;
@@ -545,6 +620,7 @@
       }
       .intro__headline { font-size: 1.75rem; }
       .question-card { padding: 24px; }
+      .readiness-gate { padding: 24px; }
       .fw-card { padding: 24px; }
       .email-row { flex-direction: column; }
       .footer__inner { flex-direction: column; gap: 12px; text-align: center; }
@@ -617,6 +693,7 @@
     </div>
     <div class="results__inner">
       <div id="docWarning"></div>
+      <div id="reviewReadinessGate"></div>
       <div class="framework-cards" id="frameworkCards"></div>
     </div>
 
@@ -1085,6 +1162,14 @@
         cpraApplies ||
         illinoisApplies;
 
+      const resultsObject = {
+        eu: { applies: euApplies, highRisk: state.euHighRisk },
+        colorado: { applies: coloradoApplies, role: state.coloradoRole, smallDeployer: state.smallDeployer },
+        nyc: { applies: nycApplies },
+        cpra: { applies: cpraApplies, possibleScope: cpraPossible, safeHarbor: state.humanSafeHarbor },
+        illinois: { applies: illinoisApplies },
+      };
+
       document.getElementById('quizSection').classList.remove('active');
       document.getElementById('resultsSection').classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1099,6 +1184,10 @@
         docWarn.innerHTML = `<div class="doc-warning doc-warning--amber"><strong>Some documentation gaps were indicated.</strong> The areas below may be useful when preparing AI system records, supporting evidence, review notes, or documentation packages.</div>`;
       }
 
+      // review readiness gate
+      const reviewReadiness = getReviewReadinessGate(anyFrameworkApplies, resultsObject);
+      document.getElementById('reviewReadinessGate').innerHTML = renderReviewReadinessGate(reviewReadiness);
+
       // framework cards
       const cards = document.getElementById('frameworkCards');
       cards.innerHTML = [
@@ -1111,12 +1200,95 @@
 
       // store results for email
       window._screeningResults = {
-        eu: { applies: euApplies, highRisk: state.euHighRisk },
-        colorado: { applies: coloradoApplies, role: state.coloradoRole, smallDeployer: state.smallDeployer },
-        nyc: { applies: nycApplies },
-        cpra: { applies: cpraApplies, possibleScope: cpraPossible, safeHarbor: state.humanSafeHarbor },
-        illinois: { applies: illinoisApplies },
+        ...resultsObject,
+        reviewReadiness,
       };
+    }
+
+    function hasUncertaintyFlags() {
+      return (
+        (state.docStatus && (state.docStatus.startsWith('No') || state.docStatus.startsWith('Partially'))) ||
+        answers.q2 === 'Unsure - I am not certain' ||
+        answers.q6 === 'It varies depending on the use case' ||
+        answers.q11 === 'Not sure'
+      );
+    }
+
+    function getReviewReadinessGate(anyFrameworkApplies, resultsObject) {
+      if (hasUncertaintyFlags()) {
+        return {
+          key: 'needs-info',
+          status: 'Needs more information before review',
+          message: 'Some answers indicate documentation gaps or uncertainty. Before relying on this screening result, clarify the system purpose, users, decision impact, human review process, and available evidence.',
+          steps: [
+            'Confirm the AI system purpose and use context.',
+            'Identify who owns, uses, and reviews the system.',
+            'Clarify whether the system affects people, access, eligibility, employment, services, or other important outcomes.',
+            'Gather supporting evidence, policies, review notes, and unresolved assumptions.',
+            'Send the package to the appropriate human, legal, or compliance reviewer.',
+          ],
+        };
+      }
+
+      if (!anyFrameworkApplies) {
+        return {
+          key: 'record',
+          status: 'Keep a basic record for future review',
+          message: 'This screen did not flag the selected frameworks for closer review based on the answers provided. A basic system record can still be useful if the AI system changes, expands, or begins affecting people, access, eligibility, employment, services, or other important outcomes.',
+          steps: [
+            'Keep a short record of what the AI system does.',
+            'Record who owns and reviews it.',
+            'Re-screen if the system purpose, geography, users, or decision impact changes.',
+            'Keep evidence and assumptions available for future review.',
+          ],
+        };
+      }
+
+      const readyCandidate = resultsObject && state.docStatus && state.docStatus.startsWith('Yes');
+      if (readyCandidate) {
+        return {
+          key: 'review',
+          status: 'Professional review recommended',
+          message: 'One or more selected frameworks were flagged as potentially relevant for review. The next step is to organize the system record, supporting evidence, human review details, and documentation topics before a professional review.',
+          steps: [
+            'Review the framework cards below.',
+            'Document why the AI system is used and what decisions it supports.',
+            'Record where human review or escalation happens.',
+            'Attach supporting evidence for key claims.',
+            'Prepare the record for human, legal, or compliance review.',
+          ],
+        };
+      }
+
+      return {
+        key: 'review',
+        status: 'Professional review recommended',
+        message: 'One or more selected frameworks were flagged as potentially relevant for review. The next step is to organize the system record, supporting evidence, human review details, and documentation topics before a professional review.',
+        steps: [
+          'Review the framework cards below.',
+          'Document why the AI system is used and what decisions it supports.',
+          'Record where human review or escalation happens.',
+          'Attach supporting evidence for key claims.',
+          'Prepare the record for human, legal, or compliance review.',
+        ],
+      };
+    }
+
+    function renderReviewReadinessGate(gate) {
+      return `<div class="readiness-gate readiness-gate--${gate.key}">
+        <div class="readiness-gate__header">
+          <div>
+            <div class="readiness-gate__label">Next step</div>
+            <div class="readiness-gate__title">Review readiness checkpoint</div>
+          </div>
+          <span class="readiness-gate__status readiness-gate__status--${gate.key}">${escHtml(gate.status)}</span>
+        </div>
+        <p class="readiness-gate__body">This checkpoint summarizes the next practical step before documentation or professional review.</p>
+        <p class="readiness-gate__body">${escHtml(gate.message)}</p>
+        <ul class="readiness-gate__steps">
+          ${gate.steps.map(step => `<li>${escHtml(step)}</li>`).join('')}
+        </ul>
+      </div>`;
     }
 
     function renderEUCard(euApplies, euNotHighRisk, euNotApplicable) {
