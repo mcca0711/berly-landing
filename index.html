@@ -27,6 +27,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="assets/icon.ico">
+  <script>document.documentElement.classList.add('js');</script>
   <style>
     /* ── Reset & Base ─────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -111,7 +112,7 @@
       padding: 80px 24px;
     }
     .hero__inner {
-      max-width: 700px;
+      max-width: 900px;
       margin: auto;
     }
     .hero__mascot {
@@ -122,20 +123,130 @@
       font-size: 3rem;
       font-weight: 700;
       line-height: 1.2;
-      margin-bottom: 20px;
+      max-width: 760px;
+      margin: 0 auto 20px;
       color: #ffffff;
+      animation: heroFadeUp 0.6s ease both;
     }
     .hero__sub {
       font-size: 1.1rem;
       color: rgba(255,255,255,0.75);
-      margin-bottom: 36px;
+      max-width: 700px;
+      margin: 0 auto 36px;
       line-height: 1.7;
+      animation: heroFadeUp 0.6s ease 0.2s both;
     }
     .hero__buttons {
       display: flex;
       gap: 16px;
       justify-content: center;
       flex-wrap: wrap;
+    }
+    .hero__buttons .btn--primary {
+      padding: 14px 30px;
+      box-shadow: 0 14px 30px rgba(59,130,246,0.28);
+    }
+    .hero-carousel {
+      max-width: 800px;
+      margin: 0 auto 32px;
+    }
+    .hero-carousel__browser {
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      background: #111827;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.42);
+    }
+    .hero-carousel__bar {
+      height: 34px;
+      background: #020617;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 14px;
+    }
+    .hero-carousel__dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.24);
+    }
+    .hero-carousel__viewport {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #f8fafc;
+    }
+    .hero-carousel__slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      object-fit: contain;
+      background: #ffffff;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .hero-carousel__slide.is-active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .hero-carousel__indicators {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .hero-carousel__indicator {
+      width: 8px;
+      height: 8px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.32);
+      cursor: pointer;
+      padding: 0;
+    }
+    .hero-carousel__indicator.is-active {
+      background: #ffffff;
+    }
+    .social-proof {
+      margin: 32px 0 0;
+      width: 100%;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: #0b1120;
+      padding: 16px 24px;
+    }
+    .social-proof__inner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+      max-width: 900px;
+      margin: auto;
+    }
+    .social-proof__stat {
+      color: rgba(255,255,255,0.62);
+      font-size: 0.84rem;
+      font-weight: 500;
+      line-height: 1.4;
+      padding: 0 22px;
+    }
+    .social-proof__stat + .social-proof__stat {
+      border-left: 1px solid rgba(255,255,255,0.16);
+    }
+
+    @keyframes heroFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* ── Framework Strip ──────────────────────────────── */
@@ -162,6 +273,9 @@
       gap: 10px;
       justify-content: center;
     }
+    .js .frameworks__pill {
+      opacity: 0;
+    }
     .frameworks__pill {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -170,6 +284,17 @@
       font-size: 0.875rem;
       font-weight: 500;
       color: #1e293b;
+      animation: frameworkFadeIn 0.45s ease both;
+    }
+    .frameworks__pill:nth-child(1) { animation-delay: 0s; }
+    .frameworks__pill:nth-child(2) { animation-delay: 0.15s; }
+    .frameworks__pill:nth-child(3) { animation-delay: 0.3s; }
+    .frameworks__pill:nth-child(4) { animation-delay: 0.45s; }
+    .frameworks__pill:nth-child(5) { animation-delay: 0.6s; }
+
+    @keyframes frameworkFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     /* ── Problem / Solution ───────────────────────────── */
@@ -282,6 +407,19 @@
       border-radius: 12px;
       padding: 32px;
       transition: box-shadow 0.2s ease;
+    }
+    .js .features__card {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease, box-shadow 0.2s ease;
+    }
+    .js .features__card:nth-child(1) { transition-delay: 0s; }
+    .js .features__card:nth-child(2) { transition-delay: 0.1s; }
+    .js .features__card:nth-child(3) { transition-delay: 0.2s; }
+    .js .features__card:nth-child(4) { transition-delay: 0.3s; }
+    .js .features__card.is-visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .features__card:hover {
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -633,6 +771,22 @@
 
       .hero__headline { font-size: 2rem; }
       .hero__sub { font-size: 1rem; }
+      .hero-carousel { margin-bottom: 28px; }
+      .hero-carousel__bar { height: 30px; }
+      .social-proof {
+        margin-bottom: -48px;
+        padding: 14px 18px;
+      }
+      .social-proof__inner {
+        flex-direction: column;
+        gap: 8px;
+      }
+      .social-proof__stat {
+        padding: 0;
+      }
+      .social-proof__stat + .social-proof__stat {
+        border-left: 0;
+      }
 
       .ps { padding: 48px 24px; }
       .ps__inner {
@@ -692,8 +846,43 @@
       <img src="assets/mascot.png" alt="Berly" class="hero__mascot">
       <h1 class="hero__headline">AI compliance documentation for system records, evidence, and human review.</h1>
       <p class="hero__sub">Berly is a desktop app that helps teams organize AI system information, human-in-the-loop review notes, supporting evidence, audit history, and exportable documentation packages across selected AI governance frameworks.</p>
+      <div class="hero-carousel" aria-label="Berly product screenshots">
+        <div class="hero-carousel__browser">
+          <div class="hero-carousel__bar" aria-hidden="true">
+            <span class="hero-carousel__dot"></span>
+            <span class="hero-carousel__dot"></span>
+            <span class="hero-carousel__dot"></span>
+          </div>
+          <div class="hero-carousel__viewport">
+            <iframe class="hero-carousel__slide is-active" src="assets/berly_demo_scene1_slide.html" title="Berly overview screen"></iframe>
+            <img class="hero-carousel__slide" src="assets/ai-systems-screenshot2.png" alt="AI systems dashboard screenshot" loading="lazy">
+            <img class="hero-carousel__slide" src="assets/classification-result-screenshot3.png" alt="Classification result screenshot" loading="lazy">
+            <img class="hero-carousel__slide" src="assets/colorado-result-screenshot4.png" alt="Colorado result screenshot" loading="lazy">
+            <img class="hero-carousel__slide" src="assets/nyc-result-screenshot5.png" alt="NYC result screenshot" loading="lazy">
+            <img class="hero-carousel__slide" src="assets/illinios-result-screenshot6.png" alt="Illinois result screenshot" loading="lazy">
+            <img class="hero-carousel__slide" src="assets/california-results-screenshot7.png" alt="California results screenshot" loading="lazy">
+            <img class="hero-carousel__slide" src="assets/document-partly-done-screenshot8.png" alt="Partly completed documentation screenshot" loading="lazy">
+            <img class="hero-carousel__slide" src="assets/evidence-verification-screenshot9.png" alt="Evidence verification screenshot" loading="lazy">
+            <img class="hero-carousel__slide" src="assets/dashboard-screenshot10a.png" alt="Dashboard screenshot" loading="lazy">
+            <img class="hero-carousel__slide" src="assets/dashboard-screenshot10b.png" alt="Dashboard detail screenshot" loading="lazy">
+            <img class="hero-carousel__slide" src="assets/dashboard-screenshot10c.png" alt="Dashboard status screenshot" loading="lazy">
+            <img class="hero-carousel__slide" src="assets/audit-trail-events-screenshot10d.png" alt="Audit trail events screenshot" loading="lazy">
+            <img class="hero-carousel__slide" src="assets/pdf-general-system-description-screenshot11.png" alt="PDF general system description screenshot" loading="lazy">
+            <img class="hero-carousel__slide" src="assets/pdf-riskmanagement-screenshot12.png" alt="PDF risk management screenshot" loading="lazy">
+            <img class="hero-carousel__slide" src="assets/pdf-evidence-verification-summary-screenshot13.png" alt="PDF evidence verification summary screenshot" loading="lazy">
+          </div>
+        </div>
+        <div class="hero-carousel__indicators" aria-label="Screenshot navigation"></div>
+      </div>
       <div class="hero__buttons">
-        <a href="/classifier" class="btn btn--outline">Try Free Classifier</a>
+        <a href="/classifier" class="btn btn--primary">Try Free Classifier</a>
+      </div>
+      <div class="social-proof" aria-label="Berly documentation coverage">
+        <div class="social-proof__inner">
+          <span class="social-proof__stat">37 Documentation Sections</span>
+          <span class="social-proof__stat">5 Governance Frameworks</span>
+          <span class="social-proof__stat">EU AI Act Deadline: Aug 2, 2026</span>
+        </div>
       </div>
     </div>
   </section>
@@ -803,6 +992,23 @@
     </div>
   </section>
 
+  <!-- ── Demo Placeholder ──────────────────────────────── -->
+  <section class="demo">
+    <div class="demo__inner">
+      <h2 class="demo__heading">See Berly in action</h2>
+      <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 12px; box-shadow: 0 25px 50px rgba(0,0,0,0.4);">
+        <iframe
+          src="https://www.youtube.com/embed/F7QbsD8GoC4"
+          title="Berly Demo"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
   <!-- ── Free Classifier CTA ──────────────────────────── -->
   <section class="classifier-cta">
     <div class="classifier-cta__inner">
@@ -888,23 +1094,6 @@
     </div>
   </section>
 
-  <!-- ── Demo Placeholder ──────────────────────────────── -->
-  <section class="demo">
-    <div class="demo__inner">
-      <h2 class="demo__heading">See Berly in action</h2>
-      <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 12px; box-shadow: 0 25px 50px rgba(0,0,0,0.4);">
-        <iframe
-          src="https://www.youtube.com/embed/F7QbsD8GoC4"
-          title="Berly Demo"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-        </iframe>
-      </div>
-    </div>
-  </section>
-
   <!-- ── FAQ ───────────────────────────────────────────── -->
   <section class="faq">
     <div class="faq__inner">
@@ -979,5 +1168,75 @@
       </div>
     </div>
   </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var carousel = document.querySelector('.hero-carousel');
+      if (carousel) {
+        var slides = Array.prototype.slice.call(carousel.querySelectorAll('.hero-carousel__slide'));
+        var indicators = carousel.querySelector('.hero-carousel__indicators');
+        var currentSlide = 0;
+        var carouselTimer;
+
+        function showSlide(index) {
+          if (!slides.length) return;
+          currentSlide = (index + slides.length) % slides.length;
+          slides.forEach(function (slide, slideIndex) {
+            slide.classList.toggle('is-active', slideIndex === currentSlide);
+          });
+          if (indicators) {
+            Array.prototype.slice.call(indicators.children).forEach(function (indicator, indicatorIndex) {
+              indicator.classList.toggle('is-active', indicatorIndex === currentSlide);
+              indicator.setAttribute('aria-selected', indicatorIndex === currentSlide ? 'true' : 'false');
+            });
+          }
+        }
+
+        function startCarousel() {
+          window.clearInterval(carouselTimer);
+          carouselTimer = window.setInterval(function () {
+            showSlide(currentSlide + 1);
+          }, 4000);
+        }
+
+        if (slides.length && indicators) {
+          slides.forEach(function (_, index) {
+            var indicator = document.createElement('button');
+            indicator.type = 'button';
+            indicator.className = 'hero-carousel__indicator';
+            indicator.setAttribute('aria-label', 'Show screenshot ' + (index + 1));
+            indicator.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+            indicator.addEventListener('click', function () {
+              showSlide(index);
+              startCarousel();
+            });
+            indicators.appendChild(indicator);
+          });
+          showSlide(0);
+          startCarousel();
+        }
+      }
+
+      var featureCards = Array.prototype.slice.call(document.querySelectorAll('.features__card'));
+
+      if ('IntersectionObserver' in window) {
+        var featureObserver = new IntersectionObserver(function (entries, observer) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.18 });
+
+        featureCards.forEach(function (card) {
+          featureObserver.observe(card);
+        });
+      } else {
+        featureCards.forEach(function (card) {
+          card.classList.add('is-visible');
+        });
+      }
+    });
+  </script>
 </body>
 </html>
