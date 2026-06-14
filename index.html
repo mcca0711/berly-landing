@@ -88,6 +88,13 @@
       letter-spacing: -0.02em;
       flex-shrink: 0;
     }
+    .navbar__mascot {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
     .navbar__links {
       display: flex;
       align-items: center;
@@ -114,10 +121,6 @@
     .hero__inner {
       max-width: 900px;
       margin: auto;
-    }
-    .hero__mascot {
-      width: 100px;
-      margin-bottom: 24px;
     }
     .hero__headline {
       font-size: 3rem;
@@ -273,9 +276,6 @@
       gap: 10px;
       justify-content: center;
     }
-    .js .frameworks__pill {
-      opacity: 0;
-    }
     .frameworks__pill {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -284,18 +284,21 @@
       font-size: 0.875rem;
       font-weight: 500;
       color: #1e293b;
-      animation: frameworkFadeIn 0.45s ease both;
     }
-    .frameworks__pill:nth-child(1) { animation-delay: 0s; }
-    .frameworks__pill:nth-child(2) { animation-delay: 0.15s; }
-    .frameworks__pill:nth-child(3) { animation-delay: 0.3s; }
-    .frameworks__pill:nth-child(4) { animation-delay: 0.45s; }
-    .frameworks__pill:nth-child(5) { animation-delay: 0.6s; }
-
-    @keyframes frameworkFadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .js .frameworks__pill {
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
     }
+    .js .frameworks__pill.is-visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .js .frameworks__pill:nth-child(1) { transition-delay: 0s; }
+    .js .frameworks__pill:nth-child(2) { transition-delay: 0.1s; }
+    .js .frameworks__pill:nth-child(3) { transition-delay: 0.2s; }
+    .js .frameworks__pill:nth-child(4) { transition-delay: 0.3s; }
+    .js .frameworks__pill:nth-child(5) { transition-delay: 0.4s; }
 
     /* ── Problem / Solution ───────────────────────────── */
     .ps {
@@ -579,6 +582,21 @@
       border-radius: 12px;
       padding: 28px;
     }
+    .js .workflow__step {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .js .workflow__step:nth-child(1) { transition-delay: 0s; }
+    .js .workflow__step:nth-child(2) { transition-delay: 0.08s; }
+    .js .workflow__step:nth-child(3) { transition-delay: 0.16s; }
+    .js .workflow__step:nth-child(4) { transition-delay: 0.24s; }
+    .js .workflow__step:nth-child(5) { transition-delay: 0.32s; }
+    .js .workflow__step:nth-child(6) { transition-delay: 0.40s; }
+    .js .workflow__step.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
     .workflow__number {
       width: 34px;
       height: 34px;
@@ -769,9 +787,17 @@
         gap: 12px 18px;
       }
 
-      .hero__headline { font-size: 2rem; }
-      .hero__sub { font-size: 1rem; }
-      .hero-carousel { margin-bottom: 28px; }
+      .hero {
+        padding: 48px 16px 64px;
+      }
+      .hero__headline {
+        font-size: 1.75rem;
+      }
+      .hero__sub {
+        font-size: 0.95rem;
+        margin-bottom: 28px;
+      }
+      .hero-carousel { margin-bottom: 24px; }
       .hero-carousel__bar { height: 30px; }
       .social-proof {
         margin-bottom: -48px;
@@ -787,6 +813,13 @@
       .social-proof__stat + .social-proof__stat {
         border-left: 0;
       }
+      .frameworks__pills {
+        gap: 8px;
+      }
+      .frameworks__pill {
+        font-size: 0.8rem;
+        padding: 5px 12px;
+      }
 
       .ps { padding: 48px 24px; }
       .ps__inner {
@@ -795,16 +828,30 @@
       }
 
       .audience { padding: 48px 24px; }
-      .audience__grid { grid-template-columns: 1fr; }
+      .audience__grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
 
       .features { padding: 48px 24px; }
-      .features__grid { grid-template-columns: 1fr; }
+      .features__grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
 
       .pricing { padding: 48px 24px; }
-      .pricing__card { padding: 28px; }
+      .pricing__card {
+        padding: 24px 20px;
+      }
+      .pricing__price {
+        font-size: 2.5rem;
+      }
 
       .workflow { padding: 48px 24px; }
-      .workflow__grid { grid-template-columns: 1fr; }
+      .workflow__grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
 
       .demo { padding: 48px 24px; }
 
@@ -818,7 +865,12 @@
         gap: 12px;
         text-align: center;
       }
-      .footer__right { gap: 8px; justify-content: center; }
+      .footer__right {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        justify-content: center;
+      }
 
     }
   </style>
@@ -828,7 +880,10 @@
   <!-- ── Navbar ──────────────────────────────────────── -->
   <header class="navbar">
     <div class="navbar__inner">
-      <a href="/" class="navbar__logo">Berly</a>
+      <a href="/" class="navbar__logo">
+        <img src="assets/mascot.png" alt="Berly" class="navbar__mascot">
+        Berly
+      </a>
       <nav class="navbar__links" aria-label="Primary navigation">
         <a href="/ai-compliance-documentation" class="navbar__link">AI Compliance Documentation</a>
         <a href="/about" class="navbar__link">About</a>
@@ -843,7 +898,6 @@
   <!-- ── Hero ────────────────────────────────────────── -->
   <section class="hero">
     <div class="hero__inner">
-      <img src="assets/mascot.png" alt="Berly" class="hero__mascot">
       <h1 class="hero__headline">AI compliance documentation for system records, evidence, and human review.</h1>
       <p class="hero__sub">Berly is a desktop app that helps teams organize AI system information, human-in-the-loop review notes, supporting evidence, audit history, and exportable documentation packages across selected AI governance frameworks.</p>
       <div class="hero-carousel" aria-label="Berly product screenshots">
@@ -1234,6 +1288,48 @@
       } else {
         featureCards.forEach(function (card) {
           card.classList.add('is-visible');
+        });
+      }
+
+      var frameworkPills = Array.prototype.slice.call(
+        document.querySelectorAll('.frameworks__pill')
+      );
+      if ('IntersectionObserver' in window && frameworkPills.length) {
+        var pillObserver = new IntersectionObserver(function(entries, observer) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              frameworkPills.forEach(function(pill) {
+                pill.classList.add('is-visible');
+              });
+              observer.disconnect();
+            }
+          });
+        }, { threshold: 0.3 });
+        pillObserver.observe(document.querySelector('.frameworks'));
+      } else {
+        frameworkPills.forEach(function(pill) {
+          pill.classList.add('is-visible');
+        });
+      }
+
+      var workflowSteps = Array.prototype.slice.call(
+        document.querySelectorAll('.workflow__step')
+      );
+      if ('IntersectionObserver' in window && workflowSteps.length) {
+        var workflowObserver = new IntersectionObserver(function(entries, observer) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              workflowSteps.forEach(function(step) {
+                step.classList.add('is-visible');
+              });
+              observer.disconnect();
+            }
+          });
+        }, { threshold: 0.15 });
+        workflowObserver.observe(document.querySelector('.workflow__grid'));
+      } else {
+        workflowSteps.forEach(function(step) {
+          step.classList.add('is-visible');
         });
       }
     });
