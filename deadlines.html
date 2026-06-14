@@ -70,6 +70,13 @@
       letter-spacing: -0.02em;
       flex-shrink: 0;
     }
+    .navbar__mascot {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
     .navbar__links {
       display: flex;
       align-items: center;
@@ -499,7 +506,10 @@
   <!-- ── Navbar ──────────────────────────────────────── -->
   <header class="navbar">
     <div class="navbar__inner">
-      <a href="/" class="navbar__logo">Berly</a>
+      <a href="/" class="navbar__logo">
+        <img src="assets/mascot.png" alt="Berly" class="navbar__mascot">
+        Berly
+      </a>
       <nav class="navbar__links" aria-label="Primary navigation">
         <a href="/ai-compliance-documentation" class="navbar__link">AI Compliance Documentation</a>
         <a href="/about" class="navbar__link">About</a>

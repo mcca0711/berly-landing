@@ -253,6 +253,240 @@
     }
 
     /* ── Framework Strip ──────────────────────────────── */
+    .product-preview {
+      max-width: 780px;
+      margin: 0 auto 36px;
+    }
+    .product-preview__browser {
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      background: #111827;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.42);
+      overflow: hidden;
+    }
+    .product-preview__bar {
+      height: 38px;
+      background: #020617;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 14px;
+    }
+    .product-preview__dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+    }
+    .product-preview__url {
+      margin-left: 8px;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.35);
+      font-family: monospace;
+    }
+    .product-preview__screen {
+      background: #f8fafc;
+      min-height: 260px;
+      padding: 28px;
+      position: relative;
+    }
+    .product-preview__frame {
+      animation: ppFadeIn 0.4s ease both;
+    }
+    @keyframes ppFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .product-preview__steps {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-top: 20px;
+    }
+    .product-preview__step {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.35);
+      padding: 6px 18px;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+    .product-preview__step.is-active {
+      color: #ffffff;
+      border-bottom-color: #3b82f6;
+    }
+
+    /* Frame content styles */
+    .pp-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      margin-bottom: 16px;
+    }
+    .pp-result {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .pp-badge {
+      background: #fee2e2;
+      color: #dc2626;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .pp-category {
+      font-size: 0.9rem;
+      color: #1e293b;
+      font-weight: 600;
+    }
+    .pp-frameworks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .pp-fw {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 99px;
+    }
+    .pp-fw--eu { background: #dbeafe; color: #1d4ed8; }
+    .pp-fw--co { background: #dcfce7; color: #15803d; }
+    .pp-fw--nyc { background: #ffedd5; color: #c2410c; }
+    .pp-fw--il { background: #f3e8ff; color: #7e22ce; }
+    .pp-next-label {
+      font-size: 0.82rem;
+      color: #94a3b8;
+      font-style: italic;
+    }
+    .pp-field {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+    .pp-field-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #64748b;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .pp-article {
+      color: #3b82f6;
+      font-weight: 500;
+    }
+    .pp-field-value {
+      font-size: 0.88rem;
+      color: #1e293b;
+      line-height: 1.6;
+      min-height: 40px;
+    }
+    .pp-cursor {
+      display: inline-block;
+      color: #3b82f6;
+      font-weight: 700;
+      animation: ppBlink 0.8s step-end infinite;
+    }
+    @keyframes ppBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .pp-guidance {
+      background: #eff6ff;
+      border-left: 3px solid #3b82f6;
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      color: #1e40af;
+      border-radius: 0 6px 6px 0;
+      display: flex;
+      gap: 8px;
+    }
+    .pp-evidence-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .pp-evidence-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+    }
+    .pp-evidence--supported .pp-evidence-status { color: #16a34a; font-weight: 700; }
+    .pp-evidence--partial .pp-evidence-status { color: #d97706; font-weight: 700; }
+    .pp-evidence--pending .pp-evidence-status { color: #94a3b8; }
+    .pp-evidence-claim { flex: 1; color: #1e293b; font-weight: 600; }
+    .pp-evidence-file { color: #64748b; font-size: 0.75rem; }
+    .pp-score {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .pp-score-label { font-size: 0.78rem; color: #64748b; font-weight: 600; min-width: 110px; }
+    .pp-score-bar {
+      flex: 1;
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .pp-score-fill {
+      height: 100%;
+      background: #22c55e;
+      border-radius: 3px;
+      width: 0%;
+      transition: width 1.2s ease;
+    }
+    .pp-score-pct { font-size: 0.82rem; font-weight: 700; color: #22c55e; min-width: 36px; }
+    .pp-export {
+      text-align: center;
+      padding: 20px 0;
+    }
+    .pp-export-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .pp-export-name { font-size: 0.9rem; font-weight: 700; color: #1e293b; margin-bottom: 6px; }
+    .pp-export-meta { font-size: 0.78rem; color: #64748b; margin-bottom: 20px; }
+    .pp-export-bar {
+      max-width: 300px;
+      margin: 0 auto 16px;
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .pp-export-fill {
+      height: 100%;
+      background: #3b82f6;
+      border-radius: 3px;
+      width: 0%;
+      transition: width 1.5s ease;
+    }
+    .pp-export-done {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #16a34a;
+    }
+
+    @media (max-width: 768px) {
+      .product-preview__screen { padding: 18px; min-height: 220px; }
+      .product-preview__step { padding: 6px 12px; font-size: 0.72rem; }
+    }
+
     .frameworks {
       background: #f8fafc;
       padding: 40px 24px;
@@ -900,33 +1134,95 @@
     <div class="hero__inner">
       <h1 class="hero__headline">AI compliance documentation for system records, evidence, and human review.</h1>
       <p class="hero__sub">Berly is a desktop app that helps teams organize AI system information, human-in-the-loop review notes, supporting evidence, audit history, and exportable documentation packages across selected AI governance frameworks.</p>
-      <div class="hero-carousel" aria-label="Berly product screenshots">
-        <div class="hero-carousel__browser">
-          <div class="hero-carousel__bar" aria-hidden="true">
-            <span class="hero-carousel__dot"></span>
-            <span class="hero-carousel__dot"></span>
-            <span class="hero-carousel__dot"></span>
+      <div class="product-preview" aria-label="Berly product demonstration">
+        <div class="product-preview__browser">
+          <div class="product-preview__bar" aria-hidden="true">
+            <span class="product-preview__dot"></span>
+            <span class="product-preview__dot"></span>
+            <span class="product-preview__dot"></span>
+            <span class="product-preview__url">berly.app - RecruitBot AI</span>
           </div>
-          <div class="hero-carousel__viewport">
-            <iframe class="hero-carousel__slide is-active" src="assets/berly_demo_scene1_slide.html" title="Berly overview screen"></iframe>
-            <img class="hero-carousel__slide" src="assets/ai-systems-screenshot2.png" alt="AI systems dashboard screenshot" loading="lazy">
-            <img class="hero-carousel__slide" src="assets/classification-result-screenshot3.png" alt="Classification result screenshot" loading="lazy">
-            <img class="hero-carousel__slide" src="assets/colorado-result-screenshot4.png" alt="Colorado result screenshot" loading="lazy">
-            <img class="hero-carousel__slide" src="assets/nyc-result-screenshot5.png" alt="NYC result screenshot" loading="lazy">
-            <img class="hero-carousel__slide" src="assets/illinios-result-screenshot6.png" alt="Illinois result screenshot" loading="lazy">
-            <img class="hero-carousel__slide" src="assets/california-results-screenshot7.png" alt="California results screenshot" loading="lazy">
-            <img class="hero-carousel__slide" src="assets/document-partly-done-screenshot8.png" alt="Partly completed documentation screenshot" loading="lazy">
-            <img class="hero-carousel__slide" src="assets/evidence-verification-screenshot9.png" alt="Evidence verification screenshot" loading="lazy">
-            <img class="hero-carousel__slide" src="assets/dashboard-screenshot10a.png" alt="Dashboard screenshot" loading="lazy">
-            <img class="hero-carousel__slide" src="assets/dashboard-screenshot10b.png" alt="Dashboard detail screenshot" loading="lazy">
-            <img class="hero-carousel__slide" src="assets/dashboard-screenshot10c.png" alt="Dashboard status screenshot" loading="lazy">
-            <img class="hero-carousel__slide" src="assets/audit-trail-events-screenshot10d.png" alt="Audit trail events screenshot" loading="lazy">
-            <img class="hero-carousel__slide" src="assets/pdf-general-system-description-screenshot11.png" alt="PDF general system description screenshot" loading="lazy">
-            <img class="hero-carousel__slide" src="assets/pdf-riskmanagement-screenshot12.png" alt="PDF risk management screenshot" loading="lazy">
-            <img class="hero-carousel__slide" src="assets/pdf-evidence-verification-summary-screenshot13.png" alt="PDF evidence verification summary screenshot" loading="lazy">
+          <div class="product-preview__screen">
+
+            <!-- Frame 1: Classification result -->
+            <div class="product-preview__frame" id="pp-frame-1">
+              <div class="pp-label">EU AI Act Classification</div>
+              <div class="pp-result pp-result--high">
+                <span class="pp-badge">HIGH RISK</span>
+                <span class="pp-category">Annex III · Employment (Category 4)</span>
+              </div>
+              <div class="pp-frameworks">
+                <span class="pp-fw pp-fw--eu">EU AI Act</span>
+                <span class="pp-fw pp-fw--co">Colorado SB 24-205</span>
+                <span class="pp-fw pp-fw--nyc">NYC LL144</span>
+                <span class="pp-fw pp-fw--il">Illinois AI</span>
+              </div>
+              <div class="pp-next-label">Generating documentation fields...</div>
+            </div>
+
+            <!-- Frame 2: Field being typed -->
+            <div class="product-preview__frame" id="pp-frame-2" style="display:none">
+              <div class="pp-label">Section 1 · General System Description</div>
+              <div class="pp-field">
+                <div class="pp-field-label">Intended Purpose <span class="pp-article">Art. 11, Annex IV(1)</span></div>
+                <div class="pp-field-value" id="pp-typing-target"></div>
+                <div class="pp-cursor">|</div>
+              </div>
+              <div class="pp-guidance">
+                <span class="pp-guidance-icon">💡</span>
+                Describe what the system does and what business objective it serves.
+              </div>
+            </div>
+
+            <!-- Frame 3: Evidence attached -->
+            <div class="product-preview__frame" id="pp-frame-3" style="display:none">
+              <div class="pp-label">Evidence Verification</div>
+              <div class="pp-evidence-list">
+                <div class="pp-evidence-item pp-evidence--supported">
+                  <span class="pp-evidence-status">✓ Supported</span>
+                  <span class="pp-evidence-claim">Misuse Scenarios</span>
+                  <span class="pp-evidence-file">bias_audit_Q4_2025.pdf</span>
+                </div>
+                <div class="pp-evidence-item pp-evidence--partial">
+                  <span class="pp-evidence-status">⚠ Partial</span>
+                  <span class="pp-evidence-claim">Provider Identity</span>
+                  <span class="pp-evidence-file">company_registration.pdf</span>
+                </div>
+                <div class="pp-evidence-item pp-evidence--pending" id="pp-evidence-pending">
+                  <span class="pp-evidence-status">- Pending</span>
+                  <span class="pp-evidence-claim">Risk Management</span>
+                  <span class="pp-evidence-file">Attach evidence...</span>
+                </div>
+              </div>
+              <div class="pp-score">
+                <span class="pp-score-label">Verification Score</span>
+                <div class="pp-score-bar"><div class="pp-score-fill" id="pp-score-fill"></div></div>
+                <span class="pp-score-pct" id="pp-score-pct">0%</span>
+              </div>
+            </div>
+
+            <!-- Frame 4: PDF export -->
+            <div class="product-preview__frame" id="pp-frame-4" style="display:none">
+              <div class="pp-label">Exporting Documentation Package</div>
+              <div class="pp-export">
+                <div class="pp-export-icon">📄</div>
+                <div class="pp-export-name">RecruitBot_AI_Compliance_Package.pdf</div>
+                <div class="pp-export-meta">37 sections · 5 frameworks · Audit trail included</div>
+                <div class="pp-export-bar"><div class="pp-export-fill" id="pp-export-fill"></div></div>
+                <div class="pp-export-done" id="pp-export-done" style="display:none">
+                  ✓ Ready for human review
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
-        <div class="hero-carousel__indicators" aria-label="Screenshot navigation"></div>
+        <div class="product-preview__steps" aria-hidden="true">
+          <span class="product-preview__step is-active" data-frame="1">Classify</span>
+          <span class="product-preview__step" data-frame="2">Document</span>
+          <span class="product-preview__step" data-frame="3">Verify</span>
+          <span class="product-preview__step" data-frame="4">Export</span>
+        </div>
       </div>
       <div class="hero__buttons">
         <a href="/classifier" class="btn btn--primary">Try Free Classifier</a>
@@ -1224,50 +1520,80 @@
   </footer>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      var carousel = document.querySelector('.hero-carousel');
-      if (carousel) {
-        var slides = Array.prototype.slice.call(carousel.querySelectorAll('.hero-carousel__slide'));
-        var indicators = carousel.querySelector('.hero-carousel__indicators');
-        var currentSlide = 0;
-        var carouselTimer;
+      var ppFrames = ['pp-frame-1','pp-frame-2','pp-frame-3','pp-frame-4'];
+      var ppSteps = Array.prototype.slice.call(
+        document.querySelectorAll('.product-preview__step')
+      );
+      var ppCurrentFrame = 0;
+      var ppTimer;
+      var ppTypingText = 'RecruitBot AI is a candidate screening tool that ranks applicants by job fit. It is used in hiring decisions for all open positions and is advisory only - recruiters make final decisions.';
+      var ppTypingIndex = 0;
+      var ppTypingTimer;
 
-        function showSlide(index) {
-          if (!slides.length) return;
-          currentSlide = (index + slides.length) % slides.length;
-          slides.forEach(function (slide, slideIndex) {
-            slide.classList.toggle('is-active', slideIndex === currentSlide);
-          });
-          if (indicators) {
-            Array.prototype.slice.call(indicators.children).forEach(function (indicator, indicatorIndex) {
-              indicator.classList.toggle('is-active', indicatorIndex === currentSlide);
-              indicator.setAttribute('aria-selected', indicatorIndex === currentSlide ? 'true' : 'false');
-            });
-          }
+      function ppShowFrame(index) {
+        ppFrames.forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) el.style.display = 'none';
+        });
+        ppSteps.forEach(function(step, i) {
+          step.classList.toggle('is-active', i === index);
+        });
+        var frame = document.getElementById(ppFrames[index]);
+        if (!frame) return;
+        frame.style.display = 'block';
+        frame.style.animation = 'none';
+        frame.offsetHeight;
+        frame.style.animation = '';
+
+        if (index === 1) {
+          ppTypingIndex = 0;
+          var target = document.getElementById('pp-typing-target');
+          if (target) target.textContent = '';
+          window.clearInterval(ppTypingTimer);
+          ppTypingTimer = window.setInterval(function() {
+            if (!target) return;
+            if (ppTypingIndex < ppTypingText.length) {
+              target.textContent += ppTypingText[ppTypingIndex];
+              ppTypingIndex++;
+            } else {
+              window.clearInterval(ppTypingTimer);
+            }
+          }, 28);
         }
 
-        function startCarousel() {
-          window.clearInterval(carouselTimer);
-          carouselTimer = window.setInterval(function () {
-            showSlide(currentSlide + 1);
-          }, 4000);
+        if (index === 2) {
+          var fill = document.getElementById('pp-score-fill');
+          var pct = document.getElementById('pp-score-pct');
+          if (fill) { fill.style.width = '0%'; }
+          if (pct) { pct.textContent = '0%'; }
+          window.setTimeout(function() {
+            if (fill) fill.style.width = '67%';
+            if (pct) pct.textContent = '67%';
+          }, 400);
         }
 
-        if (slides.length && indicators) {
-          slides.forEach(function (_, index) {
-            var indicator = document.createElement('button');
-            indicator.type = 'button';
-            indicator.className = 'hero-carousel__indicator';
-            indicator.setAttribute('aria-label', 'Show screenshot ' + (index + 1));
-            indicator.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
-            indicator.addEventListener('click', function () {
-              showSlide(index);
-              startCarousel();
-            });
-            indicators.appendChild(indicator);
-          });
-          showSlide(0);
-          startCarousel();
+        if (index === 3) {
+          var exportFill = document.getElementById('pp-export-fill');
+          var exportDone = document.getElementById('pp-export-done');
+          if (exportFill) exportFill.style.width = '0%';
+          if (exportDone) exportDone.style.display = 'none';
+          window.setTimeout(function() {
+            if (exportFill) exportFill.style.width = '100%';
+          }, 300);
+          window.setTimeout(function() {
+            if (exportDone) exportDone.style.display = 'block';
+          }, 1900);
         }
+      }
+
+      function ppNext() {
+        ppCurrentFrame = (ppCurrentFrame + 1) % ppFrames.length;
+        ppShowFrame(ppCurrentFrame);
+      }
+
+      if (document.getElementById('pp-frame-1')) {
+        ppShowFrame(0);
+        ppTimer = window.setInterval(ppNext, 5000);
       }
 
       var featureCards = Array.prototype.slice.call(document.querySelectorAll('.features__card'));
@@ -1277,7 +1603,8 @@
           entries.forEach(function (entry) {
             if (entry.isIntersecting) {
               entry.target.classList.add('is-visible');
-              observer.unobserve(entry.target);
+            } else {
+              entry.target.classList.remove('is-visible');
             }
           });
         }, { threshold: 0.18 });
@@ -1297,12 +1624,13 @@
       if ('IntersectionObserver' in window && frameworkPills.length) {
         var pillObserver = new IntersectionObserver(function(entries, observer) {
           entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-              frameworkPills.forEach(function(pill) {
+            frameworkPills.forEach(function(pill) {
+              if (entry.isIntersecting) {
                 pill.classList.add('is-visible');
-              });
-              observer.disconnect();
-            }
+              } else {
+                pill.classList.remove('is-visible');
+              }
+            });
           });
         }, { threshold: 0.3 });
         pillObserver.observe(document.querySelector('.frameworks'));
@@ -1318,12 +1646,13 @@
       if ('IntersectionObserver' in window && workflowSteps.length) {
         var workflowObserver = new IntersectionObserver(function(entries, observer) {
           entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-              workflowSteps.forEach(function(step) {
+            workflowSteps.forEach(function(step) {
+              if (entry.isIntersecting) {
                 step.classList.add('is-visible');
-              });
-              observer.disconnect();
-            }
+              } else {
+                step.classList.remove('is-visible');
+              }
+            });
           });
         }, { threshold: 0.15 });
         workflowObserver.observe(document.querySelector('.workflow__grid'));
