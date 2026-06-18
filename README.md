@@ -52,3 +52,18 @@ Use a local web server or test on the deployed Pages preview / production site i
   - `assets/og-image.png`
 - Demo video is embedded on the landing page
 - Cloudflare Web Analytics is enabled and should be reviewed from the Cloudflare dashboard
+
+## Classifier lead verification
+
+The classifier submits to `https://berly-api.berly.workers.dev/screener-results`. Cloudflare KV in `berly-api` remains the source of truth; this landing repo does not store leads.
+
+Manual checklist:
+
+1. Complete the classifier, submit a valid email, and confirm the results email arrives.
+2. Confirm `berly-api` stores `screener-lead:{normalizedEmail}` in Cloudflare KV.
+3. Export with `GET /admin/screener-leads` and a valid `ADMIN_EXPORT_TOKEN`; confirm the lead comes from KV.
+4. Confirm the exported lead includes `source`, `frameworkResultSummary`, `applicableFrameworks`, `riskOutcome`, and jurisdiction/framework flags.
+5. Submit an invalid email and confirm the landing form does not submit it.
+6. Test `/classifier?source=producthunt`, `/classifier?source=linkedin`, and `utm_source` variants; confirm the source is preserved in KV/export.
+7. Test without source parameters; confirm Product Hunt/LinkedIn referrers are recognized and other referrers/default classifier attribution behave as expected.
+8. Simulate an API failure; confirm the form displays a retry message and remains usable.

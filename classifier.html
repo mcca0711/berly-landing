@@ -717,7 +717,7 @@
       <div class="email-section__inner">
         <h2 class="email-section__heading">Get your results by email</h2>
         <p class="email-section__sub">We'll send you a copy of this informational screening summary. No spam.</p>
-        <div id="emailSuccess" class="email-success"></div>
+        <div id="emailSuccess" class="email-success" role="status" aria-live="polite"></div>
         <div class="email-row" id="emailRow">
           <input type="email" class="email-input" id="emailInput" placeholder="your@email.com">
           <button class="btn btn--primary" id="emailSubmit">Send My Results</button>
@@ -1507,27 +1507,65 @@
     }
 
     // ── Email ─────────────────────────────────────────────
+    function getLeadSource() {
+      const params = new URLSearchParams(window.location.search);
+      const rawSource = (params.get('source') || params.get('utm_source') || '').trim().toLowerCase();
+
+      if (rawSource === 'producthunt' || rawSource === 'product_hunt' || rawSource === 'product hunt') {
+        return 'producthunt';
+      }
+      if (rawSource === 'linkedin' || rawSource === 'linked_in' || rawSource === 'linked in') {
+        return 'linkedin';
+      }
+      if (rawSource) return 'other';
+
+      const referrer = document.referrer.toLowerCase();
+      if (referrer.includes('producthunt.com')) return 'producthunt';
+      if (referrer.includes('linkedin.com')) return 'linkedin';
+      if (referrer) return 'referral';
+      return 'classifier';
+    }
+
     document.getElementById('emailSubmit').addEventListener('click', async () => {
       const email = document.getElementById('emailInput').value.trim();
+      const emailInput = document.getElementById('emailInput');
+      const submitButton = document.getElementById('emailSubmit');
+      const status = document.getElementById('emailSuccess');
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        document.getElementById('emailInput').style.borderColor = '#ef4444';
+        emailInput.style.borderColor = '#ef4444';
         return;
       }
-      document.getElementById('emailInput').style.borderColor = '';
+      emailInput.style.borderColor = '';
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending...';
+      status.style.display = 'none';
 
-      // Always show success — endpoint not built yet, fail silently
       try {
-        await fetch('https://berly-api.berly.workers.dev/screener-results', {
+        const results = window._screeningResults;
+        const response = await fetch('https://berly-api.berly.workers.dev/screener-results', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, results: window._screeningResults }),
+          body: JSON.stringify({
+            email,
+            source: getLeadSource(),
+            page: window.location.href,
+            ...(document.referrer ? { referrer: document.referrer } : {}),
+            results,
+          }),
         });
-      } catch (_) { /* fail silently */ }
+        if (!response.ok) throw new Error(`Screener request failed with ${response.status}`);
 
-      document.getElementById('emailRow').style.display = 'none';
-      const success = document.getElementById('emailSuccess');
-      success.textContent = `Results sent to ${email}. Check your inbox.`;
-      success.style.display = 'block';
+        document.getElementById('emailRow').style.display = 'none';
+        status.textContent = `Results sent to ${email}. Check your inbox.`;
+        status.style.color = '';
+        status.style.display = 'block';
+      } catch (_) {
+        status.textContent = 'We could not send your results right now. Please try again.';
+        status.style.color = '#b91c1c';
+        status.style.display = 'block';
+        submitButton.disabled = false;
+        submitButton.textContent = 'Send My Results';
+      }
     });
 
     document.getElementById('emailSkip').addEventListener('click', () => {
