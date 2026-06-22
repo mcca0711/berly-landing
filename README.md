@@ -64,9 +64,10 @@ Manual checklist:
 3. Export with `GET /admin/screener-leads` and a valid `ADMIN_EXPORT_TOKEN`; confirm the lead comes from KV.
 4. Confirm the exported lead includes `source`, `frameworkResultSummary`, `applicableFrameworks`, `riskOutcome`, and jurisdiction/framework flags.
 5. Submit an invalid email and confirm the landing form does not submit it.
-6. Test `/classifier?source=producthunt`, `/classifier?source=linkedin`, and `utm_source` variants; confirm the source is preserved in KV/export.
-7. Test without source parameters; confirm Product Hunt/LinkedIn referrers are recognized and other referrers/default classifier attribution behave as expected.
+6. Test `source`, `utm_source`, and safe `ref` variants such as `?ref=producthunt` and `?ref=partner-newsletter`; confirm the source is preserved in attribution and KV/export.
+7. Confirm source priority is `source`, then `utm_source`, then `ref`, then known external referrer domains; without those signals, confirm direct/referral attribution behaves as expected.
 8. Simulate an API failure; confirm the form displays a retry message and remains usable.
 9. Clear the site's local storage, then visit `https://berly.app/?utm_source=linkedin&utm_campaign=test` and navigate to the classifier.
 10. Submit a test email and confirm the `berly-api` KV lead contains `attribution.firstTouch.firstTouchSource` or `attribution.firstTouch.utmSource` as `linkedin`, with `utmCampaign` set to `test`.
 11. Confirm the immediate `page` and `referrer` may show the classifier and `berly.app`, while `attribution.firstTouch` preserves the original landing page and campaign source.
+12. Clear local storage and visit `https://berly.app/?ref=producthunt`, then repeat with `?ref=partner-newsletter`; confirm `firstTouchSource` is respectively `producthunt` and `partner-newsletter`.

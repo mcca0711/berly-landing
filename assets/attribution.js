@@ -12,6 +12,11 @@
     return value && value.trim() ? value.trim() : '';
   }
 
+  function safeReferralValue(value) {
+    const normalized = value.trim().toLowerCase();
+    return normalized.length <= 100 && /^[a-z0-9_-]+$/.test(normalized) ? normalized : '';
+  }
+
   function referrerSource(referrer) {
     if (!referrer) return 'direct';
 
@@ -28,7 +33,10 @@
   }
 
   function deriveSource() {
-    return queryValue('source') || queryValue('utm_source') || referrerSource(currentReferrer);
+    return queryValue('source') ||
+      queryValue('utm_source') ||
+      safeReferralValue(queryValue('ref')) ||
+      referrerSource(currentReferrer);
   }
 
   function read(key) {
