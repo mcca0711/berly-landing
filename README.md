@@ -67,3 +67,6 @@ Manual checklist:
 6. Test `/classifier?source=producthunt`, `/classifier?source=linkedin`, and `utm_source` variants; confirm the source is preserved in KV/export.
 7. Test without source parameters; confirm Product Hunt/LinkedIn referrers are recognized and other referrers/default classifier attribution behave as expected.
 8. Simulate an API failure; confirm the form displays a retry message and remains usable.
+9. Clear the site's local storage, then visit `https://berly.app/?utm_source=linkedin&utm_campaign=test` and navigate to the classifier.
+10. Submit a test email and confirm the `berly-api` KV lead contains `attribution.firstTouch.firstTouchSource` or `attribution.firstTouch.utmSource` as `linkedin`, with `utmCampaign` set to `test`.
+11. Confirm the immediate `page` and `referrer` may show the classifier and `berly.app`, while `attribution.firstTouch` preserves the original landing page and campaign source.

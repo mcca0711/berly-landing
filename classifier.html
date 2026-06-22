@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/attribution.js" defer></script>
   <title>AI Compliance Screener - Berly</title>
   <meta name="description" content="Free AI compliance screener for selected governance frameworks. Explore selected AI governance frameworks that may warrant professional review. Covers EU AI Act, Colorado, Illinois, NYC, and CPRA.">
   <meta property="og:url" content="https://berly.app/classifier">
@@ -1551,6 +1552,12 @@
             page: window.location.href,
             ...(document.referrer ? { referrer: document.referrer } : {}),
             results,
+            attribution: window.BerlyAttribution?.getAttribution() || {
+              firstTouch: null,
+              lastTouch: null,
+              currentPage: window.location.href,
+              currentReferrer: document.referrer || '',
+            },
           }),
         });
         if (!response.ok) throw new Error(`Screener request failed with ${response.status}`);
