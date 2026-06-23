@@ -9,6 +9,7 @@ Marketing site for [Berly](https://berly.app) — desktop AI compliance document
 - `index.html` — main landing page
 - `classifier.html` — free multi-framework AI compliance classifier
 - `deadlines.html` — free deadlines and documentation-reference page
+- `feedback.html` — lightweight visitor feedback form
 - `assets/` — icons, images, OG image, PDF assets, and other static files
 
 ## Product positioning
@@ -42,6 +43,7 @@ because the site now uses root-relative links such as:
 - `/`
 - `/classifier`
 - `/deadlines`
+- `/feedback`
 
 do **not** test by opening the HTML files directly from disk with `file:///...`.
 
@@ -71,3 +73,16 @@ Manual checklist:
 10. Submit a test email and confirm the `berly-api` KV lead contains `attribution.firstTouch.firstTouchSource` or `attribution.firstTouch.utmSource` as `linkedin`, with `utmCampaign` set to `test`.
 11. Confirm the immediate `page` and `referrer` may show the classifier and `berly.app`, while `attribution.firstTouch` preserves the original landing page and campaign source.
 12. Clear local storage and visit `https://berly.app/?ref=producthunt`, then repeat with `?ref=partner-newsletter`; confirm `firstTouchSource` is respectively `producthunt` and `partner-newsletter`.
+
+## Feedback verification
+
+The feedback page submits to `https://berly-api.berly.workers.dev/feedback`. Cloudflare KV in `berly-api` remains the source of truth for stored feedback records; this landing repo does not store feedback.
+
+Manual checklist:
+
+1. Visit `/feedback`.
+2. Submit feedback without an email address and confirm the success state appears.
+3. Confirm `berly-api` stores a Cloudflare KV record under `feedback:`.
+4. Submit feedback with an email address.
+5. Confirm the stored feedback record includes `page`, `referrer`, and `attribution` when attribution is available.
+6. Submit an empty message and confirm the page blocks submission before calling the API.

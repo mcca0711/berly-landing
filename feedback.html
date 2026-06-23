@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/attribution.js" defer></script>
+  <title>Share Feedback on Berly</title>
+  <link rel="canonical" href="https://berly.app/feedback">
+  <meta name="description" content="Share lightweight feedback on Berly. Tell us what is clear, confusing, missing, or useful.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://berly.app/feedback">
+  <meta property="og:title" content="Share Feedback on Berly">
+  <meta property="og:description" content="Tell us what is clear, confusing, missing, or useful. Your feedback helps shape Berly.">
+  <meta property="og:image" content="https://berly.app/assets/og-image.png">
+  <meta property="og:site_name" content="Berly">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Share Feedback on Berly">
+  <meta name="twitter:description" content="Tell us what is clear, confusing, missing, or useful. Your feedback helps shape Berly.">
+  <meta name="twitter:image" content="https://berly.app/assets/og-image.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="assets/icon.ico">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #1e293b;
+      background: #f8fafc;
+      font-size: 16px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { text-decoration: none; }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+    .btn--primary {
+      background: #3b82f6;
+      color: #ffffff;
+    }
+    .btn--primary:hover { background: #2563eb; }
+    .btn--primary:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+    }
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #0f172a;
+    }
+    .navbar__inner {
+      max-width: 1100px;
+      margin: auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+    .navbar__logo {
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
+    }
+    .navbar__mascot {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    .navbar__links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 22px;
+      flex: 1;
+    }
+    .navbar__link {
+      color: rgba(255,255,255,0.68);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    .navbar__link:hover,
+    .navbar__link[aria-current="page"] { color: #ffffff; }
+    .navbar .btn { flex-shrink: 0; padding: 10px 18px; font-size: 0.92rem; }
+    .feedback {
+      flex: 1;
+      padding: 76px 24px 88px;
+    }
+    .feedback__inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .feedback__eyebrow {
+      color: #3b82f6;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .feedback__title {
+      color: #0f172a;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+    }
+    .feedback__intro {
+      color: #475569;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      max-width: 640px;
+      margin-bottom: 30px;
+    }
+    .feedback-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+      padding: 30px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-label {
+      display: block;
+      color: #0f172a;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      color: #0f172a;
+      font: inherit;
+      padding: 12px 14px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .form-textarea {
+      min-height: 170px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.14);
+      outline: none;
+    }
+    .form-help {
+      color: #64748b;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+    .form-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .form-status {
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+    .form-status--success { color: #15803d; }
+    .form-status--error { color: #b91c1c; }
+    .footer {
+      background: #0f172a;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 32px 24px;
+    }
+    .footer__inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer__logo {
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .footer__right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer__email {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.875rem;
+      transition: color 0.2s ease;
+    }
+    .footer__email:hover { color: #ffffff; }
+    .footer__disclaimer {
+      color: rgba(255,255,255,0.3);
+      font-size: 0.75rem;
+    }
+    @media (max-width: 768px) {
+      .navbar__inner {
+        padding: 12px 16px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+      .navbar__links {
+        order: 3;
+        flex-basis: 100%;
+        justify-content: flex-start;
+        gap: 14px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+      .navbar__link { white-space: nowrap; font-size: 0.85rem; }
+      .navbar .btn { padding: 9px 14px; font-size: 0.86rem; }
+      .feedback { padding: 52px 18px 64px; }
+      .feedback-card { padding: 22px; }
+      .footer__inner {
+        flex-direction: column;
+        text-align: center;
+      }
+      .footer__right {
+        gap: 8px;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar__inner">
+      <a href="/" class="navbar__logo">
+        <img src="assets/mascot.png" alt="Berly" class="navbar__mascot">
+        Berly
+      </a>
+      <nav class="navbar__links" aria-label="Primary navigation">
+        <a href="/ai-compliance-documentation" class="navbar__link">AI Compliance Documentation</a>
+        <a href="/about" class="navbar__link">About</a>
+        <a href="/classifier" class="navbar__link">Free Classifier</a>
+        <a href="/deadlines" class="navbar__link">Deadlines</a>
+        <a href="/crosswalk" class="navbar__link">Crosswalk</a>
+        <a href="/feedback" class="navbar__link" aria-current="page">Feedback</a>
+      </nav>
+      <a href="https://buy.stripe.com/28E6oHfmXahS6xL0iGeZ201" class="btn btn--primary navbar__cta" target="_blank" rel="noopener">Buy Now</a>
+    </div>
+  </header>
+
+  <main class="feedback">
+    <div class="feedback__inner">
+      <p class="feedback__eyebrow">Feedback</p>
+      <h1 class="feedback__title">Share feedback on Berly</h1>
+      <p class="feedback__intro">Tell us what is clear, confusing, missing, or useful. Your feedback helps shape the product.</p>
+
+      <form id="feedback-form" class="feedback-card" novalidate>
+        <div class="form-group">
+          <label for="feedback-message" class="form-label">Feedback</label>
+          <textarea id="feedback-message" name="message" class="form-textarea" required maxlength="5000" placeholder="What should we improve, clarify, add, or keep?"></textarea>
+          <p class="form-help">Please do not include passwords, API keys, confidential client details, or other secrets.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="feedback-role" class="form-label">Your role, optional</label>
+          <input id="feedback-role" name="role" class="form-input" type="text" maxlength="100" autocomplete="organization-title" placeholder="Founder, consultant, lawyer, compliance lead...">
+        </div>
+
+        <div class="form-group">
+          <label for="feedback-email" class="form-label">Email, optional</label>
+          <input id="feedback-email" name="email" class="form-input" type="email" autocomplete="email" placeholder="you@example.com">
+          <p class="form-help">Only include your email if you want possible follow-up.</p>
+        </div>
+
+        <div class="form-actions">
+          <button id="feedback-submit" type="submit" class="btn btn--primary">Send feedback</button>
+          <p id="feedback-status" class="form-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__logo">Berly</div>
+      <div class="footer__right">
+        <a href="/ai-compliance-documentation" class="footer__email">AI Compliance Documentation</a>
+        <a href="/about" class="footer__email">About</a>
+        <a href="/classifier" class="footer__email">Free Classifier</a>
+        <a href="/deadlines" class="footer__email">Deadlines</a>
+        <a href="/crosswalk" class="footer__email">Crosswalk</a>
+        <a href="/feedback" class="footer__email">Feedback</a>
+        <a href="mailto:support@berly.app" class="footer__email">support@berly.app</a>
+        <span class="footer__disclaimer">Not legal advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const API_URL = 'https://berly-api.berly.workers.dev/feedback';
+      const form = document.getElementById('feedback-form');
+      const message = document.getElementById('feedback-message');
+      const role = document.getElementById('feedback-role');
+      const email = document.getElementById('feedback-email');
+      const submit = document.getElementById('feedback-submit');
+      const status = document.getElementById('feedback-status');
+
+      function setStatus(text, type) {
+        status.textContent = text;
+        status.className = type ? 'form-status form-status--' + type : 'form-status';
+      }
+
+      function getAttribution() {
+        if (window.BerlyAttribution && typeof window.BerlyAttribution.getAttribution === 'function') {
+          return window.BerlyAttribution.getAttribution();
+        }
+        return undefined;
+      }
+
+      form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const trimmedMessage = message.value.trim();
+        if (!trimmedMessage) {
+          setStatus('Please enter feedback before sending.', 'error');
+          message.focus();
+          return;
+        }
+
+        if (email.value.trim() && !email.checkValidity()) {
+          setStatus('Please enter a valid email address, or leave email blank.', 'error');
+          email.focus();
+          return;
+        }
+
+        const payload = {
+          message: trimmedMessage,
+          role: role.value.trim(),
+          email: email.value.trim(),
+          page: window.location.href,
+          referrer: document.referrer || '',
+          attribution: getAttribution(),
+        };
+
+        submit.disabled = true;
+        submit.textContent = 'Sending...';
+        setStatus('', '');
+
+        try {
+          const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+
+          if (!response.ok) {
+            throw new Error('Feedback request failed');
+          }
+
+          form.reset();
+          setStatus('Thanks — your feedback was sent.', 'success');
+        } catch (_) {
+          setStatus('We could not send feedback right now. Please try again.', 'error');
+        } finally {
+          submit.disabled = false;
+          submit.textContent = 'Send feedback';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
