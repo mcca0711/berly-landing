@@ -78,11 +78,16 @@ Manual checklist:
 
 The feedback page submits to `https://berly-api.berly.workers.dev/feedback`. Cloudflare KV in `berly-api` remains the source of truth for stored feedback records; this landing repo does not store feedback.
 
+The feedback page uses Cloudflare Turnstile. The public frontend site key is configured in `feedback.html` as `TURNSTILE_SITE_KEY`. Replace the placeholder with Berly's production Turnstile site key before deploying the hardened feedback flow. The Turnstile secret key must not be placed in this repo; it belongs only in `berly-api` as `TURNSTILE_SECRET_KEY`.
+
 Manual checklist:
 
 1. Visit `/feedback`.
-2. Submit feedback without an email address and confirm the success state appears.
-3. Confirm `berly-api` stores a Cloudflare KV record under `feedback:`.
-4. Submit feedback with an email address.
-5. Confirm the stored feedback record includes `page`, `referrer`, and `attribution` when attribution is available.
-6. Submit an empty message and confirm the page blocks submission before calling the API.
+2. Confirm the Turnstile widget renders.
+3. Submit feedback without completing Turnstile and confirm the page asks for verification before sending.
+4. Complete Turnstile, submit feedback without an email address, and confirm the success state appears.
+5. Confirm `berly-api` stores a Cloudflare KV record under `feedback:`.
+6. Submit feedback with an email address.
+7. Confirm the stored feedback record includes `page`, `referrer`, and `attribution`; the API should accept it only after server-side Turnstile verification.
+8. Submit an empty message and confirm the page blocks submission before calling the API.
+9. Trigger or simulate a rate-limit response and confirm the page shows a retry-later message.

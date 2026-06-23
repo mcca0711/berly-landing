@@ -21,6 +21,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="assets/icon.ico">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -177,6 +178,9 @@
       flex-wrap: wrap;
       margin-top: 24px;
     }
+    .turnstile-wrap {
+      margin-top: 22px;
+    }
     .form-status {
       font-size: 0.92rem;
       line-height: 1.5;
@@ -289,6 +293,10 @@
           <p class="form-help">Only include your email if you want possible follow-up.</p>
         </div>
 
+        <div class="turnstile-wrap">
+          <div id="feedback-turnstile"></div>
+        </div>
+
         <div class="form-actions">
           <button id="feedback-submit" type="submit" class="btn btn--primary">Send feedback</button>
           <p id="feedback-status" class="form-status" role="status" aria-live="polite"></p>
@@ -318,12 +326,18 @@
       'use strict';
 
       const API_URL = 'https://berly-api.berly.workers.dev/feedback';
+      // Public Cloudflare Turnstile site key. Replace before deploy with Berly's production site key.
+      // The Turnstile secret key belongs only in berly-api as TURNSTILE_SECRET_KEY.
+      const TURNSTILE_SITE_KEY = '0x4AAAAAADp5oAwVESfZrlPj';
       const form = document.getElementById('feedback-form');
       const message = document.getElementById('feedback-message');
       const role = document.getElementById('feedback-role');
       const email = document.getElementById('feedback-email');
       const submit = document.getElementById('feedback-submit');
       const status = document.getElementById('feedback-status');
+      const turnstileContainer = document.getElementById('feedback-turnstile');
+      let turnstileWidgetId;
+      let turnstileToken = '';
 
       function setStatus(text, type) {
         status.textContent = text;
@@ -336,6 +350,45 @@
         }
         return undefined;
       }
+
+      function renderTurnstileWhenReady() {
+        if (!turnstileContainer || TURNSTILE_SITE_KEY === 'REPLACE_WITH_TURNSTILE_SITE_KEY') {
+          setStatus('Feedback verification is not configured yet.', 'error');
+          return;
+        }
+
+        if (!window.turnstile || typeof window.turnstile.render !== 'function') {
+          window.setTimeout(renderTurnstileWhenReady, 150);
+          return;
+        }
+
+        turnstileWidgetId = window.turnstile.render(turnstileContainer, {
+          sitekey: TURNSTILE_SITE_KEY,
+          callback: function (token) {
+            turnstileToken = token;
+            if (status.textContent === 'Please complete the verification before sending.') {
+              setStatus('', '');
+            }
+          },
+          'expired-callback': function () {
+            turnstileToken = '';
+            setStatus('Verification expired. Please complete it again before sending.', 'error');
+          },
+          'error-callback': function () {
+            turnstileToken = '';
+            setStatus('Verification could not load. Please refresh and try again.', 'error');
+          },
+        });
+      }
+
+      function resetTurnstile() {
+        turnstileToken = '';
+        if (window.turnstile && turnstileWidgetId !== undefined) {
+          window.turnstile.reset(turnstileWidgetId);
+        }
+      }
+
+      renderTurnstileWhenReady();
 
       form.addEventListener('submit', async function (event) {
         event.preventDefault();
@@ -353,6 +406,11 @@
           return;
         }
 
+        if (!turnstileToken) {
+          setStatus('Please complete the verification before sending.', 'error');
+          return;
+        }
+
         const payload = {
           message: trimmedMessage,
           role: role.value.trim(),
@@ -360,6 +418,7 @@
           page: window.location.href,
           referrer: document.referrer || '',
           attribution: getAttribution(),
+          turnstileToken: turnstileToken,
         };
 
         submit.disabled = true;
@@ -374,13 +433,27 @@
           });
 
           if (!response.ok) {
+            if (response.status === 429) {
+              throw new Error('rate_limited');
+            }
+            if (response.status === 400) {
+              throw new Error('verification_failed');
+            }
             throw new Error('Feedback request failed');
           }
 
           form.reset();
+          resetTurnstile();
           setStatus('Thanks — your feedback was sent.', 'success');
-        } catch (_) {
-          setStatus('We could not send feedback right now. Please try again.', 'error');
+        } catch (err) {
+          resetTurnstile();
+          if (err && err.message === 'rate_limited') {
+            setStatus('Too many feedback submissions right now. Please try again later.', 'error');
+          } else if (err && err.message === 'verification_failed') {
+            setStatus('Verification failed. Please complete it again and retry.', 'error');
+          } else {
+            setStatus('We could not send feedback right now. Please try again.', 'error');
+          }
         } finally {
           submit.disabled = false;
           submit.textContent = 'Send feedback';
