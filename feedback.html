@@ -326,8 +326,7 @@
       'use strict';
 
       const API_URL = 'https://berly-api.berly.workers.dev/feedback';
-      // Public Cloudflare Turnstile site key. Replace before deploy with Berly's production site key.
-      // The Turnstile secret key belongs only in berly-api as TURNSTILE_SECRET_KEY.
+      // Public Cloudflare Turnstile site key. The secret key belongs only in berly-api.
       const TURNSTILE_SITE_KEY = '0x4AAAAAADp5oAwVESfZrlPj';
       const form = document.getElementById('feedback-form');
       const message = document.getElementById('feedback-message');
@@ -337,11 +336,53 @@
       const status = document.getElementById('feedback-status');
       const turnstileContainer = document.getElementById('feedback-turnstile');
       let turnstileWidgetId;
-      let turnstileToken = '';
+      let resettingTurnstile = false;
+
+      const state = {
+        turnstileLoading: true,
+        turnstileReady: false,
+        turnstileToken: '',
+        turnstileError: '',
+        submitting: false,
+        submitSuccess: false,
+        submitError: '',
+      };
 
       function setStatus(text, type) {
         status.textContent = text;
         status.className = type ? 'form-status form-status--' + type : 'form-status';
+      }
+
+      function renderState() {
+        submit.disabled = state.submitting;
+        submit.textContent = state.submitting ? 'Sending...' : 'Send feedback';
+
+        if (state.submitting) {
+          setStatus('', '');
+        } else if (state.submitSuccess) {
+          setStatus('Thanks — your feedback was sent.', 'success');
+        } else if (state.submitError) {
+          setStatus(state.submitError, 'error');
+        } else if (state.turnstileError) {
+          setStatus(state.turnstileError, 'error');
+        } else {
+          setStatus('', '');
+        }
+      }
+
+      function setSubmitError(messageText) {
+        state.submitSuccess = false;
+        state.submitError = messageText;
+        renderState();
+      }
+
+      function clearSubmitState() {
+        state.submitSuccess = false;
+        state.submitError = '';
+      }
+
+      function clearTurnstileToken() {
+        state.turnstileToken = '';
       }
 
       function getAttribution() {
@@ -351,9 +392,35 @@
         return undefined;
       }
 
+      function resetTurnstile() {
+        clearTurnstileToken();
+        if (!window.turnstile || turnstileWidgetId === undefined || resettingTurnstile) {
+          return;
+        }
+
+        resettingTurnstile = true;
+        try {
+          window.turnstile.reset(turnstileWidgetId);
+        } catch (_) {
+          state.turnstileReady = false;
+        } finally {
+          resettingTurnstile = false;
+        }
+      }
+
+      function handleTurnstileProblem(messageText) {
+        clearTurnstileToken();
+        state.turnstileReady = false;
+        state.turnstileError = messageText;
+        resetTurnstile();
+        renderState();
+      }
+
       function renderTurnstileWhenReady() {
-        if (!turnstileContainer || TURNSTILE_SITE_KEY === 'REPLACE_WITH_TURNSTILE_SITE_KEY') {
-          setStatus('Feedback verification is not configured yet.', 'error');
+        if (!turnstileContainer) {
+          state.turnstileLoading = false;
+          state.turnstileError = 'Feedback verification is not available. Please refresh and try again.';
+          renderState();
           return;
         }
 
@@ -365,52 +432,55 @@
         turnstileWidgetId = window.turnstile.render(turnstileContainer, {
           sitekey: TURNSTILE_SITE_KEY,
           callback: function (token) {
-            turnstileToken = token;
-            if (status.textContent === 'Please complete the verification before sending.') {
-              setStatus('', '');
+            state.turnstileLoading = false;
+            state.turnstileReady = true;
+            state.turnstileToken = token;
+            state.turnstileError = '';
+            if (state.submitError === 'Please complete the verification before sending.' || state.submitError === 'Verification expired. Please try again.') {
+              state.submitError = '';
             }
+            renderState();
           },
           'expired-callback': function () {
-            turnstileToken = '';
-            setStatus('Verification expired. Please complete it again before sending.', 'error');
+            handleTurnstileProblem('Verification expired. Please complete it again before sending.');
           },
           'error-callback': function () {
-            turnstileToken = '';
-            setStatus('Verification could not load. Please refresh and try again.', 'error');
+            handleTurnstileProblem('Verification could not be completed. Please try again.');
+          },
+          'timeout-callback': function () {
+            handleTurnstileProblem('Verification timed out. Please try again.');
           },
         });
-      }
-
-      function resetTurnstile() {
-        turnstileToken = '';
-        if (window.turnstile && turnstileWidgetId !== undefined) {
-          window.turnstile.reset(turnstileWidgetId);
-        }
+        state.turnstileLoading = false;
+        renderState();
       }
 
       renderTurnstileWhenReady();
 
       form.addEventListener('submit', async function (event) {
         event.preventDefault();
+        if (state.submitting) return;
 
+        clearSubmitState();
         const trimmedMessage = message.value.trim();
         if (!trimmedMessage) {
-          setStatus('Please enter feedback before sending.', 'error');
+          setSubmitError('Please enter feedback before sending.');
           message.focus();
           return;
         }
 
         if (email.value.trim() && !email.checkValidity()) {
-          setStatus('Please enter a valid email address, or leave email blank.', 'error');
+          setSubmitError('Please enter a valid email address, or leave email blank.');
           email.focus();
           return;
         }
 
-        if (!turnstileToken) {
-          setStatus('Please complete the verification before sending.', 'error');
+        if (!state.turnstileToken) {
+          setSubmitError('Please complete the verification before sending.');
           return;
         }
 
+        const tokenForSubmit = state.turnstileToken;
         const payload = {
           message: trimmedMessage,
           role: role.value.trim(),
@@ -418,12 +488,11 @@
           page: window.location.href,
           referrer: document.referrer || '',
           attribution: getAttribution(),
-          turnstileToken: turnstileToken,
+          turnstileToken: tokenForSubmit,
         };
 
-        submit.disabled = true;
-        submit.textContent = 'Sending...';
-        setStatus('', '');
+        state.submitting = true;
+        renderState();
 
         try {
           const response = await fetch(API_URL, {
@@ -434,29 +503,34 @@
 
           if (!response.ok) {
             if (response.status === 429) {
-              throw new Error('rate_limited');
+              throw new Error('too_many_requests');
             }
             if (response.status === 400) {
               throw new Error('verification_failed');
             }
-            throw new Error('Feedback request failed');
+            throw new Error('feedback_failed');
           }
 
           form.reset();
+          clearTurnstileToken();
+          state.turnstileError = '';
+          state.submitError = '';
+          state.submitSuccess = true;
           resetTurnstile();
-          setStatus('Thanks — your feedback was sent.', 'success');
         } catch (err) {
+          clearTurnstileToken();
           resetTurnstile();
-          if (err && err.message === 'rate_limited') {
-            setStatus('Too many feedback submissions right now. Please try again later.', 'error');
+          state.submitSuccess = false;
+          if (err && err.message === 'too_many_requests') {
+            state.submitError = 'Too many feedback submissions. Please try again later.';
           } else if (err && err.message === 'verification_failed') {
-            setStatus('Verification failed. Please complete it again and retry.', 'error');
+            state.submitError = 'Verification expired. Please try again.';
           } else {
-            setStatus('We could not send feedback right now. Please try again.', 'error');
+            state.submitError = 'Feedback could not be sent. Please try again.';
           }
         } finally {
-          submit.disabled = false;
-          submit.textContent = 'Send feedback';
+          state.submitting = false;
+          renderState();
         }
       });
     })();
