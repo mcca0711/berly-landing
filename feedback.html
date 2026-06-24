@@ -187,6 +187,25 @@
     }
     .form-status--success { color: #15803d; }
     .form-status--error { color: #b91c1c; }
+    .verification-refresh {
+      display: none;
+      background: transparent;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      color: #334155;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 9px 14px;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .verification-refresh:hover {
+      border-color: #3b82f6;
+      color: #1d4ed8;
+    }
+    .verification-refresh.is-visible {
+      display: inline-block;
+    }
     .footer {
       background: #0f172a;
       border-top: 1px solid rgba(255,255,255,0.08);
@@ -300,6 +319,7 @@
         <div class="form-actions">
           <button id="feedback-submit" type="submit" class="btn btn--primary">Send feedback</button>
           <p id="feedback-status" class="form-status" role="status" aria-live="polite"></p>
+          <button id="turnstile-refresh" type="button" class="verification-refresh">Refresh verification</button>
         </div>
       </form>
     </div>
@@ -334,9 +354,10 @@
       const email = document.getElementById('feedback-email');
       const submit = document.getElementById('feedback-submit');
       const status = document.getElementById('feedback-status');
+      const turnstileRefresh = document.getElementById('turnstile-refresh');
       const turnstileContainer = document.getElementById('feedback-turnstile');
       let turnstileWidgetId;
-      let resettingTurnstile = false;
+      let lastTurnstileResetAt = 0;
 
       const state = {
         turnstileLoading: true,
@@ -356,6 +377,7 @@
       function renderState() {
         submit.disabled = state.submitting;
         submit.textContent = state.submitting ? 'Sending...' : 'Send feedback';
+        turnstileRefresh.classList.toggle('is-visible', Boolean(state.turnstileError) && !state.submitSuccess);
 
         if (state.submitting) {
           setStatus('', '');
@@ -394,29 +416,39 @@
 
       function resetTurnstile() {
         clearTurnstileToken();
-        if (!window.turnstile || turnstileWidgetId === undefined || resettingTurnstile) {
+        const now = Date.now();
+        if (!window.turnstile || turnstileWidgetId === undefined || now - lastTurnstileResetAt < 1000) {
           return;
         }
 
-        resettingTurnstile = true;
+        lastTurnstileResetAt = now;
         try {
           window.turnstile.reset(turnstileWidgetId);
         } catch (_) {
           state.turnstileReady = false;
-        } finally {
-          resettingTurnstile = false;
         }
+      }
+
+      function resetTurnstileSoon() {
+        window.setTimeout(resetTurnstile, 250);
       }
 
       function handleTurnstileProblem(messageText) {
         clearTurnstileToken();
         state.turnstileReady = false;
+        if (state.submitSuccess) {
+          renderState();
+          return;
+        }
         state.turnstileError = messageText;
-        resetTurnstile();
         renderState();
       }
 
       function renderTurnstileWhenReady() {
+        if (turnstileWidgetId !== undefined) {
+          return;
+        }
+
         if (!turnstileContainer) {
           state.turnstileLoading = false;
           state.turnstileError = 'Feedback verification is not available. Please refresh and try again.';
@@ -442,13 +474,13 @@
             renderState();
           },
           'expired-callback': function () {
-            handleTurnstileProblem('Verification expired. Please complete it again before sending.');
+            handleTurnstileProblem('Verification expired. Refresh verification and try again.');
           },
           'error-callback': function () {
-            handleTurnstileProblem('Verification could not be completed. Please try again.');
+            handleTurnstileProblem('Verification failed. Refresh verification and try again.');
           },
           'timeout-callback': function () {
-            handleTurnstileProblem('Verification timed out. Please try again.');
+            handleTurnstileProblem('Verification timed out. Refresh verification and try again.');
           },
         });
         state.turnstileLoading = false;
@@ -456,6 +488,16 @@
       }
 
       renderTurnstileWhenReady();
+
+      turnstileRefresh.addEventListener('click', function () {
+        clearTurnstileToken();
+        state.turnstileError = '';
+        if (state.submitError !== 'Too many feedback submissions. Please try again later.') {
+          state.submitError = '';
+        }
+        resetTurnstile();
+        renderState();
+      });
 
       form.addEventListener('submit', async function (event) {
         event.preventDefault();
@@ -516,10 +558,10 @@
           state.turnstileError = '';
           state.submitError = '';
           state.submitSuccess = true;
-          resetTurnstile();
+          resetTurnstileSoon();
         } catch (err) {
           clearTurnstileToken();
-          resetTurnstile();
+          resetTurnstileSoon();
           state.submitSuccess = false;
           if (err && err.message === 'too_many_requests') {
             state.submitError = 'Too many feedback submissions. Please try again later.';
