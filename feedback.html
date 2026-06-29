@@ -145,6 +145,7 @@
       margin-bottom: 8px;
     }
     .form-input,
+    .form-select,
     .form-textarea {
       width: 100%;
       border: 1px solid #cbd5e1;
@@ -160,6 +161,7 @@
       line-height: 1.6;
     }
     .form-input:focus,
+    .form-select:focus,
     .form-textarea:focus {
       border-color: #3b82f6;
       box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.14);
@@ -284,7 +286,7 @@
         <a href="/deadlines" class="navbar__link">Deadlines</a>
         <a href="/crosswalk" class="navbar__link">Crosswalk</a>
       </nav>
-      <a href="https://buy.stripe.com/28E6oHfmXahS6xL0iGeZ201" class="btn btn--primary navbar__cta" target="_blank" rel="noopener">Buy Now</a>
+      <a href="https://buy.stripe.com/28E6oHfmXahS6xL0iGeZ201" class="btn btn--primary navbar__cta" target="_blank" rel="noopener">Get Berly for Windows</a>
     </div>
   </header>
 
@@ -292,9 +294,21 @@
     <div class="feedback__inner">
       <p class="feedback__eyebrow">Feedback</p>
       <h1 class="feedback__title">Share feedback on Berly</h1>
-      <p class="feedback__intro">Tell us what is clear, confusing, missing, or useful. Your feedback helps shape the product.</p>
+      <p class="feedback__intro">Share product feedback, a practitioner review, a framework or resource correction, or your interest in a Mac version. Tell us what is clear, confusing, missing, or useful.</p>
 
       <form id="feedback-form" class="feedback-card" novalidate>
+        <div class="form-group">
+          <label for="feedback-topic" class="form-label">Topic, optional</label>
+          <select id="feedback-topic" name="topic" class="form-select">
+            <option value="">Select a topic</option>
+            <option value="product-feedback">Product feedback</option>
+            <option value="practitioner-review">Practitioner review</option>
+            <option value="framework-correction">Framework/resource correction</option>
+            <option value="mac-interest">Mac interest</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
         <div class="form-group">
           <label for="feedback-message" class="form-label">Feedback</label>
           <textarea id="feedback-message" name="message" class="form-textarea" required maxlength="5000" placeholder="What should we improve, clarify, add, or keep?"></textarea>
@@ -349,6 +363,7 @@
       // Public Cloudflare Turnstile site key. The secret key belongs only in berly-api.
       const TURNSTILE_SITE_KEY = '0x4AAAAAADp5oAwVESfZrlPj';
       const form = document.getElementById('feedback-form');
+      const topic = document.getElementById('feedback-topic');
       const message = document.getElementById('feedback-message');
       const role = document.getElementById('feedback-role');
       const email = document.getElementById('feedback-email');
@@ -358,6 +373,11 @@
       const turnstileContainer = document.getElementById('feedback-turnstile');
       let turnstileWidgetId;
       let lastTurnstileResetAt = 0;
+
+      const requestedTopic = new URLSearchParams(window.location.search).get('topic');
+      if (requestedTopic && Array.prototype.some.call(topic.options, function (option) { return option.value === requestedTopic; })) {
+        topic.value = requestedTopic;
+      }
 
       const state = {
         turnstileLoading: true,
@@ -523,8 +543,9 @@
         }
 
         const tokenForSubmit = state.turnstileToken;
+        const selectedTopic = topic.value ? topic.options[topic.selectedIndex].text : '';
         const payload = {
-          message: trimmedMessage,
+          message: selectedTopic ? '[Topic: ' + selectedTopic + ']\n\n' + trimmedMessage : trimmedMessage,
           role: role.value.trim(),
           email: email.value.trim(),
           page: window.location.href,

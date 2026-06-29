@@ -78,7 +78,7 @@ Manual checklist:
 
 The feedback page submits to `https://berly-api.berly.workers.dev/feedback`. Cloudflare KV in `berly-api` remains the source of truth for stored feedback records; this landing repo does not store feedback.
 
-The feedback page uses Cloudflare Turnstile. The public frontend site key is configured in `feedback.html` as `TURNSTILE_SITE_KEY`. Replace the placeholder with Berly's production Turnstile site key before deploying the hardened feedback flow. The Turnstile secret key must not be placed in this repo; it belongs only in `berly-api` as `TURNSTILE_SECRET_KEY`.
+The feedback page uses Cloudflare Turnstile. The public frontend site key is configured in `feedback.html` as `TURNSTILE_SITE_KEY`. The Turnstile secret key must not be placed in this repo; it belongs only in `berly-api` as `TURNSTILE_SECRET_KEY`.
 
 Manual checklist:
 
