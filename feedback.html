@@ -21,6 +21,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="assets/icon.ico">
+  <link rel="stylesheet" href="assets/motion.css">
+  <script src="assets/motion.js" defer></script>
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -293,8 +295,8 @@
   <main class="feedback">
     <div class="feedback__inner">
       <p class="feedback__eyebrow">Feedback</p>
-      <h1 class="feedback__title">Share feedback on Berly</h1>
-      <p class="feedback__intro">Share product feedback, a practitioner review, a framework or resource correction, or your interest in a Mac version. Tell us what is clear, confusing, missing, or useful.</p>
+      <h1 class="feedback__title" data-reveal="fade-up">Share feedback on Berly</h1>
+      <p class="feedback__intro" data-reveal="fade-up" style="--reveal-delay:80ms;">Share product feedback, a practitioner review, a framework or resource correction, or your interest in a Mac version. Tell us what is clear, confusing, missing, or useful.</p>
 
       <form id="feedback-form" class="feedback-card" novalidate>
         <div class="form-group">

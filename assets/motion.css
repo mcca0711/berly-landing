@@ -1,0 +1,55 @@
+/* Shared, restrained motion for public content pages. */
+.motion-enabled [data-reveal],
+.motion-enabled [data-reveal-item] {
+  opacity: 0;
+  transition:
+    opacity 500ms ease,
+    transform 500ms ease;
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.motion-enabled [data-reveal="fade-up"],
+.motion-enabled [data-reveal-item] {
+  transform: translateY(16px);
+}
+
+.motion-enabled [data-reveal="fade-in"] {
+  transform: none;
+}
+
+.motion-enabled [data-reveal="fade-left"] {
+  transform: translateX(-12px);
+}
+
+.motion-enabled [data-reveal].is-visible,
+.motion-enabled [data-reveal-item].is-visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+.motion-card {
+  transition:
+    box-shadow 200ms ease,
+    transform 200ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .motion-card:hover,
+  .motion-enabled [data-reveal-item].motion-card.is-visible:hover {
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.09);
+    transform: translateY(-2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal-item],
+  .motion-card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}

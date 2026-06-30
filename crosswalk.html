@@ -23,6 +23,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="assets/icon.ico">
+  <link rel="stylesheet" href="assets/motion.css">
+  <script src="assets/motion.js" defer></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -409,10 +411,10 @@
 
   <section class="hero">
     <div class="hero__inner">
-      <span class="hero__label">Free Resource · AI Documentation</span>
-      <h1 class="hero__headline">AI Documentation Crosswalk</h1>
-      <p class="hero__sub">See how sections inside one AI compliance documentation package relate across EU AI Act, Colorado SB 24-205, Illinois AI employment laws, NYC Local Law 144, and CPRA ADMT.</p>
-      <div class="hero__buttons">
+      <span class="hero__label" data-reveal="fade-in">Free Resource · AI Documentation</span>
+      <h1 class="hero__headline" data-reveal="fade-up" style="--reveal-delay:60ms;">AI Documentation Crosswalk</h1>
+      <p class="hero__sub" data-reveal="fade-up" style="--reveal-delay:120ms;">See how sections inside one AI compliance documentation package relate across EU AI Act, Colorado SB 24-205, Illinois AI employment laws, NYC Local Law 144, and CPRA ADMT.</p>
+      <div class="hero__buttons" data-reveal="fade-up" style="--reveal-delay:180ms;">
         <a href="assets/berly_ai_documentation_crosswalk_v1_4_updated_header_mascot.pdf" class="btn btn--primary" download>Download PDF</a>
         <a href="/classifier" class="btn btn--outline">Try the Free Classifier</a>
       </div>
@@ -428,28 +430,28 @@
   <section class="section">
     <div class="section__inner">
       <h2 class="section__heading">What this resource shows</h2>
-      <div class="resource-grid">
-        <div class="resource-card">
+      <div class="resource-grid" data-reveal-group>
+        <div class="resource-card" data-reveal-item>
           <h3 class="resource-card__title">System record</h3>
           <p class="resource-card__text">The basic description of the AI system, its intended purpose, users, deployment context, and owner.</p>
         </div>
-        <div class="resource-card">
+        <div class="resource-card" data-reveal-item>
           <h3 class="resource-card__title">Risk-related and impact documentation</h3>
           <p class="resource-card__text">How risk-related notes, impact documentation, mitigation records, and review history appear across selected AI governance frameworks.</p>
         </div>
-        <div class="resource-card">
+        <div class="resource-card" data-reveal-item>
           <h3 class="resource-card__title">Notices and disclosures</h3>
           <p class="resource-card__text">Where frameworks ask for candidate, employee, consumer, or user-facing explanations.</p>
         </div>
-        <div class="resource-card">
+        <div class="resource-card" data-reveal-item>
           <h3 class="resource-card__title">Human review evidence</h3>
           <p class="resource-card__text">How human oversight, appeal, review, and approval records fit into the documentation package.</p>
         </div>
-        <div class="resource-card">
+        <div class="resource-card" data-reveal-item>
           <h3 class="resource-card__title">Evidence and audit trail</h3>
           <p class="resource-card__text">Why supporting evidence, change history, and review records matter for a credible documentation package.</p>
         </div>
-        <div class="resource-card">
+        <div class="resource-card" data-reveal-item>
           <h3 class="resource-card__title">Exportable documentation package</h3>
           <p class="resource-card__text">How the pieces come together into one structured package for human review.</p>
         </div>
@@ -459,7 +461,7 @@
 
   <section class="section section--tight">
     <div class="insight">
-      <div class="insight__box">
+      <div class="insight__box" data-reveal="fade-up">
         <h2 class="insight__heading">The practical point</h2>
         <p class="insight__text">The laws use different terminology, but the work often comes back to similar documentation sections: system description, risk-related documentation, data governance, notices, human review, evidence, and audit trail. The crosswalk helps readers see those overlaps without treating the PDF as legal advice or a compliance determination.</p>
       </div>
@@ -468,7 +470,7 @@
 
   <section class="section">
     <div class="section__inner">
-      <div class="product-callout">
+      <div class="product-callout" data-reveal="fade-up">
         <h2 class="product-callout__heading">How Berly fits</h2>
         <p class="product-callout__intro">Berly helps organize AI system records, supporting evidence, review notes, change history, and exportable documentation packages across selected AI governance frameworks.</p>
         <ul class="feature-list">
@@ -488,24 +490,24 @@
   <section class="frameworks">
     <div class="frameworks__inner">
       <h2 class="frameworks__heading">Frameworks covered</h2>
-      <div class="frameworks__pills">
-        <span class="frameworks__pill">EU AI Act</span>
-        <span class="frameworks__pill">Colorado SB 24-205</span>
-        <span class="frameworks__pill">Illinois AIVIA + HB 3773</span>
-        <span class="frameworks__pill">NYC Local Law 144</span>
-        <span class="frameworks__pill">CPRA ADMT</span>
+      <div class="frameworks__pills" data-reveal-group>
+        <span class="frameworks__pill" data-reveal-item>EU AI Act</span>
+        <span class="frameworks__pill" data-reveal-item>Colorado SB 24-205</span>
+        <span class="frameworks__pill" data-reveal-item>Illinois AIVIA + HB 3773</span>
+        <span class="frameworks__pill" data-reveal-item>NYC Local Law 144</span>
+        <span class="frameworks__pill" data-reveal-item>CPRA ADMT</span>
       </div>
     </div>
   </section>
 
   <section class="cta-section">
-    <div class="cta-section__inner">
-      <div class="cta-box">
+    <div class="cta-section__inner" data-reveal-group>
+      <div class="cta-box" data-reveal-item>
         <h2 class="cta-box__heading">Not sure which frameworks may be relevant?</h2>
         <p class="cta-box__body">Use Berly's free classifier for a high-level, informational screening of selected AI compliance frameworks.</p>
         <a href="/classifier" class="btn btn--primary">Try the Free Classifier</a>
       </div>
-      <div class="cta-box">
+      <div class="cta-box" data-reveal-item>
         <h2 class="cta-box__heading">Need the full documentation workflow?</h2>
         <p class="cta-box__body">Berly helps organize AI system records, supporting evidence, review notes, change history, and exportable documentation packages across selected frameworks.</p>
         <a href="/#pricing" class="btn btn--primary">See Berly</a>

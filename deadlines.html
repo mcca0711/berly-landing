@@ -18,6 +18,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="assets/icon.ico">
+  <link rel="stylesheet" href="assets/motion.css">
+  <script src="assets/motion.js" defer></script>
 
   <style>
     /* ── Reset & Base ─────────────────────────────────── */
@@ -525,11 +527,11 @@
   <!-- ── Hero ─────────────────────────────────────────── -->
   <section class="hero">
     <div class="hero__inner">
-      <span class="hero__label">Free Reference · 2026</span>
-      <h1 class="hero__headline">AI Compliance Deadlines &amp; Documentation Reference - 2026</h1>
-      <p class="hero__sub">Five frameworks. Three upcoming deadlines. One reference sheet.</p>
+      <span class="hero__label" data-reveal="fade-in">Free Reference · 2026</span>
+      <h1 class="hero__headline" data-reveal="fade-up" style="--reveal-delay:60ms;">AI Compliance Deadlines &amp; Documentation Reference - 2026</h1>
+      <p class="hero__sub" data-reveal="fade-up" style="--reveal-delay:120ms;">Five frameworks. Three upcoming deadlines. One reference sheet.</p>
       <p class="hero__note">This page is an informational reference, not legal advice or a compliance determination. Dates, enforcement timelines, and rule status can change. Review the linked primary sources and consult qualified legal counsel before relying on this page for compliance decisions.</p>
-      <div class="hero__buttons">
+      <div class="hero__buttons" data-reveal="fade-up" style="--reveal-delay:180ms;">
         <a href="/classifier" class="btn btn--primary">Try the Free Classifier</a>
         <a href="assets/berly-compliance-deadlines-2026.pdf" class="btn btn--outline" download>Download PDF ↓</a>
       </div>
@@ -539,9 +541,9 @@
   <!-- ── Timeline Strip ───────────────────────────────── -->
   <section class="timeline">
     <div class="timeline__inner">
-      <div class="timeline__track">
+      <div class="timeline__track" data-reveal-group>
         <div class="timeline__item">
-          <div class="timeline__dot timeline__dot--green">
+          <div class="timeline__dot timeline__dot--green" data-reveal-item>
             <div class="timeline__dot-inner"></div>
           </div>
           <div>
@@ -550,7 +552,7 @@
           </div>
         </div>
         <div class="timeline__item">
-          <div class="timeline__dot timeline__dot--blue">
+          <div class="timeline__dot timeline__dot--blue" data-reveal-item>
             <div class="timeline__dot-inner"></div>
           </div>
           <div>
@@ -559,7 +561,7 @@
           </div>
         </div>
         <div class="timeline__item">
-          <div class="timeline__dot timeline__dot--teal">
+          <div class="timeline__dot timeline__dot--teal" data-reveal-item>
             <div class="timeline__dot-inner"></div>
           </div>
           <div>
@@ -742,7 +744,7 @@
 
   <!-- ── Cross-framework Insight ───────────────────────── -->
   <div class="insight">
-    <div class="insight__box">
+    <div class="insight__box" data-reveal="fade-up">
       <div class="insight__label">Cross-Framework Insight</div>
       <p class="insight__text">Many of these frameworks require overlapping documentation. A single AI system used in hiring may raise review questions across multiple frameworks. The core artifacts - system description, risk assessment, notice mechanisms, bias controls - overlap significantly. The challenge is mapping one set of documentation to five different legal frameworks with different terminology and citation requirements.</p>
     </div>
@@ -750,13 +752,13 @@
 
   <!-- ── CTA ───────────────────────────────────────────── -->
   <section class="cta-section">
-    <div class="cta-section__inner">
-      <div class="cta-box">
+    <div class="cta-section__inner" data-reveal-group>
+      <div class="cta-box" data-reveal-item>
         <h2 class="cta-box__heading">Screen selected frameworks that may be relevant for review in 2 minutes.</h2>
         <p class="cta-box__body">Free multi-framework screener - no signup needed.</p>
         <a href="/classifier" class="btn btn--primary">Take the Free Screener →</a>
       </div>
-      <div class="cta-box">
+      <div class="cta-box" data-reveal-item>
         <h2 class="cta-box__heading">Need to produce the actual documentation?</h2>
         <p class="cta-box__body">Berly helps organize AI system records, supporting evidence, review notes, and exportable documentation packages across selected AI governance frameworks.</p>
         <a href="/#pricing" class="btn btn--primary">Learn More →</a>

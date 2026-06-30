@@ -25,6 +25,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="assets/icon.ico">
+  <link rel="stylesheet" href="assets/motion.css">
+  <script src="assets/motion.js" defer></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -425,10 +427,10 @@
 
   <section class="hero">
     <div class="hero__inner">
-      <span class="hero__label">AI Compliance Documentation</span>
-      <h1 class="hero__headline">AI compliance documentation for system records, evidence, and human review</h1>
-      <p class="hero__sub">Berly helps teams organize AI system information, supporting evidence, human-in-the-loop review notes, audit history, and exportable documentation packages across selected AI governance frameworks.</p>
-      <div class="hero__buttons">
+      <span class="hero__label" data-reveal="fade-in">AI Compliance Documentation</span>
+      <h1 class="hero__headline" data-reveal="fade-up" style="--reveal-delay:60ms;">AI compliance documentation for system records, evidence, and human review</h1>
+      <p class="hero__sub" data-reveal="fade-up" style="--reveal-delay:120ms;">Berly helps teams organize AI system information, supporting evidence, human-in-the-loop review notes, audit history, and exportable documentation packages across selected AI governance frameworks.</p>
+      <div class="hero__buttons" data-reveal="fade-up" style="--reveal-delay:180ms;">
         <a href="/classifier" class="btn btn--primary">Try Free Classifier</a>
         <a href="/crosswalk" class="btn btn--outline">View AI Documentation Crosswalk</a>
       </div>
@@ -446,28 +448,28 @@
   <section class="section">
     <div class="section__inner">
       <h2 class="section__heading">What AI system records usually need to capture</h2>
-      <div class="card-grid">
-        <div class="card">
+      <div class="card-grid" data-reveal-group>
+        <div class="card" data-reveal-item>
           <h3 class="card__title">System purpose and use</h3>
           <p class="card__text">Describe what the AI system is intended to do, who uses it, and what workflow or decision it supports.</p>
         </div>
-        <div class="card">
+        <div class="card" data-reveal-item>
           <h3 class="card__title">Data and input notes</h3>
           <p class="card__text">Organize what data the system relies on, where that data comes from, and what supporting information is available.</p>
         </div>
-        <div class="card">
+        <div class="card" data-reveal-item>
           <h3 class="card__title">Human-in-the-loop review</h3>
           <p class="card__text">Document where human review, approval, escalation, or override happens in the workflow.</p>
         </div>
-        <div class="card">
+        <div class="card" data-reveal-item>
           <h3 class="card__title">Evidence and claim support</h3>
           <p class="card__text">Attach supporting materials to documentation claims and identify gaps that need human review.</p>
         </div>
-        <div class="card">
+        <div class="card" data-reveal-item>
           <h3 class="card__title">Audit history and review notes</h3>
           <p class="card__text">Keep a record of review activity, changes, notes, and approval history around the documentation package.</p>
         </div>
-        <div class="card">
+        <div class="card" data-reveal-item>
           <h3 class="card__title">Exportable documentation package</h3>
           <p class="card__text">Prepare a structured package that can be reviewed internally or shared with legal, compliance, privacy, or advisory professionals.</p>
         </div>
@@ -485,24 +487,24 @@
   <section class="section">
     <div class="section__inner">
       <h2 class="section__heading">How Berly helps</h2>
-      <div class="feature-list">
-        <div class="feature">
+      <div class="feature-list" data-reveal-group>
+        <div class="feature" data-reveal-item>
           <h3 class="feature__title">Guided documentation fields</h3>
           <p class="feature__text">Plain-English prompts help users work through the information needed for an AI system record.</p>
         </div>
-        <div class="feature">
+        <div class="feature" data-reveal-item>
           <h3 class="feature__title">AI-assisted drafting with approval</h3>
           <p class="feature__text">Generate draft suggestions from project context, then approve, edit, or reject each suggestion before it is saved.</p>
         </div>
-        <div class="feature">
+        <div class="feature" data-reveal-item>
           <h3 class="feature__title">Evidence attachment and claim review support</h3>
           <p class="feature__text">Link documents to claims and flag evidence gaps for human review.</p>
         </div>
-        <div class="feature">
+        <div class="feature" data-reveal-item>
           <h3 class="feature__title">Multi-framework organization</h3>
           <p class="feature__text">Organize one AI system record across selected frameworks, including EU AI Act, Colorado SB 24-205, Illinois AI employment laws, NYC Local Law 144, and CPRA ADMT.</p>
         </div>
-        <div class="feature">
+        <div class="feature" data-reveal-item>
           <h3 class="feature__title">Structured export</h3>
           <p class="feature__text">Export a structured PDF package with supporting evidence, review notes, and change history.</p>
         </div>
@@ -513,13 +515,13 @@
   <section class="frameworks">
     <div class="frameworks__inner">
       <h2 class="section__heading">Selected frameworks Berly supports</h2>
-      <div class="frameworks__pills">
-        <span class="frameworks__pill">EU AI Act</span>
-        <span class="frameworks__pill">Colorado SB 24-205</span>
-        <span class="frameworks__pill">Illinois AIVIA + HB 3773</span>
-        <span class="frameworks__pill">NYC Local Law 144</span>
-        <span class="frameworks__pill">CPRA ADMT</span>
-        <span class="frameworks__pill">NIST AI RMF / ISO/IEC 42001 mapping support</span>
+      <div class="frameworks__pills" data-reveal-group>
+        <span class="frameworks__pill" data-reveal-item>EU AI Act</span>
+        <span class="frameworks__pill" data-reveal-item>Colorado SB 24-205</span>
+        <span class="frameworks__pill" data-reveal-item>Illinois AIVIA + HB 3773</span>
+        <span class="frameworks__pill" data-reveal-item>NYC Local Law 144</span>
+        <span class="frameworks__pill" data-reveal-item>CPRA ADMT</span>
+        <span class="frameworks__pill" data-reveal-item>NIST AI RMF / ISO/IEC 42001 mapping support</span>
       </div>
       <p class="section__text">Frameworks use different language, but many documentation questions overlap. Berly helps organize those records in one workspace.</p>
     </div>
@@ -528,18 +530,18 @@
   <section class="section">
     <div class="section__inner">
       <h2 class="section__heading">Free resources</h2>
-      <div class="card-grid">
-        <div class="card resource-card">
+      <div class="card-grid" data-reveal-group>
+        <div class="card resource-card motion-card" data-reveal-item>
           <h3 class="card__title">Free AI classifier</h3>
           <p class="card__text">High-level informational screen for selected AI compliance frameworks.</p>
           <a href="/classifier" class="resource-card__link">Open classifier</a>
         </div>
-        <div class="card resource-card">
+        <div class="card resource-card motion-card" data-reveal-item>
           <h3 class="card__title">AI Documentation Crosswalk</h3>
           <p class="card__text">Plain-English resource showing how common documentation sections map across selected frameworks.</p>
           <a href="/crosswalk" class="resource-card__link">View crosswalk</a>
         </div>
-        <div class="card resource-card">
+        <div class="card resource-card motion-card" data-reveal-item>
           <h3 class="card__title">Compliance Deadlines</h3>
           <p class="card__text">Reference page and PDF for selected AI compliance dates and documentation milestones.</p>
           <a href="/deadlines" class="resource-card__link">View deadlines</a>

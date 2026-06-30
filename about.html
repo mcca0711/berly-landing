@@ -25,6 +25,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="assets/icon.ico">
+  <link rel="stylesheet" href="assets/motion.css">
+  <script src="assets/motion.js" defer></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -426,10 +428,10 @@
 
   <section class="hero">
     <div class="hero__inner">
-      <h1 class="hero__headline">About Berly</h1>
-      <p class="hero__subhead">Berly helps make AI compliance work reviewable.</p>
-      <p class="hero__body">Berly is a desktop AI compliance documentation tool for consultants, lawyers, compliance teams, privacy and risk teams, and AI product teams that need to turn an identified AI system into structured documentation, supporting evidence, review notes, audit history, and exportable documentation packages.</p>
-      <div class="hero__buttons">
+      <h1 class="hero__headline" data-reveal="fade-up">About Berly</h1>
+      <p class="hero__subhead" data-reveal="fade-up" style="--reveal-delay:80ms;">Berly helps make AI compliance work reviewable.</p>
+      <p class="hero__body" data-reveal="fade-up" style="--reveal-delay:140ms;">Berly is a desktop AI compliance documentation tool for consultants, lawyers, compliance teams, privacy and risk teams, and AI product teams that need to turn an identified AI system into structured documentation, supporting evidence, review notes, audit history, and exportable documentation packages.</p>
+      <div class="hero__buttons" data-reveal="fade-up" style="--reveal-delay:200ms;">
         <a href="/ai-compliance-documentation" class="btn btn--primary">Explore AI Compliance Documentation</a>
         <a href="/classifier" class="btn btn--outline">Try Free Classifier</a>
       </div>
@@ -454,20 +456,20 @@
   <section class="section">
     <div class="section__inner">
       <h2 class="section__heading">Who Berly helps</h2>
-      <div class="card-grid">
-        <article class="card">
+      <div class="card-grid" data-reveal-group>
+        <article class="card" data-reveal-item>
           <h3 class="card__title">Consultants and advisory firms</h3>
           <p class="card__text">Structure AI system documentation packages for client review, internal delivery, or external assessment.</p>
         </article>
-        <article class="card">
+        <article class="card" data-reveal-item>
           <h3 class="card__title">Lawyers and compliance professionals</h3>
           <p class="card__text">Review organized records, supporting evidence, human review notes, and exportable documentation packages without starting from scattered files.</p>
         </article>
-        <article class="card">
+        <article class="card" data-reveal-item>
           <h3 class="card__title">Privacy, risk, and governance teams</h3>
           <p class="card__text">Keep AI system records, evidence, review history, and framework mapping in one documentation workspace.</p>
         </article>
-        <article class="card">
+        <article class="card" data-reveal-item>
           <h3 class="card__title">AI product and operations teams</h3>
           <p class="card__text">Document how an AI system works, where people stay in the loop, and what evidence supports the record before professional review.</p>
         </article>
@@ -478,28 +480,28 @@
   <section class="section section--white">
     <div class="section__inner">
       <h2 class="section__heading">What Berly does</h2>
-      <div class="card-grid card-grid--three">
-        <article class="card">
+      <div class="card-grid card-grid--three" data-reveal-group>
+        <article class="card" data-reveal-item>
           <h3 class="card__title">Structured AI system records</h3>
           <p class="card__text">Berly helps organize system purpose, users, workflow context, data notes, human review points, and supporting materials.</p>
         </article>
-        <article class="card">
+        <article class="card" data-reveal-item>
           <h3 class="card__title">Evidence attachment and claim review support</h3>
           <p class="card__text">Berly helps users link supporting evidence to documentation claims and flag items for human review.</p>
         </article>
-        <article class="card">
+        <article class="card" data-reveal-item>
           <h3 class="card__title">AI-assisted drafting with human approval</h3>
           <p class="card__text">Berly can suggest draft language from project context, but users approve, edit, or reject suggestions before anything is saved.</p>
         </article>
-        <article class="card">
+        <article class="card" data-reveal-item>
           <h3 class="card__title">Risk-related documentation support</h3>
           <p class="card__text">Berly helps organize risk-related documentation, impact assessment materials, risk register notes, and review notes.</p>
         </article>
-        <article class="card">
+        <article class="card" data-reveal-item>
           <h3 class="card__title">Review notes and audit history</h3>
           <p class="card__text">Berly keeps review notes and change history so the documentation process is easier to explain later.</p>
         </article>
-        <article class="card">
+        <article class="card" data-reveal-item>
           <h3 class="card__title">Exportable documentation packages</h3>
           <p class="card__text">Berly exports structured PDF packages with supporting evidence, review notes, and change history.</p>
         </article>
@@ -526,14 +528,14 @@
     <div class="frameworks__inner">
       <h2 class="section__heading">Frameworks Berly supports</h2>
       <p class="section__text">Berly supports documentation workflows across selected AI governance frameworks and references.</p>
-      <div class="frameworks__pills">
-        <span class="frameworks__pill">EU AI Act</span>
-        <span class="frameworks__pill">Colorado SB 24-205</span>
-        <span class="frameworks__pill">Illinois AI employment laws</span>
-        <span class="frameworks__pill">NYC Local Law 144</span>
-        <span class="frameworks__pill">CPRA ADMT</span>
-        <span class="frameworks__pill">NIST AI RMF mapping</span>
-        <span class="frameworks__pill">ISO/IEC 42001 mapping</span>
+      <div class="frameworks__pills" data-reveal-group>
+        <span class="frameworks__pill" data-reveal-item>EU AI Act</span>
+        <span class="frameworks__pill" data-reveal-item>Colorado SB 24-205</span>
+        <span class="frameworks__pill" data-reveal-item>Illinois AI employment laws</span>
+        <span class="frameworks__pill" data-reveal-item>NYC Local Law 144</span>
+        <span class="frameworks__pill" data-reveal-item>CPRA ADMT</span>
+        <span class="frameworks__pill" data-reveal-item>NIST AI RMF mapping</span>
+        <span class="frameworks__pill" data-reveal-item>ISO/IEC 42001 mapping</span>
       </div>
     </div>
   </section>
@@ -541,21 +543,21 @@
   <section class="section">
     <div class="section__inner">
       <h2 class="section__heading">Product principles</h2>
-      <div class="card-grid">
-        <article class="card">
+      <div class="card-grid" data-reveal-group>
+        <article class="card" data-reveal-item>
           <h3 class="card__title">Human-in-the-loop</h3>
           <p class="card__text">AI-assisted drafting and evidence review should remain subject to human approval and professional judgment.</p>
         </article>
-        <article class="card">
+        <article class="card" data-reveal-item>
           <h3 class="card__title">Documentation-first</h3>
           <p class="card__text">Berly focuses on records, evidence, review notes, and exports rather than broad governance claims.</p>
         </article>
-        <article class="card">
+        <article class="card" data-reveal-item>
           <h3 class="card__title">Local-first desktop workflow</h3>
           <p class="card__text">Berly is a downloadable desktop app with no user account required for the product workflow.</p>
           <p class="card__text">Berly is available now for Windows 10/11. Mac support is planned, but no release date is confirmed.</p>
         </article>
-        <article class="card">
+        <article class="card" data-reveal-item>
           <h3 class="card__title">Built for review</h3>
           <p class="card__text">The goal is to make AI compliance work easier to inspect, explain, and hand to the right reviewer.</p>
         </article>
@@ -566,23 +568,23 @@
   <section class="section section--white">
     <div class="section__inner">
       <h2 class="section__heading">Free resources</h2>
-      <div class="card-grid">
-        <article class="card resource-card">
+      <div class="card-grid" data-reveal-group>
+        <article class="card resource-card motion-card" data-reveal-item>
           <h3 class="card__title">AI Compliance Documentation</h3>
           <p class="card__text">Learn how Berly structures AI system records, evidence, review notes, and documentation packages.</p>
           <a href="/ai-compliance-documentation" class="resource-card__link">Open resource</a>
         </article>
-        <article class="card resource-card">
+        <article class="card resource-card motion-card" data-reveal-item>
           <h3 class="card__title">Free Classifier</h3>
           <p class="card__text">Explore selected AI governance frameworks that may warrant professional review.</p>
           <a href="/classifier" class="resource-card__link">Open classifier</a>
         </article>
-        <article class="card resource-card">
+        <article class="card resource-card motion-card" data-reveal-item>
           <h3 class="card__title">AI Documentation Crosswalk</h3>
           <p class="card__text">See how recurring documentation sections map across selected frameworks.</p>
           <a href="/crosswalk" class="resource-card__link">View crosswalk</a>
         </article>
-        <article class="card resource-card">
+        <article class="card resource-card motion-card" data-reveal-item>
           <h3 class="card__title">Compliance Deadlines</h3>
           <p class="card__text">Review selected AI compliance dates and documentation areas.</p>
           <a href="/deadlines" class="resource-card__link">View deadlines</a>
@@ -592,7 +594,7 @@
   </section>
 
   <section class="section">
-    <div class="section__inner maker-note">
+    <div class="section__inner maker-note" data-reveal="fade-up">
       <h2 class="section__heading">A note from Matt</h2>
       <p class="section__text">Hello, and thanks for taking a look at Berly.</p>
       <p class="section__text">I'm Matt. I think of myself as a builder first. I like taking complicated, frustrating workflows and turning them into tools that are easier to use, easier to explain, and easier to trust.</p>
