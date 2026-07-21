@@ -613,6 +613,11 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 24px;
     }
+    .audience__grid--two {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 900px;
+      margin: 0 auto;
+    }
     .audience__card {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -629,6 +634,14 @@
     .audience__text {
       color: #64748b;
       font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .audience__closing {
+      max-width: 760px;
+      margin: 28px auto 0;
+      text-align: center;
+      color: #64748b;
+      font-size: 1rem;
       line-height: 1.7;
     }
 
@@ -1081,6 +1094,9 @@
         grid-template-columns: 1fr;
         gap: 16px;
       }
+      .audience__grid--two {
+        grid-template-columns: 1fr;
+      }
 
       .features { padding: 48px 24px; }
       .features__grid {
@@ -1293,32 +1309,22 @@
   <section class="audience">
     <div class="audience__inner">
       <h2 class="audience__heading">Who Berly is for</h2>
-      <p class="audience__intro">Berly is built for people who need to organize AI system documentation before review, client delivery, internal governance work, or external assessment. 
-        Berly does not replace professional judgment. It helps consultants, lawyers, and compliance teams structure the review process, attach evidence, and make the work easier to explain and export.
+      <p class="audience__intro">Berly supports two related workflows: consultants preparing documentation across client work, and small teams organizing records for their own AI systems before review.
       </p>
-      <div class="audience__grid">
+      <div class="audience__grid audience__grid--two">
 
         <div class="audience__card">
-          <h3 class="audience__title">Compliance consultants and advisory firms</h3>
-          <p class="audience__text">Prepare structured AI system documentation packages for client review across selected AI governance frameworks.</p>
+          <h3 class="audience__title">For consultants</h3>
+          <p class="audience__text">Berly helps consultants turn an AI-system assessment into a client-ready documentation package. Instead of rebuilding the structure each time in Word or spreadsheets, consultants get a repeatable way to organize the system record, connect it to relevant obligations, attach evidence, and export the result.</p>
         </div>
 
         <div class="audience__card">
-          <h3 class="audience__title">Legal, privacy, and risk teams</h3>
-          <p class="audience__text">Organize system records, evidence, review notes, and exportable documentation before legal or compliance review.</p>
-        </div>
-
-        <div class="audience__card">
-          <h3 class="audience__title">AI product and operations teams</h3>
-          <p class="audience__text">Document what an AI system does, what data it uses, where human review happens, and what evidence supports the record.</p>
-        </div>
-
-        <div class="audience__card">
-          <h3 class="audience__title">HR tech and hiring teams</h3>
-          <p class="audience__text">Prepare documentation around AI-supported hiring workflows, notices, human review, and evidence before deployment or review.</p>
+          <h3 class="audience__title">For small teams</h3>
+          <p class="audience__text">Berly helps small teams document their own AI systems when they are not ready for a full governance platform. It is useful before legal review, procurement, internal governance review, customer due diligence, or any moment where someone asks for proof of how the system was reviewed.</p>
         </div>
 
       </div>
+      <p class="audience__closing">Same product, different job. Consultants use Berly across client work. Small teams use it to organize their own system documentation.</p>
     </div>
   </section>
 
